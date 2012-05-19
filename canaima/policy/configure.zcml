@@ -9,10 +9,12 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="canaima.policy"
+      title="Canaima GNU/Linux Website policy package"
       directory="profiles/default"
-      description="Installs the canaima.policy package"
+      description="Installs the policy package for Canaima GNU/Linux Website"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      i18n:attributes="title gs_profiles_default_title;
+                       description gs_profiles_default_description;"
       />
   <!-- -*- extra stuff goes here -*- -->
   

@@ -10,6 +10,7 @@
     handlers.
   </import-step>
 
+<!-- 
   <import-step id="canaima.policy.import_zexps" 
                version="20090819-01" 
                handler="canaima.policy.setuphandlers.importZEXPs" 
@@ -17,5 +18,5 @@
     <dependency step="skins" /> 
     Import zexp objects into portal on Sun and Rain Theme theme installation 
   </import-step> 
-
+-->
 </import-steps>

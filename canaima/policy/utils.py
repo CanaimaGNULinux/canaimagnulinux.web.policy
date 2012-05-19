@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import transaction
 import os, sys, re, string
 from sets import Set
@@ -10,7 +12,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.DirectoryView import addDirectoryViews
 from Globals import package_home
 
-from fixes import fix
+from canaima.policy.fixes import fix
 from canaima.policy import GLOBALS
 
 IMPORT_POLICY = "backup"

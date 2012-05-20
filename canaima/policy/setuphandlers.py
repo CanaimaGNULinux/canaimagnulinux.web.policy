@@ -100,7 +100,7 @@ def install_dependencies(portal):
     """
     
     qi = getToolByName(portal, 'portal_quickinstaller')
-    for product in PRODUCT_DEPENDENCIES:
+    for product in DEPENDENCIES:
         if not qi.isProductInstalled(product):
             qi.installProduct(product)
             logger.info('Installed %s' % product)

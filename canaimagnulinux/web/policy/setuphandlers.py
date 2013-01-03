@@ -8,8 +8,8 @@ from plone.i18n.normalizer import idnormalizer
 
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 
-from canaima.policy.utils import checkIfImport, performImportToPortal
-from canaima.policy.config import *
+from canaimagnulinux.web.policy.utils import checkIfImport, performImportToPortal
+from canaimagnulinux.web.policy.config import *
 
 from Products.GenericSetup.context import Logger,SetupEnviron
 obj = SetupEnviron()
@@ -17,7 +17,7 @@ logger = obj.getLogger(PROJECTNAME)
 
 #def importZEXPs(context):
 #    '''   '''
-#    if context.readDataFile("canaima.policy_various.txt") is None:
+#    if context.readDataFile("canaimagnulinux.web.policy_various.txt") is None:
 #        return
 #    
 #    portal = context.getSite()
@@ -219,7 +219,7 @@ def setupVarious(context):
     # flag to check that we actually meant for this import step to be run.
     # The file is found in profiles/default.
     
-    if context.readDataFile('canaima.policy_various.txt') is None:
+    if context.readDataFile('canaimagnulinux.web.policy_various.txt') is None:
         return
     
     # Add additional setup code here

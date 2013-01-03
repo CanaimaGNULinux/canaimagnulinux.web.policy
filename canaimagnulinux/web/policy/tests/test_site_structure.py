@@ -9,7 +9,7 @@ from unittest import TestSuite, makeSuite
 
 from Products.CMFCore.utils import getToolByName
 
-from canaima.policy.tests.base import CanaimaPolicyTestCase
+from canaimagnulinux.web.policy.tests.base import CanaimaPolicyTestCase
 
 class TestSetup(CanaimaPolicyTestCase):
     """The name of the class should be meaningful. This may be a class that
@@ -59,7 +59,7 @@ class TestSetup(CanaimaPolicyTestCase):
     # multiple files as appropriate. Having tests in multiple files makes
     # it possible to run tests from just one package:
     #
-    #   ./bin/instance test -s canaima.policy -t test_integration_unit
+    #   ./bin/instance test -s canaimagnulinux.web.policy -t test_integration_unit
 
 
 def test_suite():

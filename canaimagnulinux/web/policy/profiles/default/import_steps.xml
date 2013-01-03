@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <import-steps>
 
-  <import-step id="canaima.policy.various"
+  <import-step id="canaimagnulinux.web.policy.various"
                version="20090403-01"
-               handler="canaima.policy.setuphandlers.setupVarious"
+               handler="canaimagnulinux.web.policy.setuphandlers.setupVarious"
                title="Canaima Aponwao: miscellaneous import steps">
     <dependency step="skins" />
     Various import steps that are not handled by GS import/export
@@ -11,9 +11,9 @@
   </import-step>
 
 <!-- 
-  <import-step id="canaima.policy.import_zexps" 
+  <import-step id="canaimagnulinux.web.policy.import_zexps" 
                version="20090819-01" 
-               handler="canaima.policy.setuphandlers.importZEXPs" 
+               handler="canaimagnulinux.web.policy.setuphandlers.importZEXPs" 
                title="Canaima Aponwao: Import ZEXP"> 
     <dependency step="skins" /> 
     Import zexp objects into portal on Sun and Rain Theme theme installation 

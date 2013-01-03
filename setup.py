@@ -3,7 +3,7 @@ import os
 
 version = '0.1'
 
-setup(name='canaima.policy',
+setup(name='canaimagnulinux.web.policy',
       version=version,
       description="A Plone 3 policy product for customizing a Plone site",
       long_description=open("README.txt").read() + "\n" +
@@ -17,10 +17,10 @@ setup(name='canaima.policy',
       keywords='plone3 policy product canaima gnu linux website',
       author='Leonardo J. Caballero G.',
       author_email='leonardocaballero@gmail.com',
-      url='https://gitorious.org/plataforma-canaima/canaima.policy',
+      url='https://github.com/canaimagnulinux/canaimagnulinux.web.policy',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['canaima'],
+      namespace_packages=['canaimagnulinux', 'canaimagnulinux.web'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[

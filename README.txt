@@ -1,4 +1,4 @@
 Introduction
 ============
 
-A Plone 3 policy product for customizing the Canaima GNU/Linux website
+A Plone 4 policy product for customizing the Canaima GNU/Linux website

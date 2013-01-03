@@ -11,8 +11,8 @@ from unittest import TestSuite, makeSuite
 
 from Products.CMFCore.utils import getToolByName
 
-from canaima.policy.config import PROJECTNAME, DEPENDENCIES
-from canaima.policy.tests.base import CanaimaPolicyTestCase
+from canaimagnulinux.web.policy.config import PROJECTNAME, DEPENDENCIES
+from canaimagnulinux.web.policy.tests.base import CanaimaPolicyTestCase
 
 class TestSetup(CanaimaPolicyTestCase):
     """The name of the class should be meaningful. This may be a class that

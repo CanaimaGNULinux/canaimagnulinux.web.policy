@@ -4,9 +4,9 @@
 Contains constants used by setuphandler.py
 """
 
-from canaima.policy import CanaimaPolicyMF as _
+from canaimagnulinux.web.policy import CanaimaPolicyMF as _
 
-PROJECTNAME = 'canaima.policy'
+PROJECTNAME = 'canaimagnulinux.web.policy'
 
 PRODUCT_DEPENDENCIES = [
     'Products.CMFPlacefulWorkflow',

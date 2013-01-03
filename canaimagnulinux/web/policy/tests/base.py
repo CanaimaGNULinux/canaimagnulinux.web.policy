@@ -16,7 +16,7 @@ from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
 
-from canaima.policy.config import DEPENDENCIES
+from canaimagnulinux.web.policy.config import DEPENDENCIES
 
 #
 # When ZopeTestCase configures Zope, it will *not* auto-load products in 
@@ -39,12 +39,12 @@ def setup_product():
     own layer, but this is the easiest way for Plone integration tests.
     """
     
-    # Load the ZCML configuration for the canaima.policy package.
+    # Load the ZCML configuration for the canaimagnulinux.web.policy package.
     # This can of course use <include /> to include other packages.
     
     fiveconfigure.debug_mode = True
-    import canaima.policy
-    zcml.load_config('configure.zcml', canaima.policy)
+    import canaimagnulinux.web.policy
+    zcml.load_config('configure.zcml', canaimagnulinux.web.policy)
     fiveconfigure.debug_mode = False
     
     # We need to tell the testing framework that these products
@@ -61,14 +61,14 @@ def setup_product():
     #   ztc.installPackage('borg.localrole')
     # 
     
-    ztc.installPackage('canaima.policy')
+    ztc.installPackage('canaimagnulinux.web.policy')
     
 # The order here is important: We first call the (deferred) function which
 # installs the products we need for this product. Then, we let PloneTestCase 
 # set up this product on installation.
 
 setup_product()
-#ptc.setupPloneSite(products=['canaima.policy'])
+#ptc.setupPloneSite(products=['canaimagnulinux.web.policy'])
 ptc.setupPloneSite(products=DEPENDENCIES)
 
 class CanaimaPolicyTestCase(ptc.PloneTestCase):

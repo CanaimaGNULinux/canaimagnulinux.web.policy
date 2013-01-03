@@ -12,8 +12,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.DirectoryView import addDirectoryViews
 from Globals import package_home
 
-from canaima.policy.fixes import fix
-from canaima.policy import GLOBALS
+from canaimagnulinux.web.policy.fixes import fix
+from canaimagnulinux.web.policy import GLOBALS
 
 IMPORT_POLICY = "backup"
 

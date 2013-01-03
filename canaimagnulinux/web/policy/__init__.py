@@ -4,7 +4,7 @@
 
 from zope.i18nmessageid import MessageFactory
 
-CanaimaPolicyMF = MessageFactory('canaima.policy')
+CanaimaPolicyMF = MessageFactory('canaimagnulinux.web.policy')
 
 GLOBALS = globals()
 

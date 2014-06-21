@@ -1,4 +1,30 @@
 <?xml version="1.0"?>
 <metadata>
   <version>1000</version>
+  <dependencies>
+   <dependency>profile-Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow</dependency>
+   <dependency>profile-collective.cover:default</dependency>
+   <dependency>profile-collective.geo.usersmap:default</dependency>
+   <dependency>profile-collective.googleanalytics:default</dependency>
+<!--   <dependency>profile-collective.behavior.localanalytics:default</dependency>-->
+   <dependency>profile-quintagroup.analytics:default</dependency>
+   <dependency>profile-collective.googlenews:default</dependency>
+<!--   <dependency>profile-collective.newsflash:default</dependency>-->
+   <dependency>profile-sc.social.like:default</dependency>
+   <dependency>profile-collective.disqus:default</dependency>
+   <dependency>profile-collective.facebook.portlets:default</dependency>
+   <dependency>profile-collective.twitter.portlets:default</dependency>
+   <dependency>profile-collective.twitter.tweet:default</dependency>
+   <dependency>profile-collective.nitf:default</dependency>
+   <dependency>profile-collective.upload:default</dependency>
+   <dependency>profile-collective.polls:default</dependency>
+<!--   <dependency>profile-collective.syndication:default</dependency>-->
+<!--   <dependency>profile-collective.wasthisuseful:default</dependency>-->
+   <dependency>profile-Products.Doormat:default</dependency>
+   <dependency>profile-Products.PloneServicesCenter:default</dependency>
+   <dependency>profile-Products.PloneFormGen:default</dependency>
+   <dependency>profile-Products.PloneSoftwareCenter:default</dependency>
+   <dependency>profile-canaimagnulinux.web.locales:default</dependency>
+   <dependency>profile-canaimagnulinux.web.theme:default</dependency>
+  </dependencies>
 </metadata>

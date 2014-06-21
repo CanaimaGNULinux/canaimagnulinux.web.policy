@@ -13,8 +13,7 @@
       directory="profiles/default"
       description="Installs the policy package for Canaima GNU/Linux Website"
       provides="Products.GenericSetup.interfaces.EXTENSION"
-      i18n:attributes="title gs_profiles_default_title;
-                       description gs_profiles_default_description;"
+      i18n:attributes="title; description"
       />
   <!-- -*- extra stuff goes here -*- -->
   

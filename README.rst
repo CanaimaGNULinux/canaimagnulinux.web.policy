@@ -67,3 +67,5 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
    :alt: Bitdeli badge
    :target: https://bitdeli.com/free
 
+.. image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.web.policy/badge.png
+   :target: https://coveralls.io/r/CanaimaGNULinux/canaimagnulinux.web.policy

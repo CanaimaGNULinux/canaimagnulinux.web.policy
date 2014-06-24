@@ -8,7 +8,7 @@ Check out all tests on this package:
 ./bin/test -s canaimagnulinux.web.policy --list-tests
 """
 
-from plone.testing.z2 import ZSERVER_FIXTURE
+from plone.testing.z2 import ZSERVER_FIXTURE, installProduct, uninstallProduct
 
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import applyProfile

@@ -62,6 +62,8 @@ Colaboraciones impresionantes
 Par una lista actualizada de todo los colaboradores visite: https://github.com/canaimagnulinux/canaimagnulinux.web.policy/contributors
 
 
+Sobre la calidad
+================
 
 .. image:: https://d2weczhvl823v0.cloudfront.net/CanaimaGNULinux/canaimagnulinux.web.policy/trend.png
    :alt: Bitdeli badge
@@ -72,3 +74,7 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
 
 .. image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.web.policy/badge.png
    :target: https://coveralls.io/r/CanaimaGNULinux/canaimagnulinux.web.policy
+
+¿Tienes una idea?, ¿Encontraste un error? Háganos saber mediante la `apertura de un ticket de soporte`_.
+
+.. _`apertura de un ticket de soporte`: https://github.com/CanaimaGNULinux/canaimagnulinux.web.policy/issues

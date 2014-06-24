@@ -52,4 +52,4 @@ class SiteStructureTestCase(unittest.TestCase):
     # multiple files as appropriate. Having tests in multiple files makes
     # it possible to run tests from just one package:
     #
-    #   ./bin/instance test -s canaimagnulinux.web.policy -t test_integration_unit
+    #   ./bin/test -s canaimagnulinux.web.policy -t test_integration_unit

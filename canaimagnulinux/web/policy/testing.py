@@ -55,7 +55,6 @@ INTEGRATION_TESTING = IntegrationTesting(
     name="canaimagnulinux.web.policy:Integration"
 )
 
-
 """
 We use this for functional integration tests. Again, we can put basic 
 common utility or setup code in here.

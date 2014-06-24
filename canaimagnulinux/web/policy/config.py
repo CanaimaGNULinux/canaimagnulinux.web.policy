@@ -10,31 +10,33 @@ PROJECTNAME = 'canaimagnulinux.web.policy'
 
 PRODUCT_DEPENDENCIES = [
     'Products.CMFPlacefulWorkflow',
-#    'iservices.rssdocument',
-#    'Products.Collage',
-#    'collective.collage.portlets',
-#    'collective.collage.rssdocument',
-#    'collective.twitterportlet',
-#    'Products.ExternalStorage',
-#    'collective.psc.externalstorage',
-#    'Products.ArchAddOn',
-#    'Products.AddRemoveWidget',
-#    'Products.DataGridField',
-#    'Products.PloneHelpCenter',
-#    'Products.contentmigration',
-#    'Products.SimpleAttachment',
-#    'plone.folder',
-#    'Products.PloneKeywordManager',
-#    'Products.Poi',
-#    'Products.PloneSoftwareCenter',
+    'plone.app.ldap',
+    'pas.plugins.velruse',
+    'collective.geo.usersmap',
+    'collective.googleanalytics',
+    'collective.googlenews',
+    'collective.disqus',
+    'collective.facebook.portlets',
+    'collective.twitter.portlets',
+    'collective.twitter.tweet',
+    'sc.social.like',
+    'collective.nitf',
+    'collective.upload',
+    'collective.polls',
+    'collective.cover',
+    'Products.Doormat',
+    'Products.PloneFormGen',
+    'Products.PloneSoftwareCenter',
+    'Products.PloneServicesCenter',
+    'Products.FacultyStaffDirectory',
     ]
 
 PACKAGE_DEPENDENCIES = [
-    'canaima.aponwaotheme',
+    'canaimagnulinux.web.locales',
+    'canaimagnulinux.web.theme',
     ]
 
 DEPENDENCIES = PRODUCT_DEPENDENCIES + PACKAGE_DEPENDENCIES
-
 
 MAILHOST_CONFIGURATION = {'configure':True,
                          'smtphost':'localhost',

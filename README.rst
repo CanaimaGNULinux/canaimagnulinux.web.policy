@@ -79,4 +79,4 @@ Colaboraciones impresionantes
 
 Par una lista actualizada de todo los colaboradores visite: https://github.com/canaimagnulinux/canaimagnulinux.web.policy/contributors
 
-.. _`apertura de un ticket de soporte`: https://github.com/CanaimaGNULinux/canaimagnulinux.web.policy/issues
+.. _apertura de un ticket de soporte: https://github.com/CanaimaGNULinux/canaimagnulinux.web.policy/issues

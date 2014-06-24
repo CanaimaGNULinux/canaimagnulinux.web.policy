@@ -1,46 +1,32 @@
 # -*- coding: utf-8 -*-
 
-"""This is an integration "unit" test. It uses PloneTestCase, but does not
-use doctest syntax.
-
-You will find lots of examples of this type of test in CMFPlone/tests, for 
-example.
+"""
+This is an integration "unit" test.
 """
 
-from unittest import TestSuite, makeSuite
+import unittest
 
 from Products.CMFCore.utils import getToolByName
 
 from canaimagnulinux.web.policy.config import PROJECTNAME, DEPENDENCIES
-from canaimagnulinux.web.policy.tests.base import CanaimaPolicyTestCase
+from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
 
-class TestSetup(CanaimaPolicyTestCase):
-    """The name of the class should be meaningful. This may be a class that
-    tests the installation of a particular product.
+class InstallTestCase(unittest.TestCase):
     """
-    
-    def afterSetUp(self):
-        """This method is called before each single test. It can be used to
-        set up common state. Setup that is specific to a particular test 
-        should be done in that test method.
-        """
-        self.qi = getToolByName(self.portal, 'portal_quickinstaller')
+    The class that tests the installation of a particular product.
+    """
 
-    def beforeTearDown(self):
-        """This method is called after each single test. It can be used for
-        cleanup, if you need it. Note that the test framework will roll back
-        the Zope transaction at the end of each test, so tests are generally
-        independent of one another. However, if you are modifying external
-        resources (say a database) or globals (such as registering a new
-        adapter in the Component Architecture during a test), you may want to
-        tear things down here.
-        """
+    layer = INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
 
     def test_installed(self):
         """
         This method test the default GenericSetup profile of this package.
         """
-        self.addProfile('%s:default'% (PROJECTNAME))
+        qi = getattr(self.portal, 'portal_quickinstaller')
+        self.assertTrue(qi.isProductInstalled(PROJECTNAME))
 
     def test_dependencies_installed(self):
         """
@@ -50,10 +36,15 @@ class TestSetup(CanaimaPolicyTestCase):
             self.failUnless(self.qi.isProductInstalled(p),
                             '%s not installed' % p)
 
-def test_suite():
-    """This sets up a test suite that actually runs the tests in the class
-    above
-    """
-    suite = TestSuite()
-    suite.addTest(makeSuite(TestSetup))
-    return suite
+class UninstallTestCase(unittest.TestCase):
+
+    layer = INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.qi = getattr(self.portal, 'portal_quickinstaller')
+        self.qi.uninstallProducts(products=[PROJECTNAME])
+
+    def test_uninstalled(self):
+        self.assertFalse(self.qi.isProductInstalled(PROJECTNAME))

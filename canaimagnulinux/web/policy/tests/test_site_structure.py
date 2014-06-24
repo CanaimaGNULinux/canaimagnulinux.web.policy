@@ -1,38 +1,31 @@
-"""This is an integration "unit" test. It uses PloneTestCase, but does not
-use doctest syntax.
+# -*- coding: utf-8 -*-
 
-You will find lots of examples of this type of test in CMFPlone/tests, for 
-example.
+"""
+This is an integration "unit" test for Site Structure
 """
 
-from unittest import TestSuite, makeSuite
+import unittest
 
 from Products.CMFCore.utils import getToolByName
 
-from canaimagnulinux.web.policy.tests.base import CanaimaPolicyTestCase
+from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
 
-class TestSetup(CanaimaPolicyTestCase):
-    """The name of the class should be meaningful. This may be a class that
-    tests the installation of a particular product.
+class SiteStructureTestCase(unittest.TestCase):
     """
-    
-    def afterSetUp(self):
-        """This method is called before each single test. It can be used to
-        set up common state. Setup that is specific to a particular test 
-        should be done in that test method.
-        """
-        self.workflow = getToolByName(self.portal, 'portal_workflow')
-        
-    def beforeTearDown(self):
-        """This method is called after each single test. It can be used for
-        cleanup, if you need it. Note that the test framework will roll back
-        the Zope transaction at the end of each test, so tests are generally
-        independent of one another. However, if you are modifying external
-        resources (say a database) or globals (such as registering a new
-        adapter in the Component Architecture during a test), you may want to
-        tear things down here.
-        """
-    
+    The class that tests the Plone Site Structure was created.
+    """
+
+    layer = INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+        setRoles(self.portal, TEST_USER_ID, ['Manager'])
+        self.portal.invokeFactory('Folder', 'test-folder')
+        setRoles(self.portal, TEST_USER_ID, ['Member'])
+        self.folder = self.portal['test-folder']
+        self.folder.invokeFactory('Document', 'd1',)
+        self.d1 = self.folder['d1']
+
     def test_portal_title(self):
         
         # This is a simple test. The method needs to start with the name
@@ -60,12 +53,3 @@ class TestSetup(CanaimaPolicyTestCase):
     # it possible to run tests from just one package:
     #
     #   ./bin/instance test -s canaimagnulinux.web.policy -t test_integration_unit
-
-
-def test_suite():
-    """This sets up a test suite that actually runs the tests in the class
-    above
-    """
-    suite = TestSuite()
-    suite.addTest(makeSuite(TestSetup))
-    return suite

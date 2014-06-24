@@ -6,6 +6,9 @@ This is an integration "unit" test for Site Structure
 
 import unittest
 
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+
 from Products.CMFCore.utils import getToolByName
 
 from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
@@ -42,11 +45,11 @@ class SiteStructureTestCase(unittest.TestCase):
         #   - self.logout() "logs out" so that the user is Anonymous
         #   - self.setRoles(['Manager', 'Member']) adjusts the roles of the current user
         
-        self.assertEquals("Plone site", self.portal.getProperty('title'))
+        self.assertEqual("Plone site", self.portal.getProperty('title'))
 
     def test_able_to_add_document(self):
         new_id = self.folder.invokeFactory('Document', 'my-page')
-        self.assertEquals('my-page', new_id)
+        self.assertEqual('my-page', new_id)
         
     # Keep adding methods here, or break it into multiple classes or
     # multiple files as appropriate. Having tests in multiple files makes

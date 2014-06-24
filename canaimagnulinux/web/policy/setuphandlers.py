@@ -45,7 +45,7 @@ def createFolder(context, title, allowed_types=['Topic'], exclude_from_nav=False
         folder.setConstrainTypesMode(constraintypes.ENABLED)
         folder.setLocallyAllowedTypes(allowed_types)
         folder.setImmediatelyAddableTypes(allowed_types)
-        set_workflow_policy(folder)
+        #set_workflow_policy(folder)
         if exclude_from_nav:
             folder.setExcludeFromNav(True)
         folder.reindexObject()
@@ -153,7 +153,8 @@ def configure_site_properties(portal):
     properties = getToolByName(portal, 'portal_properties')
     memberdata = getToolByName(portal, 'portal_memberdata')
     
-    if portal.title.lower() == "site" or portal.title.lower()== "plone site":
+    #if portal.title.lower() == "site" or portal.title.lower()== "plone site":
+    if portal.title == "Plone site" or portal.title.lower()== "plone site":
         portal.title = "Portal Canaima GNU/Linux"
         portal.description = "Portal de la meta distribución Canaima GNU/Linux"
         logger.info("Configured Site Title and Description.")

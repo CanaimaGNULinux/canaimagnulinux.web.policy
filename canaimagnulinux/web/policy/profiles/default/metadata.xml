@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <metadata>
   <version>1000</version>
+<!--
   <dependencies>
    <dependency>profile-Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow</dependency>
    <dependency>profile-plone.app.ldap:ldap</dependency>
@@ -25,4 +26,5 @@
    <dependency>profile-canaimagnulinux.web.locales:default</dependency>
    <dependency>profile-canaimagnulinux.web.theme:default</dependency>
   </dependencies>
+-->
 </metadata>

@@ -15,6 +15,8 @@ class SiteSettingsTestCase(unittest.TestCase):
     The class that tests the Plone Site Settings.
     """
     
+    layer = INTEGRATION_TESTING
+
     def setUp(self):
         self.portal = self.layer['portal']
         self.request = self.layer['request']
@@ -26,20 +28,20 @@ class SiteSettingsTestCase(unittest.TestCase):
         """
         This method test that ensure the portal title is the same.
         """
-        self.failUnless("Portal Canaima GNU/Linux", self.portal.getProperty('title'))
+        self.assertTrue("Portal Canaima GNU/Linux", self.portal.getProperty('title'))
         
     def test_portal_description(self):
         """
         This method test that ensure the portal description is the same.
         """
-        self.failUnless("Portal de la meta distribución Canaima GNU/Linux", 
+        self.assertTrue("Portal de la meta distribución Canaima GNU/Linux", 
                         self.portal.getProperty('description'))
 
     def test_portal_memberdata_language(self):
         """
         This method test that ensure the memberdata language is the same.
         """
-        self.failUnless(
+        self.assertTrue(
                 "es",
                 self.portal_memberdata.getProperty('language')
         )
@@ -66,4 +68,4 @@ class SiteSettingsTestCase(unittest.TestCase):
         """
         This method test that ensure the mail host is the same.
         """
-        self.failUnless(self.mailhost.smtp_host, 'localhost')
+        self.assertTrue(self.mailhost.smtp_host, 'localhost')

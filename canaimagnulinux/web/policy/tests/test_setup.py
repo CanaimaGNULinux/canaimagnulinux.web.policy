@@ -6,6 +6,9 @@ This is an integration "unit" test.
 
 import unittest
 
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+
 from Products.CMFCore.utils import getToolByName
 
 from canaimagnulinux.web.policy.config import PROJECTNAME, DEPENDENCIES
@@ -20,6 +23,7 @@ class InstallTestCase(unittest.TestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
+        self.qi = getToolByName(self.portal, 'portal_quickinstaller')
 
     def test_installed(self):
         """
@@ -33,7 +37,7 @@ class InstallTestCase(unittest.TestCase):
         This method test that dependencies products are installed of this package.
         """
         for p in DEPENDENCIES:
-            self.failUnless(self.qi.isProductInstalled(p),
+            self.assertTrue(self.qi.isProductInstalled(p),
                             '%s not installed' % p)
 
 class UninstallTestCase(unittest.TestCase):

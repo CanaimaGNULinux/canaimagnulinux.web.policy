@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+
+"""
+This layer is the Test class base.
+
+Check out all tests on this package:
+
+./bin/test -s canaimagnulinux.web.policy --list-tests
+"""
+
 from plone.testing.z2 import ZSERVER_FIXTURE
 
 from plone.app.testing import PloneSandboxLayer
@@ -7,7 +17,6 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import FunctionalTesting
 
 from zope.configuration import xmlconfig
-
 
 class Fixture(PloneSandboxLayer):
 
@@ -36,19 +45,22 @@ class Fixture(PloneSandboxLayer):
 
 FIXTURE = Fixture()
 
+"""
+We use this base for all the tests in this package. If necessary,
+we can put common utility or setup code in here. This applies to unit 
+test cases.
+"""
 INTEGRATION_TESTING = IntegrationTesting(
-    """We use this base for all the tests in this package. If necessary,
-    we can put common utility or setup code in here. This applies to unit 
-    test cases.
-    """
     bases=(FIXTURE,),
     name="canaimagnulinux.web.policy:Integration"
 )
 
+
+"""
+We use this for functional integration tests. Again, we can put basic 
+common utility or setup code in here.
+"""
 ACCEPTANCE_TESTING = FunctionalTesting(
-    """We use this for functional integration tests. Again, we can put basic 
-    common utility or setup code in here.
-    """
     bases=(FIXTURE, ZSERVER_FIXTURE),
     name="canaimagnulinux.web.policy:Acceptance"
 )

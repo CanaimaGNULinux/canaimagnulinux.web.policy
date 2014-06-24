@@ -33,11 +33,11 @@ class Fixture(PloneSandboxLayer):
         )
 
         # Install products that use an old-style initialize() function
-        z2.installProduct(app, 'canaimagnulinux.web.policy')
+        installProduct(app, 'canaimagnulinux.web.policy')
 
     def tearDownZope(self, app):
         # Uninstall products installed above
-        z2.uninstallProduct(app, 'canaimagnulinux.web.policy')
+        uninstallProduct(app, 'canaimagnulinux.web.policy')
 
     def setUpPloneSite(self, portal):
         # Install into Plone site using portal_setup

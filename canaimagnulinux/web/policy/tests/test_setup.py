@@ -36,9 +36,18 @@ class InstallTestCase(unittest.TestCase):
         """
         This method test that dependencies products are installed of this package.
         """
-        for p in DEPENDENCIES:
-            self.assertTrue(self.qi.isProductInstalled(p),
-                            '%s not installed' % p)
+        #for p in DEPENDENCIES:
+        #    self.assertTrue(self.qi.isProductInstalled(p),
+        #                    '%s not installed' % p)
+        expected = set(DEPENDENCIES)
+        installed = self.qi.listInstalledProducts(showHidden=True)
+        installed = set([product['id'] for product in installed])
+        result = sorted(expected - installed)
+
+        self.assertTrue(
+            result,
+            "These dependencies are not installed: " + ", ".join(result)
+        )
 
 class UninstallTestCase(unittest.TestCase):
 

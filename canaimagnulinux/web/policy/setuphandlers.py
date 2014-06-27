@@ -235,4 +235,3 @@ def setupVarious(context):
     configure_mail_host(portal)
     enable_mail_host(portal, old_smtphost) #<-- Do this last so that mail smtp host configured before reinstallation will be maintained.
     clear_and_rebuild_catalog(portal)
-    

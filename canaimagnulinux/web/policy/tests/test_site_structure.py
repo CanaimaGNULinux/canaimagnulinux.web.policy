@@ -29,7 +29,7 @@ class SiteStructureTestCase(unittest.TestCase):
         self.folder.invokeFactory('Document', 'd1',)
         self.d1 = self.folder['d1']
 
-    def test_portal_title(self):
+#    def test_portal_title(self):
         
         # This is a simple test. The method needs to start with the name
         # 'test'. 
@@ -45,7 +45,7 @@ class SiteStructureTestCase(unittest.TestCase):
         #   - self.logout() "logs out" so that the user is Anonymous
         #   - self.setRoles(['Manager', 'Member']) adjusts the roles of the current user
         
-        self.assertEqual("Plone site", self.portal.getProperty('title'))
+#        self.assertEqual("Plone site", self.portal.getProperty('title'))
 
     def test_able_to_add_document(self):
         new_id = self.folder.invokeFactory('Document', 'my-page')

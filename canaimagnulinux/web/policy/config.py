@@ -33,7 +33,7 @@ PRODUCT_DEPENDENCIES = [
 
 PACKAGE_DEPENDENCIES = [
     'canaimagnulinux.web.locales',
-    'canaimagnulinux.web.theme',
+#    'canaimagnulinux.web.theme',
     ]
 
 DEPENDENCIES = PRODUCT_DEPENDENCIES + PACKAGE_DEPENDENCIES

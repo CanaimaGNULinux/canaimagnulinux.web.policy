@@ -79,7 +79,7 @@ Sobre la calidad
    :target: https://bitdeli.com/free
 
 .. image:: https://travis-ci.org/CanaimaGNULinux/canaimagnulinux.web.policy.svg?branch=master
-    :target: https://travis-ci.org/CanaimaGNULinux/canaimagnulinux.web.policy
+   :target: https://travis-ci.org/CanaimaGNULinux/canaimagnulinux.web.policy
 
 .. image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.web.policy/badge.png
    :target: https://coveralls.io/r/CanaimaGNULinux/canaimagnulinux.web.policy

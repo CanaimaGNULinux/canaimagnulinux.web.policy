@@ -55,8 +55,8 @@ setup(name='canaimagnulinux.web.policy',
           'Products.PloneSoftwareCenter==1.6.4',
           'Products.PloneServicesCenter==0.2.7',
           'Products.FacultyStaffDirectory==3.1.3',
-#          'canaimagnulinux.web.locales',
-#          'canaimagnulinux.web.theme'
+          'canaimagnulinux.web.locales',
+          'canaimagnulinux.web.theme'
       ],
       extras_require={
         'test': ['plone.app.testing'],

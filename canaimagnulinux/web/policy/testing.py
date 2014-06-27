@@ -26,6 +26,7 @@ class Fixture(PloneSandboxLayer):
 
         # Load ZCML
         import canaimagnulinux.web.policy
+        self.loadZCML(package=canaimagnulinux.web.policy)
         xmlconfig.file(
             'configure.zcml',
             canaimagnulinux.web.policy,

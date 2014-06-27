@@ -26,7 +26,7 @@ PRODUCT_DEPENDENCIES = [
     'collective.cover',
     'Products.Doormat',
     'Products.PloneFormGen',
-    'Products.PloneSoftwareCenter',
+#    'Products.PloneSoftwareCenter',
     'Products.PloneServicesCenter',
     'Products.FacultyStaffDirectory',
     ]

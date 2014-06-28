@@ -9,8 +9,12 @@ from canaimagnulinux.web.policy import CanaimaPolicyMF as _
 PROJECTNAME = 'canaimagnulinux.web.policy'
 
 PRODUCT_DEPENDENCIES = [
+    'plone.api',
     'Products.CMFPlacefulWorkflow',
     'plone.app.ldap',
+    'plone.app.caching',
+    'cioppino.twothumbs',
+    'plone.contentratings',
     'pas.plugins.velruse',
     'collective.geo.usersmap',
     'collective.googleanalytics',

@@ -264,3 +264,20 @@ def performImportToPortal(portal):
 
     return result
 
+####################
+
+def importZEXPs(context):
+    '''   '''
+    if context.readDataFile("canaimagnulinux.web.policy_various.txt") is None:
+        return
+
+    portal = context.getSite()
+    if checkIfImport():
+        performImportToPortal(portal)
+
+def createCollage(context, title):
+    """Crea un Collage en el contexto dado..
+    """
+    id = idnormalizer.normalize(title, 'es')
+    if not hasattr(context, id):
+        context.invokeFactory('Collage', id=id, title=title)

@@ -32,6 +32,7 @@ PRODUCT_DEPENDENCIES = [
     'Products.PloneFormGen',
 #    'Products.PloneSoftwareCenter',
     'Products.PloneServicesCenter',
+    'Products.ArchAddOn',
     'Products.FacultyStaffDirectory',
     ]
 

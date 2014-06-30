@@ -21,6 +21,7 @@
    <dependency>profile-Products.Doormat:default</dependency>
    <dependency>profile-Products.PloneFormGen:default</dependency>
    <dependency>profile-Products.PloneServicesCenter:default</dependency>
+   <dependency>profile-Products.ArchAddOn:default</dependency>
    <dependency>profile-Products.PloneSoftwareCenter:default</dependency>
    <dependency>profile-Products.FacultyStaffDirectory:default</dependency>
    <dependency>profile-canaimagnulinux.web.locales:default</dependency>

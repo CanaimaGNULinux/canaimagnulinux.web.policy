@@ -17,8 +17,7 @@ def set_workflow_policy(obj):
     obj.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
     pc = getattr(obj, WorkflowPolicyConfig_id)
     pc.setPolicyIn(policy='one-state')
-    logger.info('Workflow changed for element %s' % obj.getId())
-
+    logger.info('Workflow changed for element {0}'.format(obj.getId()))
 
 def createFolder(context, title, allowed_types=['Topic'], exclude_from_nav=False):
     """
@@ -69,7 +68,7 @@ def disable_mail_host(portal):
         if mailHost <> None:
             smtphost = mailHost.smtp_host
             mailHost.smtp_host = ""
-            logger.info("Disabling configured smtp host before reinstalling : %s" % (smtphost,))
+            logger.info("Disabling configured smtp host before reinstalling: {0}".format(smtphost,))
     except AttributeError:
         smtphost = ""
     
@@ -84,10 +83,10 @@ def install_dependencies(portal):
     for product in DEPENDENCIES:
         if not qi.isProductInstalled(product):
             qi.installProduct(product)
-            logger.info('Installed %s' % product)
+            logger.info('Installed {0}'.format(product))
         else:
             qi.reinstallProducts([product])
-            logger.info('Reinstalled %s' % product)
+            logger.info('Reinstalled {0}'.format(product))
 
 def remove_default_content(portal):
     """
@@ -99,9 +98,9 @@ def remove_default_content(portal):
         if hasattr(portal, item):
             try:
                 api.content.delete(obj=portal[item])
-                logger.info("Deleted %s item" % item)
+                logger.info('Deleted {0} item'.format(item))
             except AttributeError:
-                logger.info("No %s item detected. Hmm... strange. Continuing..." % item)
+                logger.info("No {0} item detected. Hmm... strange. Continuing...".format(item))
 
 def create_site_structure(portal):
     """
@@ -117,7 +116,8 @@ def create_site_structure(portal):
     novedades = portal['novedades']
     novedades.setLocallyAllowedTypes(locallyAllowedTypes)
     novedades.setImmediatelyAddableTypes(immediatelyAddableTypes)
-    logger.info("Created %s item" % novedades)
+    logger.info("Created the {0} item".format(novedades))
+
 #    novedades2 = api.content.create(
 #        type='Folder',
 #        title='Novedades 2',
@@ -154,7 +154,7 @@ def configure_site_properties(portal):
     if portal.title == None or portal.title != None:
         portal.title = "Portal Canaima GNU/Linux"
         portal.description = "Portal de la meta distribución Canaima GNU/Linux"
-        logger.info("Configured Site Title and Description.")
+        logger.info("Configured Site Title and Description!")
     else:
         logger.info("Site title has already been changed, so NOT changing site title or description.")
     
@@ -162,8 +162,11 @@ def configure_site_properties(portal):
     properties.site_properties.enable_livesearch = False
     properties.site_properties.localTimeFormat = '%d %b %Y'
     properties.site_properties.default_language = 'es'
+    logger.info("Configured the Site properties!")
+
+    # Member data properties.
     memberdata.language = 'es'
-    logger.info("Configured Site properties is done!")
+    logger.info("Configured member data properties!")
 
 def configure_mail_host(portal):
     """
@@ -186,7 +189,7 @@ def configure_mail_host(portal):
             if portal.email_from_address == '':
                 portal.email_from_address = MAILHOST_CONFIGURATION["fromemailaddress"]
                 logger.info(portal.email_from_address)
-            logger.info("Done with Mail Configuration")
+            logger.info("Mail Configuration is Done!")
 
     except AttributeError:
         pass
@@ -200,7 +203,7 @@ def enable_mail_host(portal, smtphost):
         
         if mailHost <> None and smtphost != "":
             mailHost.smtp_host = smtphost
-            logger.info("Enabling configured smtp host after reinstallation: %s" % (smtphost,))
+            logger.info("Enabling configured smtp host after reinstallation: {0}".format(smtphost,))
     except AttributeError:
         pass
 

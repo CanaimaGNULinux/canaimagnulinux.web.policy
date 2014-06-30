@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 
+from zope.component import getUtility
+
 from plone import api
-# TODO: estandarizar el uso de una de las dos opciones
+from plone.registry.interfaces import IRegistry
 from plone.i18n.normalizer import idnormalizer
 from Products.ATContentTypes.lib import constraintypes
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
+
+from collective.googlenews.interfaces import GoogleNewsSettings
 from canaimagnulinux.web.policy.config import PROJECTNAME, DEPENDENCIES, MAILHOST_CONFIGURATION
 
 import logging
@@ -207,6 +211,14 @@ def enable_mail_host(portal, smtphost):
     except AttributeError:
         pass
 
+def setup_nitf_google_news():
+    """
+    Setup collective.nitf content type in Google News
+    """
+    settings = getUtility(IRegistry).forInterface(GoogleNewsSettings, False)
+    settings.portal_types = ["collective.nitf.content"]
+    logger.info('Configured collective.nitf content type')
+
 def clear_and_rebuild_catalog(portal):
     """
     Clear and rebuild catalog
@@ -237,4 +249,5 @@ def setupVarious(context):
     configure_mail_host(portal)
     # Do this last so that mail smtp host configured before reinstallation will be maintained.
     enable_mail_host(portal, old_smtphost)
+    setup_nitf_google_news()
     clear_and_rebuild_catalog(portal)

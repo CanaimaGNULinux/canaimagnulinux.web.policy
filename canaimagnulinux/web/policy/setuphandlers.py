@@ -63,7 +63,7 @@ def disable_mail_host(portal):
     """
     smtphost = ""
     try:
-        mailHost = getattr(portal,'MailHost')
+        mailHost = api.portal.get_tool('MailHost')
         
         if mailHost <> None:
             smtphost = mailHost.smtp_host
@@ -173,7 +173,7 @@ def configure_mail_host(portal):
     Configuration for MailHost tool
     """
     try:
-        mailHost = getattr(portal,'MailHost')
+        mailHost = api.portal.get_tool('MailHost')
         
         if MAILHOST_CONFIGURATION["configure"]:
             logger.info("Starting Mail Configuration changes")
@@ -199,7 +199,7 @@ def enable_mail_host(portal, smtphost):
     Enabling SMTP configuration host
     """
     try:
-        mailHost = getattr(portal,'MailHost')
+        mailHost = api.portal.get_tool('MailHost')
         
         if mailHost <> None and smtphost != "":
             mailHost.smtp_host = smtphost

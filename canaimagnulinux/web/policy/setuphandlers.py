@@ -9,6 +9,7 @@ from Products.ATContentTypes.lib import constraintypes
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 
 from collective.googlenews.interfaces import GoogleNewsSettings
+from collective.geo.settings.interfaces import IGeoSettings
 from canaimagnulinux.web.policy.config import PROJECTNAME, DEPENDENCIES, MAILHOST_CONFIGURATION
 
 import logging
@@ -219,6 +220,18 @@ def setup_nitf_google_news():
     settings.portal_types = ["collective.nitf.content"]
     logger.info('Configured collective.nitf content type')
 
+def setup_geo_settings():
+    """
+    Custom settings for collective.geo.usersmap
+    """
+    import decimal
+    settings = getUtility(IRegistry).forInterface(IGeoSettings, False)
+    settings.default_layers = [u'osm']
+    settings.zoom = decimal.Decimal(6)
+    settings.longitude = decimal.Decimal(6.423750000000001)
+    settings.latitude = decimal.Decimal(-66.58973000000024)
+    logger.info('Configured collective.geo.usersmap')
+
 def clear_and_rebuild_catalog(portal):
     """
     Clear and rebuild catalog
@@ -250,4 +263,5 @@ def setupVarious(context):
     # Do this last so that mail smtp host configured before reinstallation will be maintained.
     enable_mail_host(portal, old_smtphost)
     setup_nitf_google_news()
+    setup_geo_settings()
     clear_and_rebuild_catalog(portal)

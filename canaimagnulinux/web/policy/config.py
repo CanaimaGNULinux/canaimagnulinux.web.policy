@@ -37,7 +37,6 @@ PRODUCT_DEPENDENCIES = [
     ]
 
 PACKAGE_DEPENDENCIES = [
-    'canaimagnulinux.web.locales',
     'canaimagnulinux.web.theme',
     ]
 

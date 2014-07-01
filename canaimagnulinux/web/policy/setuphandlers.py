@@ -19,6 +19,7 @@ logger = logging.getLogger(PROJECTNAME)
 def constrain_types(folder, allowed_types):
     """Constrain addable types in folder.
     """
+
     folder.setConstrainTypesMode(constraintypes.ENABLED)
     folder.setImmediatelyAddableTypes(allowed_types)
     folder.setLocallyAllowedTypes(allowed_types)
@@ -27,6 +28,7 @@ def set_workflow_policy(obj):
     """
     Cambiar el workflow del objeto utilizando CMFPlacefulWorkflow.
     """
+
     obj.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
     pc = getattr(obj, WorkflowPolicyConfig_id)
     pc.setPolicyIn(policy='one-state')
@@ -37,6 +39,7 @@ def createFolder(context, title, allowed_types=['Topic'], exclude_from_nav=False
     Crea una carpeta en el contexto especificado por omisión,
     la carpeta contiene colecciones (Topic).
     """
+
     id = idnormalizer.normalize(title, 'es')
     if not hasattr(context, id):
         context.invokeFactory('Folder', id=id, title=title)
@@ -59,6 +62,7 @@ def createLink(context, title, link):
     """
     Crea y publica un vínculo en el contexto dado.
     """
+
     id = idnormalizer.normalize(title, 'es')
     if not hasattr(context, id):
         context.invokeFactory('Link', id=id, title=title, remoteUrl=link)
@@ -67,6 +71,7 @@ def createPloneSoftwareCenter(context, title):
     """
     Crea un PloneSoftwareCenter en el contexto dado.
     """
+
     id = idnormalizer.normalize(title, 'es')
     if not hasattr(context, id):
         context.invokeFactory('PloneSoftwareCenter', id=id, title=title)
@@ -75,6 +80,7 @@ def createContentType(type, folder, title, state):
     """
     Create common Content Types.
     """
+
     obj = api.content.create(type=type, title=title, container=folder)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -92,6 +98,7 @@ def createSection(folder, title, genre='Current', section=None):
     al género y a la sección especificados; los ordena de forma descendente
     por fecha de publicación, y les asigna una vista por defecto.
     """
+
     workflowTool = api.portal.get_tool(name='portal_workflow')
     collection = api.content.create(type='Collection', title=title, container=folder)
     collection.setTitle(title)
@@ -139,11 +146,12 @@ def createSection(folder, title, genre='Current', section=None):
 def disable_mail_host(portal):
     """
     """
+
     smtphost = ""
     try:
         mailHost = api.portal.get_tool('MailHost')
         
-        if mailHost <> None:
+        if mailHost != None:
             smtphost = mailHost.smtp_host
             mailHost.smtp_host = ""
             logger.info("Disabling configured smtp host before reinstalling: {0}".format(smtphost,))
@@ -156,7 +164,7 @@ def install_dependencies(portal):
     """
     Install Products dependencies.
     """
-    
+
     qi = api.portal.get_tool(name='portal_quickinstaller')
     for product in DEPENDENCIES:
         if not qi.isProductInstalled(product):
@@ -170,7 +178,7 @@ def remove_default_content(portal):
     """
     Remove the default Plone content.
     """
-    #removable = ['Members', 'news', 'events', 'front-page']
+
     removable = ['news', 'events', 'front-page']
     for item in removable:
         if hasattr(portal, item):
@@ -717,6 +725,7 @@ def configure_site_properties(portal):
     """
     Set the Site Title, Description and Properties
     """
+
     properties = api.portal.get_tool(name='portal_properties')
     memberdata = api.portal.get_tool(name='portal_memberdata')
     
@@ -742,6 +751,7 @@ def configure_mail_host(portal):
     """
     Configuration for MailHost tool
     """
+
     try:
         mailHost = api.portal.get_tool('MailHost')
         
@@ -768,10 +778,11 @@ def enable_mail_host(portal, smtphost):
     """
     Enabling SMTP configuration host
     """
+
     try:
         mailHost = api.portal.get_tool('MailHost')
         
-        if mailHost <> None and smtphost != "":
+        if mailHost != None and smtphost != "":
             mailHost.smtp_host = smtphost
             logger.info("Enabling configured smtp host after reinstallation: {0}".format(smtphost,))
     except AttributeError:
@@ -781,6 +792,7 @@ def setup_nitf_settings():
     """
     Custom settings for collective.nitf
     """
+
     settings = getUtility(IRegistry).forInterface(INITFSettings, False)
     settings.available_genres = [u'Actuality', u'Anniversary', u'Current', u'Exclusive', u'From the Scene', u'Interview', u'Opinion', u'Profile']
     settings.available_sections = set([u'Canaima', u'Novedades', u'Comunidad', u'Soporte y Aprendizaje', u'Soluciones', u'Descargas'])
@@ -792,6 +804,7 @@ def setup_nitf_google_news():
     """
     Setup collective.nitf content type in Google News
     """
+
     settings = getUtility(IRegistry).forInterface(GoogleNewsSettings, False)
     settings.portal_types = ["collective.nitf.content"]
     logger.info('Configured collective.nitf with collective.googlenews')
@@ -800,6 +813,7 @@ def setup_geo_settings():
     """
     Custom settings for collective.geo.usersmap
     """
+
     import decimal
     settings = getUtility(IRegistry).forInterface(IGeoSettings, False)
     settings.default_layers = [u'osm']
@@ -812,6 +826,7 @@ def clear_and_rebuild_catalog(portal):
     """
     Clear and rebuild catalog
     """
+
     catalog = api.portal.get_tool(name='portal_catalog')
     catalog.clearFindAndRebuild()
     logger.info("Clear and rebuild catalog is done!")
@@ -828,9 +843,9 @@ def setupVarious(context):
     
     # Add additional setup code here
     portal = api.portal.get()
+
     # Do this first so that reinstallation will not fire any notifications if any
     old_smtphost = disable_mail_host(portal)
-    
     install_dependencies(portal)
     remove_default_content(portal)
     create_site_structure(portal)

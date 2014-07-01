@@ -8,6 +8,7 @@ from plone.i18n.normalizer import idnormalizer
 from Products.ATContentTypes.lib import constraintypes
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 
+from collective.nitf.controlpanel import INITFSettings
 from collective.googlenews.interfaces import GoogleNewsSettings
 from collective.geo.settings.interfaces import IGeoSettings
 from canaimagnulinux.web.policy.config import PROJECTNAME, DEPENDENCIES, MAILHOST_CONFIGURATION
@@ -776,13 +777,24 @@ def enable_mail_host(portal, smtphost):
     except AttributeError:
         pass
 
+def setup_nitf_settings():
+    """
+    Custom settings for collective.nitf
+    """
+    settings = getUtility(IRegistry).forInterface(INITFSettings, False)
+    settings.available_genres = [u'Actuality', u'Anniversary', u'Current', u'Exclusive', u'From the Scene', u'Interview', u'Opinion', u'Profile']
+    settings.available_sections = set([u'Canaima', u'Novedades', u'Comunidad', u'Soporte y Aprendizaje', u'Soluciones', u'Descargas'])
+    settings.default_genre = u'Current'
+    settings.default_section = u'Novedades'
+    logger.info('Configured collective.nitf content type')
+
 def setup_nitf_google_news():
     """
     Setup collective.nitf content type in Google News
     """
     settings = getUtility(IRegistry).forInterface(GoogleNewsSettings, False)
     settings.portal_types = ["collective.nitf.content"]
-    logger.info('Configured collective.nitf content type')
+    logger.info('Configured collective.nitf with collective.googlenews')
 
 def setup_geo_settings():
     """
@@ -826,6 +838,7 @@ def setupVarious(context):
     configure_mail_host(portal)
     # Do this last so that mail smtp host configured before reinstallation will be maintained.
     enable_mail_host(portal, old_smtphost)
+    setup_nitf_settings()
     setup_nitf_google_news()
     setup_geo_settings()
     clear_and_rebuild_catalog(portal)

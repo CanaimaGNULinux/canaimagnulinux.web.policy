@@ -76,7 +76,7 @@ def createPloneSoftwareCenter(context, title):
     if not hasattr(context, id):
         context.invokeFactory('PloneSoftwareCenter', id=id, title=title)
 
-def createContentType(type, folder, title, state):
+def createContentType(type, folder, title, state, exclude_from_nav):
     """
     Create common Content Types.
     """
@@ -84,6 +84,10 @@ def createContentType(type, folder, title, state):
     obj = api.content.create(type=type, title=title, container=folder)
     obj.setTitle(title)
     obj.reindexObject('Title')
+
+    if exclude_from_nav != False:
+        obj.setExcludeFromNav(True)
+        logger.info("The element was excluded from navigation")
 
     if state != None:
         api.content.transition(obj, state)
@@ -93,7 +97,7 @@ def createContentType(type, folder, title, state):
 
     logger.info("Created the {0} item".format(obj))
 
-def createSection(folder, title, genre='Current', section=None):
+def createCollection(folder, title, type, genre='Current', section=None):
     """ Crea una colección de Artículos de noticias publicados, que pertenecen
     al género y a la sección especificados; los ordena de forma descendente
     por fecha de publicación, y les asigna una vista por defecto.
@@ -107,12 +111,20 @@ def createSection(folder, title, genre='Current', section=None):
     # tipo de contenido
     query.append({'i': 'portal_type',
                   'o': 'plone.app.querystring.operation.selection.is',
-                  'v': ['collective.nitf.content']})
+                  'v': [type]})
+    #              'v': ['collective.nitf.content']})
 
     # género
-    query.append({'i': 'genre',
-                  'o': 'plone.app.querystring.operation.selection.is',
-                  'v': [genre]})
+    #query.append({'i': 'genre',
+    #              'o': 'plone.app.querystring.operation.selection.is',
+    #              'v': [genre]})
+
+    # género
+    if genre is not None:
+
+        query.append({'i': 'genre',
+                      'o': 'plone.app.querystring.operation.selection.is',
+                      'v': [genre]})
 
     # sección
     if section is not None:
@@ -143,7 +155,7 @@ def createSection(folder, title, genre='Current', section=None):
     collection.reindexObject()
     logger.info('Created the {0} Section'.format(collection))
 
-def disable_mail_host(portal):
+def disable_mail_host(site):
     """
     """
 
@@ -160,7 +172,7 @@ def disable_mail_host(portal):
     
     return smtphost
 
-def install_dependencies(portal):
+def install_dependencies(site):
     """
     Install Products dependencies.
     """
@@ -174,32 +186,33 @@ def install_dependencies(portal):
             qi.reinstallProducts([product])
             logger.info('Reinstalled {0}'.format(product))
 
-def remove_default_content(portal):
+def remove_default_content(site):
     """
     Remove the default Plone content.
     """
 
     removable = ['news', 'events', 'front-page']
     for item in removable:
-        if hasattr(portal, item):
+        if hasattr(site, item):
             try:
-                api.content.delete(obj=portal[item])
+                api.content.delete(obj=site[item])
                 logger.info('Deleted {0} item'.format(item))
             except AttributeError:
                 logger.info("No {0} item detected. Hmm... strange. Continuing...".format(item))
 
-def create_site_structure(portal):
+def create_site_structure(site):
     """
     Create the Canaima GNU/Linux Web site structure.
     """
 
-    # Exclude from navegation "Members" section
-    members = portal['Members']
+    # Exclude from navigation "Members" section
+    members = site['Members']
     members.setExcludeFromNav(True)
-    logger.info("Excluded from Nav {0} item".format(members))
+    #site['Members'].setExcludeFromNav(True)
+    logger.info("Excluded from Nav {0} item".format(site))
 
     # Rename "Servicios empresariales" section
-    obj = portal['support']
+    obj = site['support']
     api.content.rename(obj=obj, new_id='servicios-empresariales')
     title = u'Servicios empresariales'
     obj.setTitle(title)
@@ -207,7 +220,7 @@ def create_site_structure(portal):
     logger.info("Renamed the {0} item".format(obj))
 
     # Rename "Pie de pagina" section
-    obj = portal['doormat']
+    obj = site['doormat']
     api.content.rename(obj=obj, new_id='pie-de-pagina')
     title = u'Pie de pagina'
     obj.setTitle(title)
@@ -218,7 +231,7 @@ def create_site_structure(portal):
 
     # Column 1
     title = u'Columna 1'
-    obj = portal['pie-de-pagina']['column-1']
+    obj = site['pie-de-pagina']['column-1']
     api.content.rename(obj=obj, new_id='columna-1')
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -226,7 +239,7 @@ def create_site_structure(portal):
     api.content.transition(obj, 'publish')
     logger.info("Renamed the {0} item".format(obj))
 
-    obj = portal['pie-de-pagina']['columna-1']['section-1']
+    obj = site['pie-de-pagina']['columna-1']['section-1']
     api.content.rename(obj=obj, new_id='canaima')
     title = u'Canaima'
     obj.setTitle(title)
@@ -234,33 +247,33 @@ def create_site_structure(portal):
     api.content.transition(obj, 'publish')
     logger.info("Renamed the {0} item".format(obj))
 
-    obj = portal['pie-de-pagina']['columna-1']['canaima']['document-1']
+    obj = site['pie-de-pagina']['columna-1']['canaima']['document-1']
     api.content.delete(obj=obj)
     logger.info("Deleted the {0} item".format(obj))
 
     title = u'Conozca Canaima'
-    obj_target = portal['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Características'
-    obj_target = portal['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'¿Qué hay de nuevo?'
-    obj_target = portal['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Testimonios'
-    obj_target = portal['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Casos de éxito'
-    obj_target = portal['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     # Column 2
     title = u'Columna 2'
-    obj_target = portal['pie-de-pagina']
+    obj_target = site['pie-de-pagina']
     obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -269,24 +282,24 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Soluciones'
-    obj_target = portal['pie-de-pagina']['columna-2']
-    createContentType('DoormatSection', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-2']
+    createContentType('DoormatSection', obj_target, title, 'publish', False)
 
-    title = u'Sector Gobierno'
-    obj_target = portal['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    title = u'Sector gobierno'
+    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
-    title = u'Sector Comunal'
-    obj_target = portal['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    title = u'Sector comunal'
+    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Geomática'
-    obj_target = portal['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     # Column 3
     title = u'Columna 3'
-    obj_target = portal['pie-de-pagina']
+    obj_target = site['pie-de-pagina']
     obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -295,28 +308,28 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Soporte y Aprendizaje'
-    obj_target = portal['pie-de-pagina']['columna-3']
-    createContentType('DoormatSection', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-3']
+    createContentType('DoormatSection', obj_target, title, 'publish', False)
 
     title = u'Necesita ayuda'
-    obj_target = portal['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Quiero aprender'
-    obj_target = portal['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Consultoría'
-    obj_target = portal['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Mercado de servicios'
-    obj_target = portal['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     # Column 4
     title = u'Columna 4'
-    obj_target = portal['pie-de-pagina']
+    obj_target = site['pie-de-pagina']
     obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -325,24 +338,24 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Descargas'
-    obj_target = portal['pie-de-pagina']['columna-4']
-    createContentType('DoormatSection', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-4']
+    createContentType('DoormatSection', obj_target, title, 'publish', False)
 
     title = u'Obtener Canaima'
-    obj_target = portal['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-4']['descargas']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Obtener códigos fuentes'
-    obj_target = portal['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-4']['descargas']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Complementos del RNA'
-    obj_target = portal['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-4']['descargas']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     # Column 5
     title = u'Columna 5'
-    obj_target = portal['pie-de-pagina']
+    obj_target = site['pie-de-pagina']
     obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -351,48 +364,48 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Comunidad'
-    obj_target = portal['pie-de-pagina']['columna-5']
-    createContentType('DoormatSection', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']
+    createContentType('DoormatSection', obj_target, title, 'publish', False)
 
     title = u'Unirte a Canaima'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Estar conectado'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Organización'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Equipos'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Forja'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Reuniones'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Grupo'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Opinión'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Galería de diseño'
-    obj_target = portal['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     # Column 6
     title = u'Columna 6'
-    obj_target = portal['pie-de-pagina']
+    obj_target = site['pie-de-pagina']
     obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -401,42 +414,42 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Novedades'
-    obj_target = portal['pie-de-pagina']['columna-6']
-    createContentType('DoormatSection', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-6']
+    createContentType('DoormatSection', obj_target, title, 'publish', False)
 
     title = u'Blogs'
-    obj_target = portal['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Comunidad'
-    obj_target = portal['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Gobierno'
-    obj_target = portal['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Discusiones'
-    obj_target = portal['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     title = u'Actividades'
-    obj_target = portal['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish')
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, 'publish', False)
 
     # Create "Portada" item
     title = u'Portada'
-    obj = api.content.create(type='collective.cover.content', title=title, container=portal)
+    obj = api.content.create(type='collective.cover.content', title=title, container=site)
     obj.setTitle(title)
     obj.reindexObject('Title')
     api.content.transition(obj, 'publish')
     logger.info("Created the {0} item".format(obj))
-    portal.manage_changeProperties(**{"default_page" : 'portada'})
+    site.manage_changeProperties(**{"default_page" : 'portada'})
     logger.info("Set {0} item as default page for Portal".format(obj))
 
     # Create "Canaima" section
     title = u'Canaima'
-    obj = api.content.create(type='Folder', title=title, container=portal)
+    obj = api.content.create(type='Folder', title=title, container=site)
     obj.setTitle(title)
     obj.reindexObject('Title')
     obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'CaseStudyFolder']
@@ -445,28 +458,28 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Conozca Canaima'
-    obj_target = portal['canaima']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['canaima']
+    createContentType('Document', obj_target, title, None, False)
 
     title = u'Características'
-    obj_target = portal['canaima']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['canaima']
+    createContentType('Document', obj_target, title, None, False)
 
     title = u'¿Por qué usar Canaima?'
-    obj_target = portal['canaima']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['canaima']
+    createContentType('Document', obj_target, title, None, False)
 
     title = u'¿Por qué Software libre?'
-    obj_target = portal['canaima']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['canaima']
+    createContentType('Document', obj_target, title, None, False)
 
     title = u'Casos de éxitos'
-    obj_target = portal['canaima']
-    createContentType('CaseStudyFolder', obj_target, title, None)
+    obj_target = site['canaima']
+    createContentType('CaseStudyFolder', obj_target, title, None, False)
 
     # Create "Soluciones" section
     title = u'Soluciones'
-    obj = api.content.create(type='Folder', title=title, container=portal)
+    obj = api.content.create(type='Folder', title=title, container=site)
     obj.setTitle(title)
     obj.reindexObject('Title')
     obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'Collection', 'collective.cover.content']
@@ -475,44 +488,47 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Sector gobierno'
-    obj_target = portal['soluciones']
-    createContentType('Collection', obj_target, title, 'publish')
+    obj_target = site['soluciones']
+    types = ['Document']
+    createCollection(folder=obj_target, title=title, type=types, genre=None, section='Soluciones')
 
     title = u'Sector comunas'
-    obj_target = portal['soluciones']
-    createContentType('Collection', obj_target, title, 'publish')
+    obj_target = site['soluciones']
+    types = ['Document']
+    createCollection(folder=obj_target, title=title, type=types, genre=None, section='Soluciones')
 
     title = u'Geomática'
-    obj_target = portal['soluciones']
-    createContentType('Collection', obj_target, title, 'publish')
+    obj_target = site['soluciones']
+    types = ['Document']
+    createCollection(folder=obj_target, title=title, type=types, genre=None, section='Soluciones')
 
     title = u'Canaima Popular'
-    obj_target = portal['soluciones']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['soluciones']
+    createContentType('Document', obj_target, title, None, True)
 
     title = u'Canaima Educativo'
-    obj_target = portal['soluciones']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['soluciones']
+    createContentType('Document', obj_target, title, None, True)
 
     title = u'Canaima Colibri'
-    obj_target = portal['soluciones']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['soluciones']
+    createContentType('Document', obj_target, title, None, True)
 
     title = u'Canaima Comunal'
-    obj_target = portal['soluciones']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['soluciones']
+    createContentType('Document', obj_target, title, None, True)
 
     title = u'Canaima Caribay'
-    obj_target = portal['soluciones']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['soluciones']
+    createContentType('Document', obj_target, title, None, True)
 
     title = u'GeoCanaima'
-    obj_target = portal['soluciones']
-    createContentType('Document', obj_target, title, None)
+    obj_target = site['soluciones']
+    createContentType('Document', obj_target, title, None, True)
 
     # Create "Soporte y Aprendizaje" section
     title = u'Soporte y Aprendizaje'
-    obj = api.content.create(type='Folder', title=title, container=portal)
+    obj = api.content.create(type='Folder', title=title, container=site)
     obj.setTitle(title)
     obj.reindexObject('Title')
     obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'ProviderFolder']
@@ -521,7 +537,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Necesito ayuda'
-    obj_target = portal['soporte-y-aprendizaje']
+    obj_target = site['soporte-y-aprendizaje']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -531,7 +547,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Yo quiero aprender'
-    obj_target = portal['soporte-y-aprendizaje']
+    obj_target = site['soporte-y-aprendizaje']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -541,7 +557,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Consultoría'
-    obj_target = portal['soporte-y-aprendizaje']
+    obj_target = site['soporte-y-aprendizaje']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -551,7 +567,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Mercado de servicios'
-    obj_target = portal['soporte-y-aprendizaje']
+    obj_target = site['soporte-y-aprendizaje']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -560,27 +576,27 @@ def create_site_structure(portal):
     api.content.transition(obj, 'publish')
     logger.info("Created the {0} item".format(obj))
 
-    obj_source = portal['servicios-empresariales']
-    obj_target = portal['soporte-y-aprendizaje']['mercado-de-servicios']
+    obj_source = site['servicios-empresariales']
+    obj_target = site['soporte-y-aprendizaje']['mercado-de-servicios']
     api.content.move(source=obj_source, target=obj_target)
     logger.info("Moved from {0} to {1} item".format(obj_source, obj_target))
 
-    obj = portal['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['providers']
+    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['providers']
     api.content.rename(obj=obj, new_id='proveedores')
     title = u'Proveedores'
     obj.setTitle(title)
     obj.reindexObject('Title')
     logger.info("Renamed the {0} item".format(obj))
 
-    obj = portal['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['sites']
+    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['sites']
     api.content.delete(obj=obj)
 
-    obj = portal['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['case-studies']
+    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['case-studies']
     api.content.delete(obj=obj)
 
     # Create "Descargas" section
     title = u'Descargas'
-    obj = api.content.create(type='Folder', title=title, container=portal)
+    obj = api.content.create(type='Folder', title=title, container=site)
     obj.setTitle(title)
     obj.reindexObject('Title')
     obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content']
@@ -589,7 +605,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Obtener Canaima'
-    obj_target = portal['descargas']
+    obj_target = site['descargas']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -599,38 +615,38 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Verifique la descarga de la imagen ISO'
-    obj_target = portal['descargas']
-    createContentType('Document', obj_target, title, 'publish')
+    obj_target = site['descargas']
+    createContentType('Document', obj_target, title, 'publish', False)
 
     title = u'Obtener códigos fuentes'
-    obj_target = portal['descargas']
-    createContentType('Document', obj_target, title, 'publish')
+    obj_target = site['descargas']
+    createContentType('Document', obj_target, title, 'publish', False)
 
     title = u'Complementos del RNA'
-    obj_target = portal['descargas']
-    createContentType('collective.cover.content', obj_target, title, 'publish')
+    obj_target = site['descargas']
+    createContentType('collective.cover.content', obj_target, title, 'publish', False)
 
     # Create "Comunidad" section
     title = u'Comunidad'
-    obj = api.content.create(type='Folder', title=title, container=portal)
+    obj = api.content.create(type='Folder', title=title, container=site)
     obj.setTitle(title)
     obj.reindexObject('Title')
     obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'FSDFacultyStaffDirectory']
     constrain_types(obj, obj_constrain_types)
     api.content.transition(obj, 'publish')
-    portal['comunidad'].setLayout('@@usersmap_view')
+    site['comunidad'].setLayout('@@usersmap_view')
     logger.info("Created the {0} item".format(obj))
 
     title = u'Unirse a Canaima'
-    obj_target = portal['comunidad']
-    createContentType('Document', obj_target, title, 'publish')
+    obj_target = site['comunidad']
+    createContentType('Document', obj_target, title, 'publish', False)
 
     title = u'Estar conectado'
-    obj_target = portal['comunidad']
-    createContentType('Document', obj_target, title, 'publish')
+    obj_target = site['comunidad']
+    createContentType('Document', obj_target, title, 'publish', False)
 
     title = u'Organización'
-    obj_target = portal['comunidad']
+    obj_target = site['comunidad']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -640,7 +656,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Equipos'
-    obj_target = portal['comunidad']
+    obj_target = site['comunidad']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -650,7 +666,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Forja'
-    obj_target = portal['comunidad']
+    obj_target = site['comunidad']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -660,7 +676,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Reuniones'
-    obj_target = portal['comunidad']
+    obj_target = site['comunidad']
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
     obj.reindexObject('Title')
@@ -670,7 +686,7 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     title = u'Grupos'
-    obj_target = portal['comunidad']
+    obj_target = site['comunidad']
     #obj = api.content.create(type='FSDFacultyStaffDirectory', title=title, container=obj_target)
     obj = api.content.create(type='Folder', title=title, container=obj_target)
     obj.setTitle(title)
@@ -681,47 +697,51 @@ def create_site_structure(portal):
     logger.info("Created the {0} item".format(obj))
 
     # Create "Novedades" section
-    createFolder(portal, u'Novedades',
+    createFolder(site, u'Novedades',
                  allowed_types=['Event', 'News', 'Link', 'Collection'],
                  exclude_from_nav=False)
 
     immediatelyAddableTypes = ['Event', 'News']
     locallyAllowedTypes = ['Folder', 'Event', 'News', 'Link', 'Collection', 'collective.nitf.content']
-    novedades = portal['novedades']
+    novedades = site['novedades']
     novedades.setLocallyAllowedTypes(locallyAllowedTypes)
     novedades.setImmediatelyAddableTypes(immediatelyAddableTypes)
     logger.info("Created the {0} item".format(novedades))
     
     title = u'Blogs'
-    obj_target = portal['novedades']
-    createContentType('Link', obj_target, title, None)
+    obj_target = site['novedades']
+    createContentType('Link', obj_target, title, None, False)
 
     title = u'Comunidad'
-    obj_target = portal['novedades']
-    createSection(folder=obj_target, title=title, genre='Current', section='Comunidad')
+    obj_target = site['novedades']
+    types = ['collective.nitf.content']
+    createCollection(folder=obj_target, title=title, type=types, genre='Current', section='Comunidad')
 
     title = u'Gobierno'
-    obj_target = portal['novedades']
-    createSection(folder=obj_target, title=title, genre='Current', section='Gobierno')
+    obj_target = site['novedades']
+    types = ['collective.nitf.content']
+    createCollection(folder=obj_target, title=title, type=types, genre='Current', section='Gobierno')
 
     title = u'Discusiones'
-    obj_target = portal['novedades']
-    createSection(folder=obj_target, title=title, genre='Current', section='Discusiones')
+    obj_target = site['novedades']
+    types = ['collective.nitf.content']
+    createCollection(folder=obj_target, title=title, type=types, genre='Current', section='Discusiones')
 
     title = u'Actividades'
-    obj_target = portal['novedades']
-    createSection(folder=obj_target, title=title, genre='Current', section='Actividades')
+    obj_target = site['novedades']
+    types = ['collective.nitf.content']
+    createCollection(folder=obj_target, title=title, type=types, genre='Current', section='Actividades')
 
 #    createPloneSoftwareCenter(u'Descargas', exclude_from_nav=False)
-#    createFolder(portal, u'Documentos', allowed_types=['File', 'Folder', 'Link', 'Image', 'Document'])
-#    portal['documentos'].setLayout('folder_listing')
+#    createFolder(site, u'Documentos', allowed_types=['File', 'Folder', 'Link', 'Image', 'Document'])
+#    site['documentos'].setLayout('folder_listing')
     
-    createLink(portal, u'Proyectos', 'http://proyectos.canaima.softwarelibre.gob.ve/')
-    obj = portal['proyectos']
+    createLink(site, u'Proyectos', 'http://proyectos.canaima.softwarelibre.gob.ve/')
+    obj = site['proyectos']
     obj.setExcludeFromNav(True)
     logger.info('All site structure created')
 
-def configure_site_properties(portal):
+def configure_site_properties(site):
     """
     Set the Site Title, Description and Properties
     """
@@ -730,9 +750,9 @@ def configure_site_properties(portal):
     memberdata = api.portal.get_tool(name='portal_memberdata')
     
     # Site Title and Description.
-    if portal.title == None or portal.title != None:
-        portal.title = "Portal Canaima GNU/Linux"
-        portal.description = "Portal de la meta distribución Canaima GNU/Linux"
+    if site.title == None or site.title != None:
+        site.title = "Portal Canaima GNU/Linux"
+        site.description = "Portal de la meta distribución Canaima GNU/Linux"
         logger.info("Configured Site Title and Description!")
     else:
         logger.info("Site title has already been changed, so NOT changing site title or description.")
@@ -747,7 +767,7 @@ def configure_site_properties(portal):
     memberdata.language = 'es'
     logger.info("Configured member data properties!")
 
-def configure_mail_host(portal):
+def configure_mail_host(site):
     """
     Configuration for MailHost tool
     """
@@ -763,18 +783,18 @@ def configure_mail_host(portal):
             if mailHost.smtp_port == None:
                 mailHost.smtp_port = MAILHOST_CONFIGURATION["smtpport"]
                 logger.info(mailHost.smtp_port)
-            if portal.email_from_name == '':
-                portal.email_from_name = MAILHOST_CONFIGURATION["fromemailname"]
-                logger.info(portal.email_from_name)
-            if portal.email_from_address == '':
-                portal.email_from_address = MAILHOST_CONFIGURATION["fromemailaddress"]
-                logger.info(portal.email_from_address)
+            if site.email_from_name == '':
+                site.email_from_name = MAILHOST_CONFIGURATION["fromemailname"]
+                logger.info(site.email_from_name)
+            if site.email_from_address == '':
+                site.email_from_address = MAILHOST_CONFIGURATION["fromemailaddress"]
+                logger.info(site.email_from_address)
             logger.info("Mail Configuration is Done!")
 
     except AttributeError:
         pass
 
-def enable_mail_host(portal, smtphost):
+def enable_mail_host(site, smtphost):
     """
     Enabling SMTP configuration host
     """
@@ -822,7 +842,7 @@ def setup_geo_settings():
     settings.latitude = decimal.Decimal(-66.58973000000024)
     logger.info('Configured collective.geo.usersmap')
 
-def clear_and_rebuild_catalog(portal):
+def clear_and_rebuild_catalog(site):
     """
     Clear and rebuild catalog
     """

@@ -76,7 +76,7 @@ def createPloneSoftwareCenter(context, title):
     if not hasattr(context, id):
         context.invokeFactory('PloneSoftwareCenter', id=id, title=title)
 
-def createContentType(type, folder, title, state, exclude_from_nav):
+def createContentType(type, folder, title, subject, state, exclude_from_nav):
     """
     Create common Content Types.
     """
@@ -84,6 +84,11 @@ def createContentType(type, folder, title, state, exclude_from_nav):
     obj = api.content.create(type=type, title=title, container=folder)
     obj.setTitle(title)
     obj.reindexObject('Title')
+
+    if subject != None:
+        obj.setSubject(subject)
+        obj.reindexObject('Subject')
+        logger.info("The subjects is done!")
 
     if exclude_from_nav != False:
         obj.setExcludeFromNav(True)
@@ -97,7 +102,7 @@ def createContentType(type, folder, title, state, exclude_from_nav):
 
     logger.info("Created the {0} item".format(obj))
 
-def createCollection(folder, title, type, genre='Current', section=None):
+def createCollection(folder, title, type, subject, genre='Current', section=None):
     """ Crea una colección de Artículos de noticias publicados, que pertenecen
     al género y a la sección especificados; los ordena de forma descendente
     por fecha de publicación, y les asigna una vista por defecto.
@@ -112,26 +117,30 @@ def createCollection(folder, title, type, genre='Current', section=None):
     query.append({'i': 'portal_type',
                   'o': 'plone.app.querystring.operation.selection.is',
                   'v': [type]})
-    #              'v': ['collective.nitf.content']})
 
-    # género
-    #query.append({'i': 'genre',
-    #              'o': 'plone.app.querystring.operation.selection.is',
-    #              'v': [genre]})
+    # categoría
+    if subject is not None:
 
-    # género
-    if genre is not None:
-
-        query.append({'i': 'genre',
+        query.append({'i': 'Subject',
                       'o': 'plone.app.querystring.operation.selection.is',
-                      'v': [genre]})
+                      'v': [subject]})
 
-    # sección
-    if section is not None:
+    if 'collective.nitf.content' in type:
 
-        query.append({'i': 'section',
-                      'o': 'plone.app.querystring.operation.selection.is',
-                      'v': [section]})
+
+        # género
+        if genre is not None:
+
+            query.append({'i': 'genre',
+                          'o': 'plone.app.querystring.operation.selection.is',
+                          'v': [genre]})
+
+        # sección
+        if section is not None:
+
+            query.append({'i': 'section',
+                          'o': 'plone.app.querystring.operation.selection.is',
+                          'v': [section]})
 
     # estado
     query.append({'i': 'review_state',
@@ -253,23 +262,23 @@ def create_site_structure(site):
 
     title = u'Conozca Canaima'
     obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Características'
     obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'¿Qué hay de nuevo?'
     obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Testimonios'
     obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Casos de éxito'
     obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     # Column 2
     title = u'Columna 2'
@@ -283,19 +292,19 @@ def create_site_structure(site):
 
     title = u'Soluciones'
     obj_target = site['pie-de-pagina']['columna-2']
-    createContentType('DoormatSection', obj_target, title, 'publish', False)
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
 
     title = u'Sector gobierno'
     obj_target = site['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Sector comunal'
     obj_target = site['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Geomática'
     obj_target = site['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     # Column 3
     title = u'Columna 3'
@@ -309,23 +318,23 @@ def create_site_structure(site):
 
     title = u'Soporte y Aprendizaje'
     obj_target = site['pie-de-pagina']['columna-3']
-    createContentType('DoormatSection', obj_target, title, 'publish', False)
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
 
     title = u'Necesita ayuda'
     obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Quiero aprender'
     obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Consultoría'
     obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Mercado de servicios'
     obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     # Column 4
     title = u'Columna 4'
@@ -339,19 +348,19 @@ def create_site_structure(site):
 
     title = u'Descargas'
     obj_target = site['pie-de-pagina']['columna-4']
-    createContentType('DoormatSection', obj_target, title, 'publish', False)
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
 
     title = u'Obtener Canaima'
     obj_target = site['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Obtener códigos fuentes'
     obj_target = site['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Complementos del RNA'
     obj_target = site['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     # Column 5
     title = u'Columna 5'
@@ -365,43 +374,43 @@ def create_site_structure(site):
 
     title = u'Comunidad'
     obj_target = site['pie-de-pagina']['columna-5']
-    createContentType('DoormatSection', obj_target, title, 'publish', False)
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
 
     title = u'Unirte a Canaima'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Estar conectado'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Organización'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Equipos'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Forja'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Reuniones'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Grupo'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Opinión'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Galería de diseño'
     obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     # Column 6
     title = u'Columna 6'
@@ -415,27 +424,27 @@ def create_site_structure(site):
 
     title = u'Novedades'
     obj_target = site['pie-de-pagina']['columna-6']
-    createContentType('DoormatSection', obj_target, title, 'publish', False)
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
 
     title = u'Blogs'
     obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Comunidad'
     obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Gobierno'
     obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Discusiones'
     obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     title = u'Actividades'
     obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, 'publish', False)
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
 
     # Create "Portada" item
     title = u'Portada'
@@ -459,23 +468,23 @@ def create_site_structure(site):
 
     title = u'Conozca Canaima'
     obj_target = site['canaima']
-    createContentType('Document', obj_target, title, None, False)
+    createContentType('Document', obj_target, title, None, None, False)
 
     title = u'Características'
     obj_target = site['canaima']
-    createContentType('Document', obj_target, title, None, False)
+    createContentType('Document', obj_target, title, None, None, False)
 
     title = u'¿Por qué usar Canaima?'
     obj_target = site['canaima']
-    createContentType('Document', obj_target, title, None, False)
+    createContentType('Document', obj_target, title, None, None, False)
 
     title = u'¿Por qué Software libre?'
     obj_target = site['canaima']
-    createContentType('Document', obj_target, title, None, False)
+    createContentType('Document', obj_target, title, None, None, False)
 
     title = u'Casos de éxitos'
     obj_target = site['canaima']
-    createContentType('CaseStudyFolder', obj_target, title, None, False)
+    createContentType('CaseStudyFolder', obj_target, title, None, None, False)
 
     # Create "Soluciones" section
     title = u'Soluciones'
@@ -490,41 +499,50 @@ def create_site_structure(site):
     title = u'Sector gobierno'
     obj_target = site['soluciones']
     types = ['Document']
-    createCollection(folder=obj_target, title=title, type=types, genre=None, section='Soluciones')
+    subjects = (u'Soluciones', title, u'Distribución')
+    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre=None, section='Soluciones')
 
     title = u'Sector comunas'
     obj_target = site['soluciones']
     types = ['Document']
-    createCollection(folder=obj_target, title=title, type=types, genre=None, section='Soluciones')
+    subjects = (u'Soluciones', title, u'Distribución')
+    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre=None, section='Soluciones')
 
     title = u'Geomática'
     obj_target = site['soluciones']
     types = ['Document']
-    createCollection(folder=obj_target, title=title, type=types, genre=None, section='Soluciones')
+    subjects = (u'Soluciones', title, u'Distribución')
+    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre=None, section='Soluciones')
 
     title = u'Canaima Popular'
     obj_target = site['soluciones']
-    createContentType('Document', obj_target, title, None, True)
+    subjects = (u'Soluciones', u'Sector gobierno', u'Distribución', title)
+    createContentType('Document', obj_target, title, subjects, None, True)
 
     title = u'Canaima Educativo'
     obj_target = site['soluciones']
-    createContentType('Document', obj_target, title, None, True)
+    subjects = (u'Soluciones', u'Sector gobierno', u'Distribución', title)
+    createContentType('Document', obj_target, title, subjects, None, True)
 
     title = u'Canaima Colibri'
     obj_target = site['soluciones']
-    createContentType('Document', obj_target, title, None, True)
+    subjects = (u'Soluciones', u'Sector comunas', u'Distribución', title)
+    createContentType('Document', obj_target, title, subjects, None, True)
 
     title = u'Canaima Comunal'
     obj_target = site['soluciones']
-    createContentType('Document', obj_target, title, None, True)
+    subjects = (u'Soluciones', u'Sector comunas', u'Distribución', title)
+    createContentType('Document', obj_target, title, subjects, None, True)
 
     title = u'Canaima Caribay'
     obj_target = site['soluciones']
-    createContentType('Document', obj_target, title, None, True)
+    subjects = (u'Soluciones', u'Sector comunas', u'Distribución', title)
+    createContentType('Document', obj_target, title, subjects, None, True)
 
     title = u'GeoCanaima'
     obj_target = site['soluciones']
-    createContentType('Document', obj_target, title, None, True)
+    subjects = (u'Soluciones', u'Geomática', u'Distribución', title)
+    createContentType('Document', obj_target, title, subjects, None, True)
 
     # Create "Soporte y Aprendizaje" section
     title = u'Soporte y Aprendizaje'
@@ -616,15 +634,15 @@ def create_site_structure(site):
 
     title = u'Verifique la descarga de la imagen ISO'
     obj_target = site['descargas']
-    createContentType('Document', obj_target, title, 'publish', False)
+    createContentType('Document', obj_target, title, None, 'publish', False)
 
     title = u'Obtener códigos fuentes'
     obj_target = site['descargas']
-    createContentType('Document', obj_target, title, 'publish', False)
+    createContentType('Document', obj_target, title, None, 'publish', False)
 
     title = u'Complementos del RNA'
     obj_target = site['descargas']
-    createContentType('collective.cover.content', obj_target, title, 'publish', False)
+    createContentType('collective.cover.content', obj_target, title, None, 'publish', False)
 
     # Create "Comunidad" section
     title = u'Comunidad'
@@ -639,11 +657,11 @@ def create_site_structure(site):
 
     title = u'Unirse a Canaima'
     obj_target = site['comunidad']
-    createContentType('Document', obj_target, title, 'publish', False)
+    createContentType('Document', obj_target, title, None, 'publish', False)
 
     title = u'Estar conectado'
     obj_target = site['comunidad']
-    createContentType('Document', obj_target, title, 'publish', False)
+    createContentType('Document', obj_target, title, None, 'publish', False)
 
     title = u'Organización'
     obj_target = site['comunidad']
@@ -710,27 +728,31 @@ def create_site_structure(site):
     
     title = u'Blogs'
     obj_target = site['novedades']
-    createContentType('Link', obj_target, title, None, False)
+    createContentType('Link', obj_target, title, None, None, False)
 
     title = u'Comunidad'
     obj_target = site['novedades']
     types = ['collective.nitf.content']
-    createCollection(folder=obj_target, title=title, type=types, genre='Current', section='Comunidad')
+    subjects = (u'Novedades', u'Noticias', title)
+    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre='Current', section='Comunidad')
 
     title = u'Gobierno'
     obj_target = site['novedades']
     types = ['collective.nitf.content']
-    createCollection(folder=obj_target, title=title, type=types, genre='Current', section='Gobierno')
+    subjects = (u'Novedades', u'Noticias', title)
+    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre='Current', section='Gobierno')
 
     title = u'Discusiones'
     obj_target = site['novedades']
     types = ['collective.nitf.content']
-    createCollection(folder=obj_target, title=title, type=types, genre='Current', section='Discusiones')
+    subjects = (u'Novedades', u'Noticias', title)
+    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre='Current', section='Discusiones')
 
     title = u'Actividades'
     obj_target = site['novedades']
     types = ['collective.nitf.content']
-    createCollection(folder=obj_target, title=title, type=types, genre='Current', section='Actividades')
+    subjects = (u'Novedades', u'Noticias', title)
+    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre='Current', section='Actividades')
 
 #    createPloneSoftwareCenter(u'Descargas', exclude_from_nav=False)
 #    createFolder(site, u'Documentos', allowed_types=['File', 'Folder', 'Link', 'Image', 'Document'])

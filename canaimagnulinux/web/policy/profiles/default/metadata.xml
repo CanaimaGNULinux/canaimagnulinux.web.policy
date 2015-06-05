@@ -5,7 +5,6 @@
   <dependencies>
    <dependency>profile-Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow</dependency>
    <dependency>profile-plone.app.ldap:ldap</dependency>
-   <dependency>profile-pas.plugins.velruse:default</dependency>
    <dependency>profile-collective.geo.usersmap:default</dependency>
    <dependency>profile-collective.googleanalytics:default</dependency>
    <dependency>profile-collective.googlenews:default</dependency>

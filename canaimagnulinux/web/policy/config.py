@@ -15,7 +15,6 @@ PRODUCT_DEPENDENCIES = [
     'plone.app.caching',
     'cioppino.twothumbs',
     'plone.contentratings',
-    'pas.plugins.velruse',
     'collective.geo.usersmap',
     'collective.googleanalytics',
     'collective.googlenews',

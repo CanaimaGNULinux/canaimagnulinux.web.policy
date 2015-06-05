@@ -21,8 +21,6 @@ Este producto habilita las siguientes configuraciones:
 
   - El producto `plone.app.ldap`_ para autenticación con ``LDAP``.
 
-  - El producto `pas.plugins.velruse`_ para autenticación con redes sociales.
-
   - El producto `collective.geo.settings`_ para georeferenciar contenidos.
 
   - El producto ``collective.geo.usersmap`` para georeferenciar miembros (usuarios) del portal.
@@ -107,5 +105,4 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
 .. _quintagroup.analytics: https://pypi.python.org/pypi/quintagroup.analytics
 .. _collective.nitf: https://github.com/collective/collective.nitf
 .. _collective.geo.settings: https://pypi.python.org/pypi/collective.geo.settings
-.. _pas.plugins.velruse: https://pypi.python.org/pypi/pas.plugins.velruse
 .. _apertura de un ticket de soporte: https://github.com/CanaimaGNULinux/canaimagnulinux.web.policy/issues

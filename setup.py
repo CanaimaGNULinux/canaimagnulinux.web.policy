@@ -38,7 +38,6 @@ setup(name='canaimagnulinux.web.policy',
           # -*- Extra requirements: -*-
           'Products.CMFPlacefulWorkflow',
           'plone.app.ldap==1.3.1',
-          'pas.plugins.velruse==0.1.0a1',
           'collective.geo.usersmap',
           'collective.googleanalytics',
           'collective.googlenews==1.0rc3',

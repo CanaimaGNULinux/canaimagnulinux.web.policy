@@ -10,13 +10,13 @@
     handlers.
   </import-step>
 
-<!-- 
-  <import-step id="canaimagnulinux.web.policy.import_zexps" 
-               version="20090819-01" 
-               handler="canaimagnulinux.web.policy.setuphandlers.importZEXPs" 
-               title="Canaima Aponwao: Import ZEXP"> 
-    <dependency step="skins" /> 
-    Import zexp objects into portal on Sun and Rain Theme theme installation 
-  </import-step> 
+<!--
+  <import-step id="canaimagnulinux.web.policy.import_zexps"
+               version="20090819-01"
+               handler="canaimagnulinux.web.policy.setuphandlers.importZEXPs"
+               title="Canaima Aponwao: Import ZEXP">
+    <dependency step="skins" />
+    Import zexp objects into portal on Sun and Rain Theme theme installation
+  </import-step>
 -->
 </import-steps>

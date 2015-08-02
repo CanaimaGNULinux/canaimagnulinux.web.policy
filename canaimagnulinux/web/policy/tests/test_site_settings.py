@@ -4,17 +4,18 @@
 This is an integration "unit" test for Site Settings
 """
 
-import unittest
-
 from Products.CMFCore.utils import getToolByName
 
 from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
+
+import unittest
+
 
 class SiteSettingsTestCase(unittest.TestCase):
     """
     The class that tests the Plone Site Settings.
     """
-    
+
     layer = INTEGRATION_TESTING
 
     def setUp(self):
@@ -23,28 +24,25 @@ class SiteSettingsTestCase(unittest.TestCase):
         self.portal_memberdata = getToolByName(self.portal, 'portal_memberdata')
         self.portal_properties = getToolByName(self.portal, 'portal_properties')
         self.mailhost = getToolByName(self.portal, 'MailHost')
-    
+
     def test_portal_title(self):
         """
         This method test that ensure the portal title is the same.
         """
         self.assertTrue("Portal Canaima GNU/Linux", self.portal.getProperty('title'))
-        
+
     def test_portal_description(self):
         """
         This method test that ensure the portal description is the same.
         """
-        self.assertTrue("Portal de la meta distribución Canaima GNU/Linux", 
+        self.assertTrue('Portal de la meta distribución Canaima GNU/Linux',
                         self.portal.getProperty('description'))
 
     def test_portal_memberdata_language(self):
         """
         This method test that ensure the memberdata language is the same.
         """
-        self.assertTrue(
-                "es",
-                self.portal_memberdata.getProperty('language')
-        )
+        self.assertTrue('es', self.portal_memberdata.getProperty('language'))
 
     def test_local_time_format(self):
         """

@@ -4,15 +4,17 @@
 This is an integration "unit" test.
 """
 
-import unittest
-
-from plone.app.testing import setRoles
-from plone.app.testing import TEST_USER_ID
-
 from Products.CMFCore.utils import getToolByName
 
-from canaimagnulinux.web.policy.config import PROJECTNAME, DEPENDENCIES
+from canaimagnulinux.web.policy.config import DEPENDENCIES
+from canaimagnulinux.web.policy.config import PROJECTNAME
 from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
+
+from plone.app.testing import TEST_USER_ID
+from plone.app.testing import setRoles
+
+import unittest
+
 
 class InstallTestCase(unittest.TestCase):
     """
@@ -36,9 +38,9 @@ class InstallTestCase(unittest.TestCase):
         """
         This method test that dependencies products are installed of this package.
         """
-        #for p in DEPENDENCIES:
-        #    self.assertTrue(self.qi.isProductInstalled(p),
-        #                    '%s not installed' % p)
+        # for p in DEPENDENCIES:
+        #     self.assertTrue(self.qi.isProductInstalled(p),
+        #                     '%s not installed' % p)
         expected = set(DEPENDENCIES)
         installed = self.qi.listInstalledProducts(showHidden=True)
         installed = set([product['id'] for product in installed])
@@ -46,8 +48,9 @@ class InstallTestCase(unittest.TestCase):
 
         self.assertTrue(
             result,
-            "These dependencies are not installed: " + ", ".join(result)
+            'These dependencies are not installed: ' + ', '.join(result)
         )
+
 
 class UninstallTestCase(unittest.TestCase):
 

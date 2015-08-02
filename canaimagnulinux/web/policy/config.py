@@ -4,7 +4,7 @@
 Contains constants used by setuphandler.py
 """
 
-from canaimagnulinux.web.policy import CanaimaPolicyMF as _
+# from canaimagnulinux.web.policy import CanaimaPolicyMF as _
 
 PROJECTNAME = 'canaimagnulinux.web.policy'
 
@@ -29,21 +29,20 @@ PRODUCT_DEPENDENCIES = [
     'collective.cover',
     'Products.Doormat',
     'Products.PloneFormGen',
-#    'Products.PloneSoftwareCenter',
+    # 'Products.PloneSoftwareCenter',
     'Products.PloneServicesCenter',
     'Products.ArchAddOn',
     'Products.FacultyStaffDirectory',
-    ]
+]
 
 PACKAGE_DEPENDENCIES = [
     'canaimagnulinux.web.theme',
-    ]
+]
 
 DEPENDENCIES = PRODUCT_DEPENDENCIES + PACKAGE_DEPENDENCIES
 
-MAILHOST_CONFIGURATION = {'configure':True,
-                         'smtphost':'localhost',
-                         'smtpport':25,
-                         'fromemailname':'Sitio Web Canaima GNU/Linux',
-                         'fromemailaddress':'soporte@canaima.softwarelibre.gob.ve'
-                        }
+MAILHOST_CONFIGURATION = {'configure': True,
+                          'smtphost': 'localhost',
+                          'smtpport': 25,
+                          'fromemailname': 'Sitio Web Canaima GNU/Linux',
+                          'fromemailaddress': 'soporte@canaima.softwarelibre.gob.ve'}

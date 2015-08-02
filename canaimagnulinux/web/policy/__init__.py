@@ -8,5 +8,6 @@ CanaimaPolicyMF = MessageFactory('canaimagnulinux.web.policy')
 
 GLOBALS = globals()
 
+
 def initialize(context):
     """Initializer called when used as a Zope 2 product."""

@@ -2,12 +2,17 @@ from setuptools import setup, find_packages
 import os
 
 version = '0.1'
+description = 'The Website for Canaima GNU/Linux project'
+long_description = (
+    open('README.rst').read() + '\n' +
+    open('CONTRIBUTORS.rst').read() + '\n' +
+    open(os.path.join('docs', 'HISTORY.txt')).read()
+)
 
 setup(name='canaimagnulinux.web.policy',
       version=version,
-      description="A Plone 4.3 policy product for customizing a Plone site",
-      long_description=open("README.txt").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      description=description,
+      long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[

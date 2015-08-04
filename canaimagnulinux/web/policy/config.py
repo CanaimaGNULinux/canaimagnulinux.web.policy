@@ -4,8 +4,6 @@
 Contains constants used by setuphandler.py
 """
 
-# from canaimagnulinux.web.policy import CanaimaPolicyMF as _
-
 PROJECTNAME = 'canaimagnulinux.web.policy'
 
 PRODUCT_DEPENDENCIES = [

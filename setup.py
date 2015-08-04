@@ -63,8 +63,14 @@ setup(name='canaimagnulinux.web.policy',
           'sc.social.like==2.1',
       ],
       extras_require={
-        'test': ['plone.app.testing'],
-        },
+          'test': [
+              'plone.app.robotframework',
+              'plone.app.testing [robot] >=4.2.2',
+              'plone.browserlayer',
+              'plone.testing',
+              'robotsuite',
+          ],
+      },
       entry_points="""
       # -*- Entry points: -*-
 

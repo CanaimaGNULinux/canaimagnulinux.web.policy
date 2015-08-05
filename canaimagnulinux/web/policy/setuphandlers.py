@@ -23,8 +23,7 @@ logger = logging.getLogger(PROJECTNAME)
 
 
 def constrain_types(folder, allowed_types):
-    """Constrain addable types in folder.
-    """
+    """ Constrain addable types in folder. """
 
     folder.setConstrainTypesMode(constraintypes.ENABLED)
     folder.setImmediatelyAddableTypes(allowed_types)
@@ -32,9 +31,7 @@ def constrain_types(folder, allowed_types):
 
 
 def set_workflow_policy(obj):
-    """
-    Cambiar el workflow del objeto utilizando CMFPlacefulWorkflow.
-    """
+    """ Change the workflow object using CMFPlacefulWorkflow. """
 
     obj.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
     pc = getattr(obj, WorkflowPolicyConfig_id)
@@ -43,10 +40,8 @@ def set_workflow_policy(obj):
 
 
 def createFolder(context, title, allowed_types=['Topic'], exclude_from_nav=False):
-    """
-    Crea una carpeta en el contexto especificado por omisión,
-    la carpeta contiene colecciones (Topic).
-    """
+    """ Create a folder in the context specified by default,
+        the folder contains collections (Topic). """
 
     id = idnormalizer.normalize(title, 'es')
     if not hasattr(context, id):
@@ -68,9 +63,7 @@ def createFolder(context, title, allowed_types=['Topic'], exclude_from_nav=False
 
 
 def createLink(context, title, link):
-    """
-    Crea y publica un vínculo en el contexto dado.
-    """
+    """ Create and publish a link in the given context. """
 
     id = idnormalizer.normalize(title, 'es')
     if not hasattr(context, id):
@@ -78,9 +71,7 @@ def createLink(context, title, link):
 
 
 def createPloneSoftwareCenter(context, title):
-    """
-    Crea un PloneSoftwareCenter en el contexto dado.
-    """
+    """ Creates a PloneSoftwareCenter in the given context. """
 
     id = idnormalizer.normalize(title, 'es')
     if not hasattr(context, id):
@@ -88,9 +79,7 @@ def createPloneSoftwareCenter(context, title):
 
 
 def createContentType(type, folder, title, subject, state, exclude_from_nav):
-    """
-    Create common Content Types.
-    """
+    """ Create common Content Types. """
 
     obj = api.content.create(type=type, title=title, container=folder)
     obj.setTitle(title)
@@ -115,10 +104,9 @@ def createContentType(type, folder, title, subject, state, exclude_from_nav):
 
 
 def createCollection(folder, title, type, subject, genre='Current', section=None):
-    """ Crea una colección de Artículos de noticias publicados, que pertenecen
-    al género y a la sección especificados; los ordena de forma descendente
-    por fecha de publicación, y les asigna una vista por defecto.
-    """
+    """ Create a collection of Articles items published, which belong
+        gender and the specified section; sorts them in descending
+        by date of publication, and assigns a default view. """
 
     # workflowTool = api.portal.get_tool(name='portal_workflow')
     collection = api.content.create(type='Collection', title=title, container=folder)
@@ -177,8 +165,7 @@ def createCollection(folder, title, type, subject, genre='Current', section=None
 
 
 def disable_mail_host(site):
-    """
-    """
+    """ Disabling configured smtp host before reinstalling """
 
     smtphost = ''
     try:
@@ -195,9 +182,7 @@ def disable_mail_host(site):
 
 
 def install_dependencies(site):
-    """
-    Install Products dependencies.
-    """
+    """ Install Products dependencies. """
 
     qi = api.portal.get_tool(name='portal_quickinstaller')
     for product in DEPENDENCIES:
@@ -210,9 +195,7 @@ def install_dependencies(site):
 
 
 def remove_default_content(site):
-    """
-    Remove the default Plone content.
-    """
+    """ Remove the default Plone content. """
 
     removable = ['news', 'events', 'front-page']
     for item in removable:
@@ -225,9 +208,7 @@ def remove_default_content(site):
 
 
 def create_site_structure(site):
-    """
-    Create the Canaima GNU/Linux Web site structure.
-    """
+    """ Create the Canaima GNU/Linux Web site structure. """
 
     # Exclude from navigation "Members" section
     members = site['Members']
@@ -780,9 +761,7 @@ def create_site_structure(site):
 
 
 def configure_site_properties(site):
-    """
-    Set the Site Title, Description and Properties
-    """
+    """ Set the Site Title, Description and Properties """
 
     properties = api.portal.get_tool(name='portal_properties')
     memberdata = api.portal.get_tool(name='portal_memberdata')
@@ -807,9 +786,7 @@ def configure_site_properties(site):
 
 
 def configure_mail_host(site):
-    """
-    Configuration for MailHost tool
-    """
+    """ Configuration for MailHost tool """
 
     try:
         mailHost = api.portal.get_tool('MailHost')
@@ -835,9 +812,7 @@ def configure_mail_host(site):
 
 
 def enable_mail_host(site, smtphost):
-    """
-    Enabling SMTP configuration host
-    """
+    """ Enabling SMTP configuration host """
 
     try:
         mailHost = api.portal.get_tool('MailHost')
@@ -850,9 +825,7 @@ def enable_mail_host(site, smtphost):
 
 
 def setup_nitf_settings():
-    """
-    Custom settings for collective.nitf
-    """
+    """ Custom settings for collective.nitf """
 
     settings = getUtility(IRegistry).forInterface(INITFSettings, False)
     settings.available_genres = [u'Actuality', u'Anniversary', u'Current', u'Exclusive', u'From the Scene', u'Interview', u'Opinion', u'Profile']
@@ -863,9 +836,7 @@ def setup_nitf_settings():
 
 
 def setup_nitf_google_news():
-    """
-    Setup collective.nitf content type in Google News
-    """
+    """ Setup collective.nitf content type in Google News """
 
     settings = getUtility(IRegistry).forInterface(GoogleNewsSettings, False)
     settings.portal_types = ['collective.nitf.content']
@@ -873,9 +844,7 @@ def setup_nitf_google_news():
 
 
 def setup_geo_settings():
-    """
-    Custom settings for collective.geo.usersmap
-    """
+    """ Custom settings for collective.geo.usersmap """
 
     import decimal
     settings = getUtility(IRegistry).forInterface(IGeoSettings, False)
@@ -887,9 +856,7 @@ def setup_geo_settings():
 
 
 def clear_and_rebuild_catalog(site):
-    """
-    Clear and rebuild catalog
-    """
+    """ Clear and rebuild catalog """
 
     catalog = api.portal.get_tool(name='portal_catalog')
     catalog.clearFindAndRebuild()
@@ -897,7 +864,7 @@ def clear_and_rebuild_catalog(site):
 
 
 def setupVarious(context):
-    """ miscellaneous import steps for setup """
+    """ Miscellaneous import steps for setup """
     # Ordinarily, GenericSetup handlers check for the existence of XML files.
     # Here, we are not parsing an XML file, but we use this text file as a
     # flag to check that we actually meant for this import step to be run.

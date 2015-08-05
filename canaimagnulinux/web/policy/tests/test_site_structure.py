@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-This is an integration "unit" test for Site Structure
-"""
+""" This is an integration "unit" test for Site Structure """
 
 from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
 
@@ -12,9 +10,7 @@ import unittest
 
 
 class SiteStructureTestCase(unittest.TestCase):
-    """
-    The class that tests the Plone Site Structure was created.
-    """
+    """ The class that tests the Plone Site Structure was created. """
 
     layer = INTEGRATION_TESTING
 

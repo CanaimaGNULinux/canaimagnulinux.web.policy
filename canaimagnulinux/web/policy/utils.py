@@ -2,7 +2,6 @@
 
 from App.config import getConfiguration
 from Globals import package_home
-# from Products.CMFCore.DirectoryView import addDirectoryViews
 from Products.CMFCore.utils import getToolByName
 from StringIO import StringIO
 from canaimagnulinux.web.policy import GLOBALS
@@ -18,8 +17,6 @@ from zLOG import LOG
 import os
 import re
 import transaction
-# import string
-# import sys
 
 IMPORT_POLICY = 'backup'
 
@@ -56,13 +53,9 @@ def getImportedPathes():
     product_ipath = osp.join(package_home(GLOBALS), 'import')
     # Check presence of Product import directory
     if not osp.isdir(product_ipath):
-        # raise BadRequest, "Skin Product's import directory '%s' - does not exist or is'nt direcory" % product_ipath
-        # raise BadRequest, "Skin Product's import directory '{0}' - does not exist or is'nt direcory".format(product_ipath)
         raise BadRequest("Skin Product's import directory '{0}' - does not exist or is'nt direcory".format(product_ipath))
     # Check presence of Instance import directory
     if not osp.isdir(instance_ipath):
-        # raise BadRequest, "Instance import directory '%s' - does not exist or isn't direcory" % instance_ipath
-        # raise BadRequest, "Instance import directory '{0}' - does not exist or isn't direcory".format(instance_ipath)
         raise BadRequest("Instance import directory '{0}' - does not exist or isn't direcory".format(instance_ipath))
     return [instance_ipath, product_ipath]
 
@@ -77,9 +70,7 @@ def copyFile(src_dir, dst_dir, f_name):
         dst_file.close()
         src_file.close()
     except Exception, e:
-        # msg = '!!! In copying files from < %s > dir to < %s > dir exception occur. Details: %s.' % (src_dir,dst_dir, str(e))
         msg = '!!! In copying files from < {0} > dir to < {1} > dir exception occur. Details: {2}.'.format(src_dir, dst_dir, str(e))
-        # print >> import_out, msg
         print >> msg
         LOG('performImportToPortal', INFO, 'copyFile', msg)
 
@@ -93,9 +84,7 @@ def moveToTemp(same_instance_files, instance_ipath, temp_dir_path):
         [copyFile(instance_ipath, temp_dir_path, f_name) for f_name in same_instance_files]
         [os.remove(osp.join(instance_ipath, f_name)) for f_name in same_instance_files]
     except Exception, e:
-        # msg = "!!! Exception occur during moving files from Instance's dir to temp dir. Detaile:%s." % str(e)
         msg = "!!! Exception occur during moving files from Instance's dir to temp dir. Detaile:{0}.".format(e)
-        # print >> import_out, msg
         print >> msg
         LOG('performImportToPortal', INFO, 'moveToTemp', msg)
 
@@ -104,12 +93,10 @@ def copyToInstanceImport():
     """ Perform copying imported files from <SkinProduct>/import dir
         to Plone's instance import dir.
     """
-    # print >> import_out, INTRO_TO_INSTANCE
     print >> INTRO_TO_INSTANCE
     instance_ipath, product_ipath = getImportedPathes()
 
     # Compose temp dir back_[date] dir path in Instance import directory
-    # temp_dir_id = "back_%s" % strftime("%Y%m%d%H%M%S", gmtime())
     temp_dir_id = 'back_{0}'.format(strftime("%Y%m%d%H%M%S", gmtime()))
     temp_dir_path = osp.join(instance_ipath, temp_dir_id)
 
@@ -127,7 +114,6 @@ def copyToInstanceImport():
 
     # Copy all *zexp files from Product's import dir to Instance's import dir
     [copyFile(product_ipath, instance_ipath, f_name) for f_name in product_ilist]
-    # print >> import_out, SUMMARY_TO_INSTANCE
     print >> SUMMARY_TO_INSTANCE
 
     return [instance_ipath, product_ipath, temp_dir_path, product_ilist]
@@ -154,10 +140,6 @@ def makeBackUp(portal, portal_objects, temp_dir_path, obj_id):
     # Get temp folder-object
     if temp_id not in portal_objects:
         portal.invokeFactory('Large Plone Folder', id=temp_id)
-        # print >> import_out, "! Created '%s' backup directory with same-ids " \
-        #                     "objects from portal root." % temp_id
-        # print >> import_out, '! Created \'{0}\' backup directory with same-ids ' \
-        #                     'objects from portal root.'.format(temp_id)
         print >> '! Created \'{0}\' backup directory with same-ids objects from portal root.'.format(temp_id)
     temp_dir = getattr(portal, temp_id)
 
@@ -167,8 +149,6 @@ def makeBackUp(portal, portal_objects, temp_dir_path, obj_id):
     obj = portal.manage_cutObjects(ids=[obj_id])
     temp_dir.manage_pasteObjects(obj)
 
-    # print >> import_out, "! '%s' Object moved from portal root to '%s' backup directory." % (obj_id, temp_id)
-    # print >> import_out, "! '{0}' Object moved from portal root to '{1}' backup directory.".format(obj_id, temp_id)
     print >> "! '{0}' Object moved from portal root to '{1}' backup directory.".format(obj_id, temp_id)
 
 
@@ -187,11 +167,8 @@ def performImport(portal, temp_dir_path, file_name):
             obj_id = is_invalid_id.group(1)
 
             if IMPORT_POLICY == 'only_new':
-                # msg = "! Object with '%s' id was not importing because it's already exist " \
-                #      "in portal root." % obj_id
                 msg = "! Object with '{0}' id was not importing because it's already exist " \
                       'in portal root.'.format(obj_id)
-                # print >> import_out, msg
                 print >> msg
             elif IMPORT_POLICY == 'backup':
                 makeBackUp(portal, portal_objects, temp_dir_path, obj_id)
@@ -209,11 +186,8 @@ def importToPortalRoot(portal, product_file_names, temp_dir_path):
     """ Import all objects from *zexp files to portal root (based on IMPORT_POLICY)."""
 
     if IMPORT_POLICY not in ALLOWED_IMPORT_POLICY:
-        # raise Exception("%s - wrong import policy, must be one of the %s" \
-        #                % (IMPORT_POLICY, ALLOWED_IMPORT_POLICY) )
         raise Exception('{0} - wrong import policy, must be one of the {1}'.format(IMPORT_POLICY, ALLOWED_IMPORT_POLICY))
 
-    # print >> import_out, INTRO_TO_ROOT % (product_file_names, IMPORT_POLICY)
     print >> INTRO_TO_ROOT.format(product_file_names, IMPORT_POLICY)
 
     for file_name in product_file_names:
@@ -228,19 +202,15 @@ def importToPortalRoot(portal, product_file_names, temp_dir_path):
             finally:
                 lpf_fti.global_allow = lpf_global_setting
         except Exception, error:
-            # msg = '!!! Under "%s" policy importing exception occur: %s.' % (IMPORT_POLICY, str(error))
             msg = '!!! Under "{0}" policy importing exception occur: {1}.'.format(IMPORT_POLICY, str(error))
-            # print >> import_out, msg
             print >> msg
             LOG('performImportToPortal', INFO, 'importToPortalRoot', msg)
-    # print >> import_out, SUMMARY_TO_ROOT
     print >> SUMMARY_TO_ROOT
 
 
 def cleanInstanceImport(instance_ipath, product_file_names, temp_dir_path):
     """ Cleaning Plone's import dir."""
 
-    # print >> import_out, INTRO_CLEAN
     print >> INTRO_CLEAN
 
     # Erase all copied *zexp files from Instance's import dir
@@ -250,10 +220,7 @@ def cleanInstanceImport(instance_ipath, product_file_names, temp_dir_path):
         if osp.exists(f_path) and osp.isfile(f_path):
             os.remove(f_path)
         else:
-            # msg = '! "%s" file was not deleted from "%s" import directory.' %\
-            #       (f_name, osp.join(instance_ipath))
             msg = '! "{0}" file was not deleted from "{1}" import directory.'.format(f_name, osp.join(instance_ipath))
-            # print >> import_out, msg
             print >> msg
             LOG('performImportToPortal', INFO, 'cleanInstanceImport', msg)
 
@@ -270,11 +237,9 @@ def cleanInstanceImport(instance_ipath, product_file_names, temp_dir_path):
         # except Exception as e:
         except Exception:
             msg = "!!! In moving files from temp dir to Instance's import dir exception occur."
-            # print >> import_out, msg
             print >> msg
             LOG('performImportToPortal', INFO, 'moveFromTempToImport', msg)
 
-    # print >> import_out, SUMMARY_CLEAN
     print >> SUMMARY_CLEAN
 
 
@@ -304,7 +269,6 @@ def performImportToPortal(portal):
         fixImportingIssues(portal, beforeimporting_objects)
         cleanInstanceImport(instance_ipath, product_file_names, temp_dir_path)
     else:
-        # print >> import_out, '!!! Failure importing: there is no file for importing to be found.'
         print >> import_out, '!!! Failure importing: there is no file for importing to be found.'
 
     result = import_out.getvalue()

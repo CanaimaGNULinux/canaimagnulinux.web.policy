@@ -18,15 +18,17 @@
 .svn/
 .project
 .pydevproject
+*.sublime-*
 bin/
 build/
 develop-eggs/
+dist/
 downloads/
 eggs/
 fake-eggs/
 htmlcov/
 parts/
-dist/
+src/
 var/
 
 

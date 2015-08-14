@@ -219,14 +219,6 @@ def remove_default_content(site):
 def create_site_structure(site):
     """ Create the Canaima GNU/Linux Web site structure. """
 
-    # Rename "Servicios empresariales" section
-    obj = site['support']
-    api.content.rename(obj=obj, new_id='servicios-empresariales')
-    title = u'Servicios empresariales'
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    logger.info('Renamed the {0} item'.format(obj))
-
     # Create "Portada" item
     title = u'Portada'
     obj = api.content.create(type='collective.cover.content', title=title, container=site)
@@ -374,24 +366,6 @@ def create_site_structure(site):
     # constrain_types(obj, obj_constrain_types)
     api.content.transition(obj, 'publish')
     logger.info('Created the {0} item'.format(obj))
-
-    obj_source = site['servicios-empresariales']
-    obj_target = site['soporte-y-aprendizaje']['mercado-de-servicios']
-    api.content.move(source=obj_source, target=obj_target)
-    logger.info('Moved from {0} to {1} item'.format(obj_source, obj_target))
-
-    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['providers']
-    api.content.rename(obj=obj, new_id='proveedores')
-    title = u'Proveedores'
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    logger.info('Renamed the {0} item'.format(obj))
-
-    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['sites']
-    api.content.delete(obj=obj)
-
-    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['case-studies']
-    api.content.delete(obj=obj)
 
     # Create "Descargas" section
     title = u'Descargas'
@@ -543,6 +517,40 @@ def create_site_structure(site):
     obj = site['proyectos']
     obj.setExcludeFromNav(True)
     logger.info('All site structure created')
+
+
+def set_support_section(site):
+    """ Rename the "support" folder as "Servicios empresariales" section. """
+
+    obj = site['support']
+    api.content.rename(obj=obj, new_id='servicios-empresariales')
+    title = u'Servicios empresariales'
+    description = 'Existen diversas áreas de servicios que ofrecen los proveedores de servicios comerciales en Canaima.'
+    obj.setTitle(title)
+    obj.setDescription(description)
+    obj.reindexObject('Title')
+    obj.reindexObject('Description')
+    logger.info('Renamed the {0} item'.format(obj))
+
+    obj_source = site['servicios-empresariales']
+    obj_target = site['soporte-y-aprendizaje']['mercado-de-servicios']
+    api.content.move(source=obj_source, target=obj_target)
+    logger.info('Moved from {0} to {1} item'.format(obj_source, obj_target))
+
+    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['providers']
+    api.content.rename(obj=obj, new_id='proveedores')
+    title = u'Proveedores'
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    logger.info('Renamed the {0} item'.format(obj))
+
+    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['sites']
+    api.content.delete(obj=obj)
+    logger.info('Deleted the {0} item'.format(obj))
+
+    obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['case-studies']
+    api.content.delete(obj=obj)
+    logger.info('Deleted the {0} item'.format(obj))
 
 
 def set_footer_site(site):
@@ -890,6 +898,7 @@ def setupVarious(context):
     exclude_from_navigation_default_content(portal)
     remove_default_content(portal)
     create_site_structure(portal)
+    set_support_section(portal)
     set_footer_site(portal)
     configure_site_properties(portal)
     configure_mail_host(portal)

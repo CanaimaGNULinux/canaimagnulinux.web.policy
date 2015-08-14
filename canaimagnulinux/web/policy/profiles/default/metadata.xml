@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <metadata>
   <version>1000</version>
-<!--
   <dependencies>
-   <dependency>profile-Products.ArchAddOn:default</dependency>
+   <!--<dependency>profile-Products.ArchAddOn:default</dependency>-->
    <dependency>profile-Products.CMFPlacefulWorkflow:CMFPlacefulWorkflow</dependency>
    <dependency>profile-Products.Doormat:default</dependency>
    <dependency>profile-Products.FacultyStaffDirectory:default</dependency>
@@ -11,7 +10,7 @@
    <dependency>profile-Products.PloneServicesCenter:default</dependency>
    <dependency>profile-Products.PloneSoftwareCenter:default</dependency>
    <dependency>profile-plone.app.ldap:ldap</dependency>
-   <dependency>profile-canaimagnulinux.web.locales:default</dependency>
+   <!--<dependency>profile-canaimagnulinux.web.locales:default</dependency>-->
    <dependency>profile-canaimagnulinux.web.theme:default</dependency>
    <dependency>profile-collective.cover:default</dependency>
    <dependency>profile-collective.geo.usersmap:default</dependency>
@@ -26,5 +25,4 @@
    <dependency>profile-collective.upload:default</dependency>
    <dependency>profile-sc.social.like:default</dependency>
   </dependencies>
--->
 </metadata>

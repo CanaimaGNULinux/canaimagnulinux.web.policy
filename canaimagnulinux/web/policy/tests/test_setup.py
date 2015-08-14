@@ -31,6 +31,7 @@ DEPENDENCIES = [
     'collective.googleanalytics',
     'collective.googlenews',
     'collective.nitf',
+    'collective.opendata',
     'collective.polls',
     'collective.twitter.portlets',
     'collective.twitter.tweet',

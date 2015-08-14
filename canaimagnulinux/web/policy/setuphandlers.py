@@ -4,6 +4,7 @@
 from Products.ATContentTypes.lib import constraintypes
 from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 
+from canaimagnulinux.web.policy.config import DEFAULT_CONTENT
 from canaimagnulinux.web.policy.config import DEPENDENCIES
 from canaimagnulinux.web.policy.config import MAILHOST_CONFIGURATION
 from canaimagnulinux.web.policy.config import PROJECTNAME
@@ -206,8 +207,7 @@ def exclude_from_navigation_default_content(site):
 def remove_default_content(site):
     """ Remove the default Plone content. """
 
-    removable = ['news', 'events', 'front-page']
-    for item in removable:
+    for item in DEFAULT_CONTENT:
         if hasattr(site, item):
             try:
                 api.content.delete(obj=site[item])

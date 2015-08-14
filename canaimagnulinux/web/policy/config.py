@@ -6,6 +6,9 @@ Contains constants used by setuphandler.py
 
 PROJECTNAME = 'canaimagnulinux.web.policy'
 
+# content created at Plone's installation
+DEFAULT_CONTENT = ('front-page', 'news', 'events')
+
 DEPENDENCIES = [
     'CMFPlacefulWorkflow',
 ]

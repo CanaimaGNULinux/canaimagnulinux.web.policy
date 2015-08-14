@@ -227,224 +227,6 @@ def create_site_structure(site):
     obj.reindexObject('Title')
     logger.info('Renamed the {0} item'.format(obj))
 
-    # Rename "Pie de pagina" section
-    obj = site['doormat']
-    api.content.rename(obj=obj, new_id='pie-de-pagina')
-    title = u'Pie de pagina'
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj.setShowTitle(False)
-    api.content.transition(obj, 'publish')
-    logger.info('Renamed the {0} item'.format(obj))
-
-    # Column 1
-    title = u'Columna 1'
-    obj = site['pie-de-pagina']['column-1']
-    api.content.rename(obj=obj, new_id='columna-1')
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj.setShowTitle(False)
-    api.content.transition(obj, 'publish')
-    logger.info('Renamed the {0} item'.format(obj))
-
-    obj = site['pie-de-pagina']['columna-1']['section-1']
-    api.content.rename(obj=obj, new_id='canaima')
-    title = u'Canaima'
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    api.content.transition(obj, 'publish')
-    logger.info('Renamed the {0} item'.format(obj))
-
-    obj = site['pie-de-pagina']['columna-1']['canaima']['document-1']
-    api.content.delete(obj=obj)
-    logger.info('Deleted the {0} item'.format(obj))
-
-    title = u'Conozca Canaima'
-    obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Características'
-    obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'¿Qué hay de nuevo?'
-    obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Testimonios'
-    obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Casos de éxito'
-    obj_target = site['pie-de-pagina']['columna-1']['canaima']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    # Column 2
-    title = u'Columna 2'
-    obj_target = site['pie-de-pagina']
-    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj.setShowTitle(False)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Soluciones'
-    obj_target = site['pie-de-pagina']['columna-2']
-    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
-
-    title = u'Sector gobierno'
-    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Sector comunal'
-    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Geomática'
-    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    # Column 3
-    title = u'Columna 3'
-    obj_target = site['pie-de-pagina']
-    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj.setShowTitle(False)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Soporte y Aprendizaje'
-    obj_target = site['pie-de-pagina']['columna-3']
-    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
-
-    title = u'Necesita ayuda'
-    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Quiero aprender'
-    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Consultoría'
-    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Mercado de servicios'
-    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    # Column 4
-    title = u'Columna 4'
-    obj_target = site['pie-de-pagina']
-    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj.setShowTitle(False)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Descargas'
-    obj_target = site['pie-de-pagina']['columna-4']
-    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
-
-    title = u'Obtener Canaima'
-    obj_target = site['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Obtener códigos fuentes'
-    obj_target = site['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Complementos del RNA'
-    obj_target = site['pie-de-pagina']['columna-4']['descargas']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    # Column 5
-    title = u'Columna 5'
-    obj_target = site['pie-de-pagina']
-    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj.setShowTitle(False)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Comunidad'
-    obj_target = site['pie-de-pagina']['columna-5']
-    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
-
-    title = u'Unirte a Canaima'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Estar conectado'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Organización'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Equipos'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Forja'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Reuniones'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Grupo'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Opinión'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Galería de diseño'
-    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    # Column 6
-    title = u'Columna 6'
-    obj_target = site['pie-de-pagina']
-    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj.setShowTitle(False)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Novedades'
-    obj_target = site['pie-de-pagina']['columna-6']
-    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
-
-    title = u'Blogs'
-    obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Comunidad'
-    obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Gobierno'
-    obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Discusiones'
-    obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
-    title = u'Actividades'
-    obj_target = site['pie-de-pagina']['columna-6']['novedades']
-    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
-
     # Create "Portada" item
     title = u'Portada'
     obj = api.content.create(type='collective.cover.content', title=title, container=site)
@@ -763,6 +545,229 @@ def create_site_structure(site):
     logger.info('All site structure created')
 
 
+def set_footer_site(site):
+    """ Rename the doormat item as "Pie de pagina" section. """
+
+    obj = site['doormat']
+    api.content.rename(obj=obj, new_id='pie-de-pagina')
+    title = u'Pie de pagina'
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    obj.setShowTitle(False)
+    api.content.transition(obj, 'publish')
+    logger.info('Renamed the {0} item'.format(obj))
+
+    # Column 1
+    title = u'Columna 1'
+    obj = site['pie-de-pagina']['column-1']
+    api.content.rename(obj=obj, new_id='columna-1')
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    obj.setShowTitle(False)
+    api.content.transition(obj, 'publish')
+    logger.info('Renamed the {0} item'.format(obj))
+
+    obj = site['pie-de-pagina']['columna-1']['section-1']
+    api.content.rename(obj=obj, new_id='canaima')
+    title = u'Canaima'
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    api.content.transition(obj, 'publish')
+    logger.info('Renamed the {0} item'.format(obj))
+
+    obj = site['pie-de-pagina']['columna-1']['canaima']['document-1']
+    api.content.delete(obj=obj)
+    logger.info('Deleted the {0} item'.format(obj))
+
+    title = u'Conozca Canaima'
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Características'
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'¿Qué hay de nuevo?'
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Testimonios'
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Casos de éxito'
+    obj_target = site['pie-de-pagina']['columna-1']['canaima']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    # Column 2
+    title = u'Columna 2'
+    obj_target = site['pie-de-pagina']
+    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    obj.setShowTitle(False)
+    api.content.transition(obj, 'publish')
+    logger.info('Created the {0} item'.format(obj))
+
+    title = u'Soluciones'
+    obj_target = site['pie-de-pagina']['columna-2']
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
+
+    title = u'Sector gobierno'
+    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Sector comunal'
+    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Geomática'
+    obj_target = site['pie-de-pagina']['columna-2']['soluciones']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    # Column 3
+    title = u'Columna 3'
+    obj_target = site['pie-de-pagina']
+    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    obj.setShowTitle(False)
+    api.content.transition(obj, 'publish')
+    logger.info('Created the {0} item'.format(obj))
+
+    title = u'Soporte y Aprendizaje'
+    obj_target = site['pie-de-pagina']['columna-3']
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
+
+    title = u'Necesita ayuda'
+    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Quiero aprender'
+    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Consultoría'
+    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Mercado de servicios'
+    obj_target = site['pie-de-pagina']['columna-3']['soporte-y-aprendizaje']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    # Column 4
+    title = u'Columna 4'
+    obj_target = site['pie-de-pagina']
+    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    obj.setShowTitle(False)
+    api.content.transition(obj, 'publish')
+    logger.info('Created the {0} item'.format(obj))
+
+    title = u'Descargas'
+    obj_target = site['pie-de-pagina']['columna-4']
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
+
+    title = u'Obtener Canaima'
+    obj_target = site['pie-de-pagina']['columna-4']['descargas']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Obtener códigos fuentes'
+    obj_target = site['pie-de-pagina']['columna-4']['descargas']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Complementos del RNA'
+    obj_target = site['pie-de-pagina']['columna-4']['descargas']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    # Column 5
+    title = u'Columna 5'
+    obj_target = site['pie-de-pagina']
+    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    obj.setShowTitle(False)
+    api.content.transition(obj, 'publish')
+    logger.info('Created the {0} item'.format(obj))
+
+    title = u'Comunidad'
+    obj_target = site['pie-de-pagina']['columna-5']
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
+
+    title = u'Unirte a Canaima'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Estar conectado'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Organización'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Equipos'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Forja'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Reuniones'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Grupo'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Opinión'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Galería de diseño'
+    obj_target = site['pie-de-pagina']['columna-5']['comunidad']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    # Column 6
+    title = u'Columna 6'
+    obj_target = site['pie-de-pagina']
+    obj = api.content.create(type='DoormatColumn', title=title, container=obj_target)
+    obj.setTitle(title)
+    obj.reindexObject('Title')
+    obj.setShowTitle(False)
+    api.content.transition(obj, 'publish')
+    logger.info('Created the {0} item'.format(obj))
+
+    title = u'Novedades'
+    obj_target = site['pie-de-pagina']['columna-6']
+    createContentType('DoormatSection', obj_target, title, None, 'publish', False)
+
+    title = u'Blogs'
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Comunidad'
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Gobierno'
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Discusiones'
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    title = u'Actividades'
+    obj_target = site['pie-de-pagina']['columna-6']['novedades']
+    createContentType('DoormatReference', obj_target, title, None, 'publish', False)
+
+    logger.info(u'Set the footer item for Portal')
+
+
 def configure_site_properties(site):
     """ Set the Site Title, Description and Properties """
 
@@ -885,6 +890,7 @@ def setupVarious(context):
     exclude_from_navigation_default_content(portal)
     remove_default_content(portal)
     create_site_structure(portal)
+    set_footer_site(portal)
     configure_site_properties(portal)
     configure_mail_host(portal)
     # Do this last so that mail smtp host configured before reinstallation will be maintained.

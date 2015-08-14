@@ -194,6 +194,15 @@ def install_dependencies(site):
             logger.info('Reinstalled {0}'.format(product))
 
 
+def exclude_from_navigation_default_content(site):
+    """ Exclude from navigation "Members" section. """
+
+    members = site['Members']
+    members.setExcludeFromNav(True)
+    # site['Members'].setExcludeFromNav(True)
+    logger.info('Excluded from Nav {0} item'.format(site))
+
+
 def remove_default_content(site):
     """ Remove the default Plone content. """
 
@@ -209,12 +218,6 @@ def remove_default_content(site):
 
 def create_site_structure(site):
     """ Create the Canaima GNU/Linux Web site structure. """
-
-    # Exclude from navigation "Members" section
-    members = site['Members']
-    members.setExcludeFromNav(True)
-    # site['Members'].setExcludeFromNav(True)
-    logger.info('Excluded from Nav {0} item'.format(site))
 
     # Rename "Servicios empresariales" section
     obj = site['support']
@@ -879,6 +882,7 @@ def setupVarious(context):
     # Do this first so that reinstallation will not fire any notifications if any
     old_smtphost = disable_mail_host(portal)
     install_dependencies(portal)
+    exclude_from_navigation_default_content(portal)
     remove_default_content(portal)
     create_site_structure(portal)
     configure_site_properties(portal)

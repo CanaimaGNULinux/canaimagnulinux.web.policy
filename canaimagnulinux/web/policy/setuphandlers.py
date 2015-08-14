@@ -519,6 +519,12 @@ def create_site_structure(site):
     logger.info('All site structure created')
 
 
+def set_site_default_page(site):
+    """Set front page as site default page."""
+    site.setDefaultPage('front-page')
+    logger.info(u'Set item as default page for Portal')
+
+
 def set_support_section(site):
     """ Rename the "support" folder as "Servicios empresariales" section. """
 
@@ -898,6 +904,7 @@ def setupVarious(context):
     exclude_from_navigation_default_content(portal)
     remove_default_content(portal)
     create_site_structure(portal)
+    set_site_default_page(portal)
     set_support_section(portal)
     set_footer_site(portal)
     configure_site_properties(portal)

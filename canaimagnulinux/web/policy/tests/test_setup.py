@@ -9,6 +9,9 @@ from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
 
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
+from plone.registry.interfaces import IRegistry
+
+from zope.component import getUtility
 
 import unittest
 
@@ -53,6 +56,7 @@ class BaseTestCase(unittest.TestCase):
         self.qi = self.portal['portal_quickinstaller']
         self.wt = self.portal['portal_workflow']
         self.st = self.portal['portal_setup']
+        self.registry = getUtility(IRegistry)
 
 
 class InstallTestCase(BaseTestCase):
@@ -76,6 +80,41 @@ class InstallTestCase(BaseTestCase):
             result,
             'These dependencies are not installed: ' + ', '.join(result)
         )
+
+
+class DependenciesSettingsTestCase(BaseTestCase):
+    """Ensure package dependencies are properly configured."""
+
+    def test_collective_upload_settings(self):
+        from collective.upload.interfaces import IUploadSettings
+        settings = self.registry.forInterface(IUploadSettings)
+        expected = 'gif, jpeg, jpg, png, pdf, txt, ods, odt, odp, html, csv, zip, tgz, bz2'
+        self.assertEqual(settings.upload_extensions, expected)
+        # self.assertEqual(settings.max_file_size, 10485760)
+        # self.assertEqual(settings.resize_max_width, 3872)
+        # self.assertEqual(settings.resize_max_height, 3872)
+
+    def test_nitf_settings(self):
+        from collective.nitf.controlpanel import INITFSettings
+        settings = self.registry.forInterface(INITFSettings)
+        self.assertEqual(settings.available_genres, [u'Actuality', u'Anniversary', u'Current', u'Exclusive', u'From the Scene', u'Interview', u'Opinion', u'Profile'])
+        self.assertEqual(settings.available_sections, set([u'Canaima', u'Novedades', u'Comunidad', u'Soporte y Aprendizaje', u'Soluciones', u'Descargas']))
+        self.assertEqual(settings.default_genre, u'Current')
+        self.assertEqual(settings.default_section, u'Novedades')
+
+    def test_nitf_google_news(self):
+        from collective.googlenews.interfaces import GoogleNewsSettings
+        settings = self.registry.forInterface(GoogleNewsSettings)
+        self.assertEqual(settings.portal_types, ['collective.nitf.content'])
+
+    def test_geo_settings(self):
+        from collective.geo.settings.interfaces import IGeoSettings
+        import decimal
+        settings = self.registry.forInterface(IGeoSettings)
+        self.assertEqual(settings.default_layers, [u'osm'])
+        self.assertEqual(settings.zoom, decimal.Decimal(6))
+        self.assertEqual(settings.longitude, decimal.Decimal(6.423750000000001))
+        self.assertEqual(settings.latitude, decimal.Decimal(-66.58973000000024))
 
 
 class UninstallTestCase(BaseTestCase):

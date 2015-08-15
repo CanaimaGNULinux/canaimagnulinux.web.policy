@@ -7,6 +7,7 @@ from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConf
 from canaimagnulinux.web.policy.config import DEFAULT_CONTENT
 from canaimagnulinux.web.policy.config import DEPENDENCIES
 from canaimagnulinux.web.policy.config import MAILHOST_CONFIGURATION
+from canaimagnulinux.web.policy.config import PROFILE_ID as PROFILE_NAME
 from canaimagnulinux.web.policy.config import PROJECTNAME
 
 from collective.geo.settings.interfaces import IGeoSettings
@@ -877,6 +878,17 @@ def setup_geo_settings():
     logger.info('Configured collective.geo.usersmap')
 
 
+def import_registry_settings():
+    """Import registry settings; we need to do this before other stuff here,
+    like using a cover layout defined there.
+
+    XXX: I don't know if there is other way to do this on ZCML or XML.
+    """
+    PROFILE_ID = 'profile-{0}'.format(PROFILE_NAME)
+    setup = api.portal.get_tool('portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
+
+
 def clear_and_rebuild_catalog(site):
     """ Clear and rebuild catalog """
 
@@ -914,4 +926,5 @@ def setupVarious(context):
     setup_nitf_settings()
     setup_nitf_google_news()
     setup_geo_settings()
+    import_registry_settings()
     clear_and_rebuild_catalog(portal)

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<registry>
+
+  <!-- collective.upload settings -->
+  <record name="collective.upload.interfaces.IUploadSettings.upload_extensions">
+    <value>gif, jpeg, jpg, png, pdf, txt, ods, odt, odp, html, csv, zip, tgz, bz2</value>
+  </record>
+
+</registry>

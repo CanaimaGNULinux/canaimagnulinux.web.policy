@@ -3,6 +3,7 @@
 """ This is an integration "unit" test. """
 
 from canaimagnulinux.web.policy.config import DEPENDENCIES as ZOPE2_STYLE_PRODUCTS
+from canaimagnulinux.web.policy.config import PROFILE_ID
 from canaimagnulinux.web.policy.config import PROJECTNAME
 from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
 
@@ -45,7 +46,7 @@ class BaseTestCase(unittest.TestCase):
 
     layer = INTEGRATION_TESTING
 
-    profile = 'canaimagnulinux.web.policy:default'
+    profile = PROFILE_ID
 
     def setUp(self):
         self.portal = self.layer['portal']

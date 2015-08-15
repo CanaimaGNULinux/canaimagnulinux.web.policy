@@ -12,16 +12,7 @@ from plone.app.testing import setRoles
 import unittest
 
 DEPENDENCIES = [
-    'Products.ArchAddOn',
-    'Products.Doormat',
-    'Products.FacultyStaffDirectory',
-    'Products.PloneFormGen',
-    'Products.PloneServicesCenter',
-    'Products.PloneSoftwareCenter',
-    'plone.api',
-    'plone.contentratings',
-    'plone.app.caching',
-    'plone.app.ldap',
+    'ArchAddOn',
     'canaimagnulinux.web.theme',
     'cioppino.twothumbs',
     'collective.cover',
@@ -36,6 +27,15 @@ DEPENDENCIES = [
     'collective.twitter.portlets',
     'collective.twitter.tweet',
     'collective.upload',
+    'Doormat',
+    'FacultyStaffDirectory',
+    'PloneFormGen',
+    'PloneServicesCenter',
+    'PloneSoftwareCenter',
+    'plone.api',
+    'plone.contentratings',
+    'plone.app.caching',
+    'plone.app.ldap',
     'sc.social.like',
 ] + ZOPE2_STYLE_PRODUCTS
 

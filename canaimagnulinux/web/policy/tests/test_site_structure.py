@@ -17,6 +17,12 @@ class SiteStructureTestCase(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         self.member_folder = self.portal['Member']
+        self.existing = self.portal.objectIds()
+
+    def test_default_content_exclude_from_navigation(self):
+        """ This method test that the default content are exclude from navigation. """
+        self.assertIn('Member', self.existing)
+        self.assertEqual(self.member_folder.getExcludeFromNav(), True)
 
     def test_default_content_is_removed(self):
         """ This method test that the default content is removed. """
@@ -35,10 +41,10 @@ class SiteStructureTestCase(unittest.TestCase):
         self.assertIn('comunidad', existing)
         self.assertIn('novedades', existing)
         self.assertIn('portada', existing)
+
+    def test_site_default_page_defined(self):
+        """ This method test if the site default page is defined. """
         self.assertEqual(self.portal.getDefaultPage(), 'portada')
-        self.assertIn('Member', existing)
-        self.assertEqual(self.member_folder.getExcludeFromNav(), True)
-        self.assertIn('pie-de-pagina', existing)
 
     def test_canaima_folder(self):
         """ This method test if the items children of canaima folder are existing. """
@@ -72,3 +78,7 @@ class SiteStructureTestCase(unittest.TestCase):
         self.assertEqual(folder.getLocallyAllowedTypes(), types)
         self.assertEqual(api.content.get_state(folder), 'published')
         self.assertEqual(folder.getLayout(), '@@usersmap_view')
+
+    def test_footer_defined(self):
+        """ This method test if the footer item is defined. """
+        self.assertIn('pie-de-pagina', self.existing)

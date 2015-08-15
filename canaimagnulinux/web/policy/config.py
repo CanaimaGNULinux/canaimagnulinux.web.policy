@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""
-Contains constants used by setuphandler.py
-"""
+""" Contains constants used by setuphandler.py """
 
 PROJECTNAME = 'canaimagnulinux.web.policy'
 PROFILE_ID = '{0}:default'.format(PROJECTNAME)
@@ -11,7 +9,13 @@ PROFILE_ID = '{0}:default'.format(PROJECTNAME)
 DEFAULT_CONTENT = ('front-page', 'news', 'events')
 
 DEPENDENCIES = [
+    'ArchAddOn',
     'CMFPlacefulWorkflow',
+    'Doormat',
+    'FacultyStaffDirectory',
+    'PloneFormGen',
+    'PloneServicesCenter',
+    'PloneSoftwareCenter',
 ]
 
 MAILHOST_CONFIGURATION = {

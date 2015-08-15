@@ -522,7 +522,7 @@ def create_site_structure(site):
 
 def set_site_default_page(site):
     """Set front page as site default page."""
-    site.setDefaultPage('front-page')
+    site.setDefaultPage('portada')
     logger.info(u'Set item as default page for Portal')
 
 

@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
-
 from Products.ATContentTypes.lib import constraintypes
-from Products.CMFPlacefulWorkflow.PlacefulWorkflowTool import WorkflowPolicyConfig_id
 
+from canaimagnulinux.web.policy.config import CREATORS
 from canaimagnulinux.web.policy.config import DEFAULT_CONTENT
 from canaimagnulinux.web.policy.config import DEPENDENCIES
 from canaimagnulinux.web.policy.config import MAILHOST_CONFIGURATION
 from canaimagnulinux.web.policy.config import PROFILE_ID as PROFILE_NAME
 from canaimagnulinux.web.policy.config import PROJECTNAME
+from canaimagnulinux.web.policy.config import SITE_STRUCTURE
 
 from collective.disqus.interfaces import IDisqusSettings
 from collective.geo.settings.interfaces import IGeoSettings
@@ -17,7 +17,6 @@ from collective.googlenews.interfaces import GoogleNewsSettings
 from collective.nitf.controlpanel import INITFSettings
 
 from plone import api
-from plone.i18n.normalizer import idnormalizer
 from plone.registry.interfaces import IRegistry
 
 from zope.component import getUtility
@@ -32,54 +31,6 @@ def constrain_types(folder, allowed_types):
     folder.setConstrainTypesMode(constraintypes.ENABLED)
     folder.setImmediatelyAddableTypes(allowed_types)
     folder.setLocallyAllowedTypes(allowed_types)
-
-
-def set_workflow_policy(obj):
-    """ Change the workflow object using CMFPlacefulWorkflow. """
-
-    obj.manage_addProduct['CMFPlacefulWorkflow'].manage_addWorkflowPolicyConfig()
-    pc = getattr(obj, WorkflowPolicyConfig_id)
-    pc.setPolicyIn(policy='one-state')
-    logger.info('Workflow changed for element {0}'.format(obj.getId()))
-
-
-def createFolder(context, title, allowed_types=['Topic'], exclude_from_nav=False):
-    """ Create a folder in the context specified by default,
-        the folder contains collections (Topic). """
-
-    id = idnormalizer.normalize(title, 'es')
-    if not hasattr(context, id):
-        context.invokeFactory('Folder', id=id, title=title)
-        folder = context[id]
-        folder.setConstrainTypesMode(constraintypes.ENABLED)
-        folder.setLocallyAllowedTypes(allowed_types)
-        folder.setImmediatelyAddableTypes(allowed_types)
-        # set_workflow_policy(folder)
-        if exclude_from_nav:
-            folder.setExcludeFromNav(True)
-        folder.reindexObject()
-    else:
-        folder = context[id]
-        folder.setLocallyAllowedTypes(allowed_types)
-        folder.setImmediatelyAddableTypes(allowed_types)
-        # reindexamos para que el catálogo se entere de los cambios
-        folder.reindexObject()
-
-
-def createLink(context, title, link):
-    """ Create and publish a link in the given context. """
-
-    id = idnormalizer.normalize(title, 'es')
-    if not hasattr(context, id):
-        context.invokeFactory('Link', id=id, title=title, remoteUrl=link)
-
-
-def createPloneSoftwareCenter(context, title):
-    """ Creates a PloneSoftwareCenter in the given context. """
-
-    id = idnormalizer.normalize(title, 'es')
-    if not hasattr(context, id):
-        context.invokeFactory('PloneSoftwareCenter', id=id, title=title)
 
 
 def createContentType(type, folder, title, subject, state, exclude_from_nav):
@@ -105,67 +56,6 @@ def createContentType(type, folder, title, subject, state, exclude_from_nav):
         pass
 
     logger.info('Created the {0} item'.format(obj))
-
-
-def createCollection(folder, title, type, subject, genre='Current', section=None):
-    """ Create a collection of Articles items published, which belong
-        gender and the specified section; sorts them in descending
-        by date of publication, and assigns a default view. """
-
-    # workflowTool = api.portal.get_tool(name='portal_workflow')
-    collection = api.content.create(type='Collection', title=title, container=folder)
-    collection.setTitle(title)
-
-    query = []
-    # tipo de contenido
-    query.append({'i': 'portal_type',
-                  'o': 'plone.app.querystring.operation.selection.is',
-                  'v': [type]})
-
-    # categoría
-    if subject is not None:
-
-        query.append({'i': 'Subject',
-                      'o': 'plone.app.querystring.operation.selection.is',
-                      'v': [subject]})
-
-    if 'collective.nitf.content' in type:
-
-        # género
-        if genre is not None:
-
-            query.append({'i': 'genre',
-                          'o': 'plone.app.querystring.operation.selection.is',
-                          'v': [genre]})
-
-        # sección
-        if section is not None:
-
-            query.append({'i': 'section',
-                          'o': 'plone.app.querystring.operation.selection.is',
-                          'v': [section]})
-
-    # estado
-    query.append({'i': 'review_state',
-                  'o': 'plone.app.querystring.operation.selection.is',
-                  'v': ['published']})
-
-    # orden
-    sort_on = u'effective'
-
-    # vista por defecto
-    default_view = 'standard_view'
-
-    collection.query = query
-    collection.sort_on = sort_on
-    collection.setLayout(default_view)
-
-    # Publicamos
-    api.content.transition(collection, 'publish')
-
-    # reindexamos para que el catálogo se entere de los cambios
-    collection.reindexObject()
-    logger.info('Created the {0} Section'.format(collection))
 
 
 def disable_mail_host(site):
@@ -219,306 +109,46 @@ def remove_default_content(site):
                 logger.info('No {0} item detected. Hmm... strange. Continuing...'.format(item))
 
 
-def create_site_structure(site):
-    """ Create the Canaima GNU/Linux Web site structure. """
+def create_site_structure(site, structure):
+    """ Create and publish new site structure as defined in config.py."""
 
-    # Create "Portada" item
-    title = u'Portada'
-    obj = api.content.create(type='collective.cover.content', title=title, container=site)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-    site.manage_changeProperties(**{"default_page": 'portada'})
-    logger.info('Set {0} item as default page for Portal'.format(obj))
-
-    # Create "Canaima" section
-    title = u'Canaima'
-    obj = api.content.create(type='Folder', title=title, container=site)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'CaseStudyFolder']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Conozca Canaima'
-    obj_target = site['canaima']
-    createContentType('Document', obj_target, title, None, None, False)
-
-    title = u'Características'
-    obj_target = site['canaima']
-    createContentType('Document', obj_target, title, None, None, False)
-
-    title = u'¿Por qué usar Canaima?'
-    obj_target = site['canaima']
-    createContentType('Document', obj_target, title, None, None, False)
-
-    title = u'¿Por qué Software libre?'
-    obj_target = site['canaima']
-    createContentType('Document', obj_target, title, None, None, False)
-
-    title = u'Casos de éxitos'
-    obj_target = site['canaima']
-    createContentType('CaseStudyFolder', obj_target, title, None, None, False)
-
-    # Create "Soluciones" section
-    title = u'Soluciones'
-    obj = api.content.create(type='Folder', title=title, container=site)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'Collection', 'collective.cover.content']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Sector gobierno'
-    obj_target = site['soluciones']
-    types = ['Document']
-    subjects = (u'Soluciones', title, u'Distribución')
-    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre=None, section='Soluciones')
-
-    title = u'Sector comunas'
-    obj_target = site['soluciones']
-    types = ['Document']
-    subjects = (u'Soluciones', title, u'Distribución')
-    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre=None, section='Soluciones')
-
-    title = u'Geomática'
-    obj_target = site['soluciones']
-    types = ['Document']
-    subjects = (u'Soluciones', title, u'Distribución')
-    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre=None, section='Soluciones')
-
-    title = u'Canaima Popular'
-    obj_target = site['soluciones']
-    subjects = (u'Soluciones', u'Sector gobierno', u'Distribución', title)
-    createContentType('Document', obj_target, title, subjects, None, True)
-
-    title = u'Canaima Educativo'
-    obj_target = site['soluciones']
-    subjects = (u'Soluciones', u'Sector gobierno', u'Distribución', title)
-    createContentType('Document', obj_target, title, subjects, None, True)
-
-    title = u'Canaima Colibri'
-    obj_target = site['soluciones']
-    subjects = (u'Soluciones', u'Sector comunas', u'Distribución', title)
-    createContentType('Document', obj_target, title, subjects, None, True)
-
-    title = u'Canaima Comunal'
-    obj_target = site['soluciones']
-    subjects = (u'Soluciones', u'Sector comunas', u'Distribución', title)
-    createContentType('Document', obj_target, title, subjects, None, True)
-
-    title = u'Canaima Caribay'
-    obj_target = site['soluciones']
-    subjects = (u'Soluciones', u'Sector comunas', u'Distribución', title)
-    createContentType('Document', obj_target, title, subjects, None, True)
-
-    title = u'GeoCanaima'
-    obj_target = site['soluciones']
-    subjects = (u'Soluciones', u'Geomática', u'Distribución', title)
-    createContentType('Document', obj_target, title, subjects, None, True)
-
-    # Create "Soporte y Aprendizaje" section
-    title = u'Soporte y Aprendizaje'
-    obj = api.content.create(type='Folder', title=title, container=site)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'ProviderFolder']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Necesito ayuda'
-    obj_target = site['soporte-y-aprendizaje']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Yo quiero aprender'
-    obj_target = site['soporte-y-aprendizaje']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'FSDDepartment']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Consultoría'
-    obj_target = site['soporte-y-aprendizaje']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'FSDDepartment']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Mercado de servicios'
-    obj_target = site['soporte-y-aprendizaje']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    # obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'ProviderFolder', 'FSDDepartment']
-    # constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    # Create "Descargas" section
-    title = u'Descargas'
-    obj = api.content.create(type='Folder', title=title, container=site)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Obtener Canaima'
-    obj_target = site['descargas']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'ProviderFolder', 'FSDDepartment']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Verifique la descarga de la imagen ISO'
-    obj_target = site['descargas']
-    createContentType('Document', obj_target, title, None, 'publish', False)
-
-    title = u'Obtener códigos fuentes'
-    obj_target = site['descargas']
-    createContentType('Document', obj_target, title, None, 'publish', False)
-
-    title = u'Complementos del RNA'
-    obj_target = site['descargas']
-    createContentType('collective.cover.content', obj_target, title, None, 'publish', False)
-
-    # Create "Comunidad" section
-    title = u'Comunidad'
-    obj = api.content.create(type='Folder', title=title, container=site)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'collective.cover.content', 'FSDFacultyStaffDirectory']
-    constrain_types(obj, obj_constrain_types)
-    api.content.transition(obj, 'publish')
-    site['comunidad'].setLayout('@@usersmap_view')
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Unirse a Canaima'
-    obj_target = site['comunidad']
-    createContentType('Document', obj_target, title, None, 'publish', False)
-
-    title = u'Estar conectado'
-    obj_target = site['comunidad']
-    createContentType('Document', obj_target, title, None, 'publish', False)
-
-    title = u'Organización'
-    obj_target = site['comunidad']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    api.content.transition(obj, 'publish')
-    # obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'News', 'collective.cover.content']
-    # constrain_types(obj, obj_constrain_types)
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Equipos'
-    obj_target = site['comunidad']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    api.content.transition(obj, 'publish')
-    # obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'News', 'collective.cover.content']
-    # constrain_types(obj, obj_constrain_types)
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Forja'
-    obj_target = site['comunidad']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    api.content.transition(obj, 'publish')
-    obj_constrain_types = ['Document', 'File', 'Image', 'News', 'collective.cover.content']
-    # constrain_types(obj, obj_constrain_types)
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Reuniones'
-    obj_target = site['comunidad']
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    api.content.transition(obj, 'publish')
-    # obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'News', 'collective.cover.content']
-    # constrain_types(obj, obj_constrain_types)
-    logger.info('Created the {0} item'.format(obj))
-
-    title = u'Grupos'
-    obj_target = site['comunidad']
-    # obj = api.content.create(type='FSDFacultyStaffDirectory', title=title, container=obj_target)
-    obj = api.content.create(type='Folder', title=title, container=obj_target)
-    obj.setTitle(title)
-    obj.reindexObject('Title')
-    api.content.transition(obj, 'publish')
-    # obj_constrain_types = ['Folder', 'Document', 'File', 'Image', 'News', 'collective.cover.content']
-    # constrain_types(obj, obj_constrain_types)
-    logger.info('Created the {0} item'.format(obj))
-
-    # Create "Novedades" section
-    createFolder(site, u'Novedades',
-                 allowed_types=['Event', 'News', 'Link', 'Collection'],
-                 exclude_from_nav=False)
-
-    immediatelyAddableTypes = ['Event', 'News']
-    locallyAllowedTypes = ['Folder', 'Event', 'News', 'Link', 'Collection', 'collective.nitf.content']
-    novedades = site['novedades']
-    novedades.setLocallyAllowedTypes(locallyAllowedTypes)
-    novedades.setImmediatelyAddableTypes(immediatelyAddableTypes)
-    logger.info('Created the {0} item'.format(novedades))
-
-    title = u'Blogs'
-    obj_target = site['novedades']
-    createContentType('Link', obj_target, title, None, None, False)
-
-    title = u'Comunidad'
-    obj_target = site['novedades']
-    types = ['collective.nitf.content']
-    subjects = (u'Novedades', u'Noticias', title)
-    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre='Current', section='Comunidad')
-
-    title = u'Gobierno'
-    obj_target = site['novedades']
-    types = ['collective.nitf.content']
-    subjects = (u'Novedades', u'Noticias', title)
-    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre='Current', section='Gobierno')
-
-    title = u'Discusiones'
-    obj_target = site['novedades']
-    types = ['collective.nitf.content']
-    subjects = (u'Novedades', u'Noticias', title)
-    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre='Current', section='Discusiones')
-
-    title = u'Actividades'
-    obj_target = site['novedades']
-    types = ['collective.nitf.content']
-    subjects = (u'Novedades', u'Noticias', title)
-    createCollection(folder=obj_target, title=title, type=types, subject=subjects, genre='Current', section='Actividades')
-
-#    createPloneSoftwareCenter(u'Descargas', exclude_from_nav=False)
-#    createFolder(site, u'Documentos', allowed_types=['File', 'Folder', 'Link', 'Image', 'Document'])
-#    site['documentos'].setLayout('folder_listing')
-
-    createLink(site, u'Proyectos', 'http://proyectos.canaima.softwarelibre.gob.ve/')
-    obj = site['proyectos']
-    obj.setExcludeFromNav(True)
+    for item in structure:
+        id = item['id']
+        title = item['title']
+        description = item.get('description', u'')
+        subject = item.get('subjects', u'')
+        if id not in site:
+            # creators are defined?
+            if 'creators' not in item:
+                item['creators'] = CREATORS
+            obj = api.content.create(site, **item)
+            # publish private content or make a workflow transition
+            if item['type'] not in ['Image', 'File']:
+                if '_transition' not in item and api.content.get_state(obj) == 'private':
+                    api.content.transition(obj, 'publish')
+                elif item.get('_transition', None):
+                    api.content.transition(obj, item['_transition'])
+            # constrain types in folder?
+            if '_addable_types' in item:
+                constrain_types(obj, item['_addable_types'])
+            # the content has more content inside? create it
+            if '_children' in item:
+                create_site_structure(obj, item['_children'])
+            # add an image to all news items
+            if obj.portal_type == 'News Item':
+                if 'image' in item:
+                    obj.setImage(item['image'])
+            # set the default view to object
+            if '_layout' in item:
+                obj.setLayout(item['_layout'])
+            # XXX: workaround for https://github.com/plone/plone.api/issues/99
+            obj.setTitle(title)
+            obj.setDescription(description)
+            obj.setSubject(subject)
+            obj.reindexObject()
+            logger.debug(u'{0} fue creado y publicado'.format(title))
+        else:
+            logger.debug(u'Sin crear elemento \'{0}\'; ya existente este contenido'.format(title))
     logger.info('All site structure created')
 
 
@@ -941,7 +571,7 @@ def setupVarious(context):
     install_dependencies(portal)
     exclude_from_navigation_default_content(portal)
     remove_default_content(portal)
-    create_site_structure(portal)
+    create_site_structure(portal, SITE_STRUCTURE)
     set_site_default_page(portal)
     set_support_section(portal)
     set_footer_site(portal)

@@ -116,6 +116,13 @@ class DependenciesSettingsTestCase(BaseTestCase):
         self.assertEqual(settings.longitude, decimal.Decimal(6.423750000000001))
         self.assertEqual(settings.latitude, decimal.Decimal(-66.58973000000024))
 
+    def test_geo_usersmap_settings(self):
+        from collective.geo.usersmap.interfaces import IUsersMapPreferences
+        settings = self.registry.forInterface(IUsersMapPreferences)
+        self.assertEqual(settings.title, u'Mapa de usuarios del portal')
+        self.assertEqual(settings.description, u'Este mapa muestra las ubicaciones de los usuarios del portal.')
+        self.assertEqual(settings.user_properties, [u'description', u'email'])
+
     def test_disqus_settings(self):
         from collective.disqus.interfaces import IDisqusSettings
         settings = self.registry.forInterface(IDisqusSettings)

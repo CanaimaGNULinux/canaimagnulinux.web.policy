@@ -12,6 +12,7 @@ from canaimagnulinux.web.policy.config import PROJECTNAME
 
 from collective.disqus.interfaces import IDisqusSettings
 from collective.geo.settings.interfaces import IGeoSettings
+from collective.geo.usersmap.interfaces import IUsersMapPreferences
 from collective.googlenews.interfaces import GoogleNewsSettings
 from collective.nitf.controlpanel import INITFSettings
 
@@ -879,6 +880,15 @@ def setup_geo_settings():
     logger.info('Configured collective.geo.usersmap')
 
 
+def setup_geo_usersmap_settings():
+    """ Custom settings for collective.geo.usersmap """
+
+    settings = getUtility(IRegistry).forInterface(IUsersMapPreferences, False)
+    settings.title = u'Mapa de usuarios del portal'
+    settings.description = u'Este mapa muestra las ubicaciones de los usuarios del portal.'
+    settings.user_properties = [u'description', u'email']
+
+
 def setup_disqus_settings():
     """ Custom settings for collective.disqus """
 
@@ -940,6 +950,7 @@ def setupVarious(context):
     setup_nitf_settings()
     setup_nitf_google_news()
     setup_geo_settings()
+    setup_geo_usersmap_settings()
     setup_disqus_settings()
     import_registry_settings()
     clear_and_rebuild_catalog(portal)

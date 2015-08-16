@@ -83,7 +83,7 @@ class InstallTestCase(BaseTestCase):
 
 
 class DependenciesSettingsTestCase(BaseTestCase):
-    """Ensure package dependencies are properly configured."""
+    """ Ensure package dependencies are properly configured. """
 
     def test_collective_upload_settings(self):
         from collective.upload.interfaces import IUploadSettings

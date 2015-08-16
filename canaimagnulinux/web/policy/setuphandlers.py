@@ -4,6 +4,7 @@ from Products.ATContentTypes.lib import constraintypes
 
 from canaimagnulinux.web.policy.config import CREATORS
 from canaimagnulinux.web.policy.config import DEFAULT_CONTENT
+from canaimagnulinux.web.policy.config import DEFAULT_SUBJECTS
 from canaimagnulinux.web.policy.config import DEPENDENCIES
 from canaimagnulinux.web.policy.config import MAILHOST_CONFIGURATION
 from canaimagnulinux.web.policy.config import PROFILE_ID as PROFILE_NAME
@@ -156,6 +157,33 @@ def set_site_default_page(site):
     """ Set front page as site default page. """
     site.setDefaultPage('portada')
     logger.info(u'Set item as default page for Portal')
+
+
+def set_default_subject_metadata(site):
+    """ Set default subjects as Website metadata. """
+    # mdtool = api.portal.get_tool(name='portal_metadata')
+
+    # Set up a MetadataTool element policy for events
+    # try:
+    #     mdtool.addElementPolicy(
+    #         element='Subject',
+    #         # content_type='Event',
+    #         content_type='<default>',
+    #         is_required=0,
+    #         supply_default=0,
+    #         default_value='',
+    #         enforce_vocabulary=0,
+    #         allowed_vocabulary=DEFAULT_SUBJECTS,
+    #         REQUEST=None)
+    #     logger.info(u'Set all default subjects as Website metadata')
+    # except MetadataError:
+    #     logger.info(u'Without set all default subjects as Website metadata')
+
+    pm = site.portal_metadata
+    objdcmi = pm.DCMI
+    if objdcmi is not None:
+        objdcmi.updateElementPolicy('Subject', '<default>', 0, 0, "", 0, DEFAULT_SUBJECTS)
+        logger.info('Updated default subjects as %s' % (DEFAULT_SUBJECTS,))
 
 
 def set_support_section(site):
@@ -573,6 +601,7 @@ def setupVarious(context):
     remove_default_content(portal)
     create_site_structure(portal, SITE_STRUCTURE)
     set_site_default_page(portal)
+    # set_default_subject_metadata(portal)
     set_support_section(portal)
     set_footer_site(portal)
     configure_site_properties(portal)

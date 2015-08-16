@@ -10,6 +10,13 @@ PROFILE_ID = '{0}:default'.format(PROJECTNAME)
 # content created at Plone's installation
 DEFAULT_CONTENT = ('front-page', 'news', 'events')
 
+# Subjects default created at Plone's installation
+DEFAULT_SUBJECTS = (u'Canaima GNU/Linux',
+                    u'Proyecto Canaima',
+                    u'Metadistribución',
+                    u'Software libre',
+                    u'Ley Infogobierno'),
+
 CREATORS = (u'Proyecto Canaima', )
 
 DEPENDENCIES = [

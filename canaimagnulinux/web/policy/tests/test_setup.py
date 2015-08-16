@@ -90,9 +90,9 @@ class DependenciesSettingsTestCase(BaseTestCase):
         settings = self.registry.forInterface(IUploadSettings)
         expected = 'gif, jpeg, jpg, png, pdf, txt, ods, odt, odp, html, csv, zip, tgz, bz2'
         self.assertEqual(settings.upload_extensions, expected)
-        # self.assertEqual(settings.max_file_size, 10485760)
-        # self.assertEqual(settings.resize_max_width, 3872)
-        # self.assertEqual(settings.resize_max_height, 3872)
+        self.assertEqual(settings.max_file_size, 10485760)
+        self.assertEqual(settings.resize_max_width, 3872)
+        self.assertEqual(settings.resize_max_height, 3872)
 
     def test_nitf_settings(self):
         from collective.nitf.controlpanel import INITFSettings

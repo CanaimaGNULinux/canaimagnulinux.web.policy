@@ -523,7 +523,7 @@ def create_site_structure(site):
 
 
 def set_site_default_page(site):
-    """Set front page as site default page."""
+    """ Set front page as site default page. """
     site.setDefaultPage('portada')
     logger.info(u'Set item as default page for Portal')
 
@@ -560,6 +560,8 @@ def set_support_section(site):
     obj = site['soporte-y-aprendizaje']['mercado-de-servicios']['servicios-empresariales']['case-studies']
     api.content.delete(obj=obj)
     logger.info('Deleted the {0} item'.format(obj))
+
+    logger.info('All "Servicios empresariales" section is done!')
 
 
 def set_footer_site(site):
@@ -903,7 +905,7 @@ def setup_disqus_settings():
 
 
 def import_registry_settings():
-    """Import registry settings; we need to do this before other stuff here,
+    """ Import registry settings; we need to do this before other stuff here,
     like using a cover layout defined there.
 
     XXX: I don't know if there is other way to do this on ZCML or XML.

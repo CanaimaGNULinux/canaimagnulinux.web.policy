@@ -869,7 +869,7 @@ def setup_nitf_google_news():
 
 
 def setup_geo_settings():
-    """ Custom settings for collective.geo.usersmap """
+    """ Custom settings for collective.geo """
 
     import decimal
     settings = getUtility(IRegistry).forInterface(IGeoSettings, False)

@@ -10,6 +10,7 @@ from canaimagnulinux.web.policy.config import MAILHOST_CONFIGURATION
 from canaimagnulinux.web.policy.config import PROFILE_ID as PROFILE_NAME
 from canaimagnulinux.web.policy.config import PROJECTNAME
 
+from collective.disqus.interfaces import IDisqusSettings
 from collective.geo.settings.interfaces import IGeoSettings
 from collective.googlenews.interfaces import GoogleNewsSettings
 from collective.nitf.controlpanel import INITFSettings
@@ -878,6 +879,19 @@ def setup_geo_settings():
     logger.info('Configured collective.geo.usersmap')
 
 
+def setup_disqus_settings():
+    """ Custom settings for collective.disqus """
+
+    settings = getUtility(IRegistry).forInterface(IDisqusSettings, False)
+    settings.activated = True
+    settings.developer_mode = False
+    # settings.forum_short_name = u'canaimagnulinux'
+    settings.access_token = u'15796f758e24404bb965521fe85f9aa8'
+    settings.app_public_key = u'iroSK4ud2I2sLMYAqMNI56tqI1fjbCm3XQ8T5HhZGTSQfAnj9m7yBNr9GqcycA8M'
+    settings.app_secret_key = u'q3xfSJDNYvi5uwMq9Y6Whyu3xy6luxKN9PFsruE2X2qMz98xuX23GK7sS5KnIAtb'
+    logger.info('Configured collective.disqus')
+
+
 def import_registry_settings():
     """Import registry settings; we need to do this before other stuff here,
     like using a cover layout defined there.
@@ -926,5 +940,6 @@ def setupVarious(context):
     setup_nitf_settings()
     setup_nitf_google_news()
     setup_geo_settings()
+    setup_disqus_settings()
     import_registry_settings()
     clear_and_rebuild_catalog(portal)

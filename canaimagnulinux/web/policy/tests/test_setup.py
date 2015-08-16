@@ -116,6 +116,16 @@ class DependenciesSettingsTestCase(BaseTestCase):
         self.assertEqual(settings.longitude, decimal.Decimal(6.423750000000001))
         self.assertEqual(settings.latitude, decimal.Decimal(-66.58973000000024))
 
+    def test_disqus_settings(self):
+        from collective.disqus.interfaces import IDisqusSettings
+        settings = self.registry.forInterface(IDisqusSettings)
+        self.assertEqual(settings.activated, True)
+        self.assertEqual(settings.developer_mode, False)
+        self.assertEqual(settings.forum_short_name, 'canaimagnulinux')
+        self.assertEqual(settings.access_token, '15796f758e24404bb965521fe85f9aa8')
+        self.assertEqual(settings.app_public_key, 'iroSK4ud2I2sLMYAqMNI56tqI1fjbCm3XQ8T5HhZGTSQfAnj9m7yBNr9GqcycA8M')
+        self.assertEqual(settings.app_secret_key, 'q3xfSJDNYvi5uwMq9Y6Whyu3xy6luxKN9PFsruE2X2qMz98xuX23GK7sS5KnIAtb')
+
 
 class UninstallTestCase(BaseTestCase):
     """ Ensure product is properly uninstalled. """

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from Products.ATContentTypes.lib import constraintypes
+# from Products.CMFDefault.exceptions import MetadataError
 from Products.CMFQuickInstallerTool import interfaces as qi_interfaces
 from Products.CMFPlone import interfaces as st_interfaces
 
@@ -29,6 +30,24 @@ from zope.interface import implements
 
 import logging
 logger = logging.getLogger(PROJECTNAME)
+
+
+class HiddenProducts(object):
+    """ Hidden Products in portal_quickinstaller """
+    implements(qi_interfaces.INonInstallable)
+
+    def getNonInstallableProducts(self):
+        products = []
+        products = [p for p in HIDDEN_PRODUCTS]
+        return products
+
+
+class HiddenProfiles(object):
+    """ Hidden profiles from the home screen to create the site """
+    implements(st_interfaces.INonInstallable)
+
+    def getNonInstallableProfiles(self):
+        return HIDDEN_PROFILES
 
 
 def constrain_types(folder, allowed_types):
@@ -79,24 +98,6 @@ def disable_mail_host(site):
         smtphost = ''
 
     return smtphost
-
-
-class HiddenProducts(object):
-    """ Hidden Products in portal_quickinstaller """
-    implements(qi_interfaces.INonInstallable)
-
-    def getNonInstallableProducts(self):
-        products = []
-        products = [p for p in HIDDEN_PRODUCTS]
-        return products
-
-
-class HiddenProfiles(object):
-    """ Hidden profiles from the home screen to create the site """
-    implements(st_interfaces.INonInstallable)
-
-    def getNonInstallableProfiles(self):
-        return HIDDEN_PROFILES
 
 
 def install_dependencies(site):
@@ -179,6 +180,7 @@ def create_site_structure(site, structure):
 def set_site_default_page(site):
     """ Set front page as site default page. """
     site.setDefaultPage('portada')
+    # site.manage_changeProperties(**{"default_page": 'portada'})
     logger.info(u'Set item as default page for Portal')
 
 
@@ -560,7 +562,7 @@ def setup_geo_settings():
     settings.zoom = decimal.Decimal(6)
     settings.longitude = decimal.Decimal(6.423750000000001)
     settings.latitude = decimal.Decimal(-66.58973000000024)
-    logger.info('Configured collective.geo.usersmap')
+    logger.info('Configured collective.geo')
 
 
 def setup_geo_usersmap_settings():
@@ -570,6 +572,7 @@ def setup_geo_usersmap_settings():
     settings.title = u'Mapa de usuarios del portal'
     settings.description = u'Este mapa muestra las ubicaciones de los usuarios del portal.'
     settings.user_properties = [u'description', u'email']
+    logger.info('Configured collective.geo.usersmap')
 
 
 def setup_disqus_settings():
@@ -594,6 +597,7 @@ def import_registry_settings():
     PROFILE_ID = 'profile-{0}'.format(PROFILE_NAME)
     setup = api.portal.get_tool('portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
+    logger.info('Imported registry settings from GenericSetup profile.')
 
 
 def clear_and_rebuild_catalog(site):

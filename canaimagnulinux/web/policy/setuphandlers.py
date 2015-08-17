@@ -581,7 +581,7 @@ def setup_disqus_settings():
     settings = getUtility(IRegistry).forInterface(IDisqusSettings, False)
     settings.activated = True
     settings.developer_mode = False
-    # settings.forum_short_name = u'canaimagnulinux'
+    settings.forum_short_name = 'canaimagnulinux'
     settings.access_token = u'15796f758e24404bb965521fe85f9aa8'
     settings.app_public_key = u'iroSK4ud2I2sLMYAqMNI56tqI1fjbCm3XQ8T5HhZGTSQfAnj9m7yBNr9GqcycA8M'
     settings.app_secret_key = u'q3xfSJDNYvi5uwMq9Y6Whyu3xy6luxKN9PFsruE2X2qMz98xuX23GK7sS5KnIAtb'

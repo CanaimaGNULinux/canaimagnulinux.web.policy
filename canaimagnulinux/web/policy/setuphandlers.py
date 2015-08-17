@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from Products.ATContentTypes.lib import constraintypes
+from Products.CMFQuickInstallerTool import interfaces as qi_interfaces
+from Products.CMFPlone import interfaces as st_interfaces
 
 from canaimagnulinux.web.policy.config import CREATORS
 from canaimagnulinux.web.policy.config import DEFAULT_CONTENT
 from canaimagnulinux.web.policy.config import DEFAULT_SUBJECTS
 from canaimagnulinux.web.policy.config import DEPENDENCIES
+from canaimagnulinux.web.policy.config import HIDDEN_PRODUCTS
+from canaimagnulinux.web.policy.config import HIDDEN_PROFILES
 from canaimagnulinux.web.policy.config import MAILHOST_CONFIGURATION
 from canaimagnulinux.web.policy.config import PROFILE_ID as PROFILE_NAME
 from canaimagnulinux.web.policy.config import PROJECTNAME
@@ -21,6 +25,7 @@ from plone import api
 from plone.registry.interfaces import IRegistry
 
 from zope.component import getUtility
+from zope.interface import implements
 
 import logging
 logger = logging.getLogger(PROJECTNAME)
@@ -74,6 +79,24 @@ def disable_mail_host(site):
         smtphost = ''
 
     return smtphost
+
+
+class HiddenProducts(object):
+    """ Hidden Products in portal_quickinstaller """
+    implements(qi_interfaces.INonInstallable)
+
+    def getNonInstallableProducts(self):
+        products = []
+        products = [p for p in HIDDEN_PRODUCTS]
+        return products
+
+
+class HiddenProfiles(object):
+    """ Hidden profiles from the home screen to create the site """
+    implements(st_interfaces.INonInstallable)
+
+    def getNonInstallableProfiles(self):
+        return HIDDEN_PROFILES
 
 
 def install_dependencies(site):

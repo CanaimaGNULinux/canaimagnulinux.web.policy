@@ -29,6 +29,11 @@ class SiteSettingsTestCase(unittest.TestCase):
         self.assertTrue('Portal de la meta distribución Canaima GNU/Linux',
                         self.portal.getProperty('description'))
 
+    def test_utf8_is_default_charset(self):
+        """ This method test that the default charset is utf8. """
+        self.assertEqual(self.portal_properties.site_properties.default_charset, 'utf-8')
+        self.assertEqual(self.portal.email_charset, 'utf-8')
+
     def test_portal_memberdata_language(self):
         """ This method test that ensure the memberdata language is the same. """
         self.assertTrue('es', self.portal_memberdata.getProperty('language'))

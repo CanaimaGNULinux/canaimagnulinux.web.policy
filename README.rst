@@ -121,9 +121,9 @@ Dependencies
      - |collective.googleanalytics.t|
      - |collective.googleanalytics.c|
    * - collective.googlenews
-     - |collective.googlenews.v|
      - X
-     - X
+     - |collective.googlenews.t|
+     - |collective.googlenews.c|
    * - collective.nitf
      - |collective.nitft.v|
      - |collective.nitft.t|
@@ -214,150 +214,154 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
 .. _collective.geo.settings: https://pypi.python.org/pypi/collective.geo.settings
 .. _apertura de un ticket de soporte: https://github.com/CanaimaGNULinux/canaimagnulinux.web.policy/issues
 
-.. |cioppino.twothumbs.v| image:: https://pypip.in/v/cioppino.twothumbs/badge.png
+.. |cioppino.twothumbs.v| image:: http://img.shields.io/pypi/v/cioppino.twothumbs.svg
    :target: https://crate.io/packages/cioppino.twothumbs
 .. |cioppino.twothumbs.t| image:: https://secure.travis-ci.org/collective/cioppino.twothumbs.png
    :target: http://travis-ci.org/collective/cioppino.twothumbs
 .. |cioppino.twothumbs.c| image:: https://coveralls.io/repos/collective/cioppino.twothumbs/badge.png?branch=master
    :target: https://coveralls.io/r/collective/cioppino.twothumbs
 
-.. |Products.Doormat.v| image:: https://pypip.in/v/Products.Doormat/badge.png
+.. |Products.Doormat.v| image:: http://img.shields.io/pypi/v/Products.Doormat.svg
    :target: https://crate.io/packages/Products.Doormat
 .. |Products.Doormat.t| image:: https://secure.travis-ci.org/collective/Products.Doormat.png
    :target: http://travis-ci.org/collective/Products.Doormat
 .. |Products.Doormat.c| image:: https://coveralls.io/repos/collective/Products.Doormat/badge.png?branch=master
    :target: https://coveralls.io/r/collective/Products.Doormat
 
-.. |Products.FacultyStaffDirectory.v| image:: https://pypip.in/v/Products.FacultyStaffDirectory/badge.png
+.. |Products.FacultyStaffDirectory.v| image:: http://img.shields.io/pypi/v/Products.FacultyStaffDirectory.svg
    :target: https://crate.io/packages/Products.FacultyStaffDirectory
 .. |Products.FacultyStaffDirectory.t| image:: https://secure.travis-ci.org/collective/Products.FacultyStaffDirectory.png
    :target: http://travis-ci.org/collective/Products.FacultyStaffDirectory
 .. |Products.FacultyStaffDirectory.c| image:: https://coveralls.io/repos/collective/Products.FacultyStaffDirectory/badge.png?branch=master
    :target: https://coveralls.io/r/collective/Products.FacultyStaffDirectory
 
-.. |Products.PloneFormGen.v| image:: https://pypip.in/v/Products.PloneFormGen/badge.png
+.. |Products.PloneFormGen.v| image:: http://img.shields.io/pypi/v/Products.PloneFormGen.svg
    :target: https://crate.io/packages/Products.PloneFormGen
 .. |Products.PloneFormGen.t| image:: https://secure.travis-ci.org/collective/Products.PloneFormGen.png
    :target: http://travis-ci.org/collective/Products.PloneFormGen
 .. |Products.PloneFormGen.c| image:: https://coveralls.io/repos/collective/Products.PloneFormGen/badge.png?branch=master
    :target: https://coveralls.io/r/collective/Products.PloneFormGen
 
-.. |Products.PloneServicesCenter.v| image:: https://pypip.in/v/Products.PloneServicesCenter/badge.png
+.. |Products.PloneServicesCenter.v| image:: http://img.shields.io/pypi/v/Products.PloneServicesCenter.svg
    :target: https://crate.io/packages/Products.PloneServicesCenter
 .. |Products.PloneServicesCenter.t| image:: https://secure.travis-ci.org/collective/Products.PloneServicesCenter.png
    :target: http://travis-ci.org/collective/Products.PloneServicesCenter
 .. |Products.PloneServicesCenter.c| image:: https://coveralls.io/repos/collective/Products.PloneServicesCenter/badge.png?branch=master
    :target: https://coveralls.io/r/collective/Products.PloneServicesCenter
 
-.. |Products.PloneSoftwareCenter.v| image:: https://pypip.in/v/Products.PloneSoftwareCenter/badge.png
+.. |Products.PloneSoftwareCenter.v| image:: http://img.shields.io/pypi/v/Products.PloneSoftwareCenter.svg
    :target: https://crate.io/packages/Products.PloneSoftwareCenter
 .. |Products.PloneSoftwareCenter.t| image:: https://secure.travis-ci.org/collective/Products.PloneSoftwareCenter.png
    :target: http://travis-ci.org/collective/Products.PloneSoftwareCenter
 .. |Products.PloneSoftwareCenter.c| image:: https://coveralls.io/repos/collective/Products.PloneSoftwareCenter/badge.png?branch=master
    :target: https://coveralls.io/r/collective/Products.PloneSoftwareCenter
 
-.. |plone.api.v| image:: https://pypip.in/v/plone.api/badge.png
+.. |plone.api.v| image:: http://img.shields.io/pypi/v/plone.api.svg
    :target: https://crate.io/packages/plone.api
 .. |plone.api.t| image:: https://secure.travis-ci.org/collective/plone.api.png
    :target: http://travis-ci.org/collective/plone.api
 .. |plone.api.c| image:: https://coveralls.io/repos/collective/plone.api/badge.png?branch=master
    :target: https://coveralls.io/r/collective/plone.api
 
-.. |plone.app.ldap.v| image:: https://pypip.in/v/plone.app.ldap/badge.png
+.. |plone.app.ldap.v| image:: http://img.shields.io/pypi/v/plone.app.ldap.svg
    :target: https://crate.io/packages/plone.app.ldap
 .. |plone.app.ldap.t| image:: https://secure.travis-ci.org/collective/plone.app.ldap.png
    :target: http://travis-ci.org/collective/plone.app.ldap
 .. |plone.app.ldap.c| image:: https://coveralls.io/repos/collective/plone.app.ldap/badge.png?branch=master
    :target: https://coveralls.io/r/collective/plone.app.ldap
 
-.. |collective.polls.v| image:: https://pypip.in/v/collective.polls/badge.png
+.. |collective.polls.v| image:: http://img.shields.io/pypi/v/collective.polls.svg
    :target: https://crate.io/packages/collective.polls
 .. |collective.polls.t| image:: https://secure.travis-ci.org/collective/collective.polls.png
    :target: http://travis-ci.org/collective/collective.polls
 .. |collective.polls.c| image:: https://coveralls.io/repos/collective/collective.polls/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.polls
 
-.. |canaimagnulinux.web.theme.v| image:: https://pypip.in/v/canaimagnulinux.web.theme/badge.png
+.. |canaimagnulinux.web.theme.v| image:: http://img.shields.io/pypi/v/canaimagnulinux.web.theme.svg
    :target: https://crate.io/packages/canaimagnulinux.web.theme
 .. |canaimagnulinux.web.theme.t| image:: https://secure.travis-ci.org/collective/canaimagnulinux.web.theme.png
    :target: http://travis-ci.org/collective/canaimagnulinux.web.theme
 .. |canaimagnulinux.web.theme.c| image:: https://coveralls.io/repos/collective/canaimagnulinux.web.theme/badge.png?branch=master
    :target: https://coveralls.io/r/collective/canaimagnulinux.web.theme
 
-.. |collective.cover.v| image:: https://pypip.in/v/collective.cover/badge.png
+.. |collective.cover.v| image:: http://img.shields.io/pypi/v/collective.cover.svg
    :target: https://crate.io/packages/collective.cover
 .. |collective.cover.t| image:: https://secure.travis-ci.org/collective/collective.cover.png
    :target: http://travis-ci.org/collective/collective.cover
 .. |collective.cover.c| image:: https://coveralls.io/repos/collective/collective.cover/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.cover
 
-.. |collective.disqus.v| image:: https://pypip.in/v/collective.disqus/badge.png
+.. |collective.disqus.v| image:: http://img.shields.io/pypi/v/collective.disqus.svg
    :target: https://crate.io/packages/collective.disqus
 .. |collective.disqus.t| image:: https://secure.travis-ci.org/collective/collective.disqus.png
    :target: http://travis-ci.org/collective/collective.disqus
 .. |collective.disqus.c| image:: https://coveralls.io/repos/collective/collective.disqus/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.disqus
 
-.. |collective.facebook.portlets.v| image:: https://pypip.in/v/collective.facebook.portlets/badge.png
+.. |collective.facebook.portlets.v| image:: http://img.shields.io/pypi/v/collective.facebook.portlets.svg
    :target: https://crate.io/packages/collective.facebook.portlets
 .. |collective.facebook.portlets.t| image:: https://secure.travis-ci.org/collective/collective.facebook.portlets.png
    :target: http://travis-ci.org/collective/collective.facebook.portlets
 .. |collective.facebook.portlets.c| image:: https://coveralls.io/repos/collective/collective.facebook.portlets/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.facebook.portlets
 
-.. |collective.geo.usersmap.v| image:: https://pypip.in/v/collective.geo.usersmap/badge.png
+.. |collective.geo.usersmap.v| image:: http://img.shields.io/pypi/v/collective.geo.usersmap.svg
    :target: https://crate.io/packages/collective.geo.usersmap
 .. |collective.geo.usersmap.t| image:: https://secure.travis-ci.org/collective/collective.geo.usersmap.png
    :target: http://travis-ci.org/collective/collective.geo.usersmap
 .. |collective.geo.usersmap.c| image:: https://coveralls.io/repos/collective/collective.geo.usersmap/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.geo.usersmap
 
-.. |collective.googleanalytics.v| image:: https://pypip.in/v/collective.googleanalytics/badge.png
+.. |collective.googleanalytics.v| image:: http://img.shields.io/pypi/v/collective.googleanalytics.svg
    :target: https://crate.io/packages/collective.googleanalytics
 .. |collective.googleanalytics.t| image:: https://secure.travis-ci.org/collective/collective.googleanalytics.png
    :target: http://travis-ci.org/collective/collective.googleanalytics
 .. |collective.googleanalytics.c| image:: https://coveralls.io/repos/collective/collective.googleanalytics/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.googleanalytics
 
-.. |collective.googlenews.v| image:: https://pypip.in/v/collective.googlenews/badge.png
+.. |collective.googlenews.v| image:: http://img.shields.io/pypi/v/collective.googlenews.svg
    :target: https://crate.io/packages/collective.googlenews
+.. |collective.googlenews.t| image:: https://secure.travis-ci.org/collective/collective.googlenews.png
+   :target: http://travis-ci.org/collective/collective.googlenews
+.. |collective.googlenews.c| image:: https://coveralls.io/repos/collective/collective.googlenews/badge.png?branch=master
+   :target: https://coveralls.io/r/collective/collective.googlenews
 
-.. |collective.nitft.v| image:: https://pypip.in/v/collective.nitft/badge.png
+.. |collective.nitft.v| image:: http://img.shields.io/pypi/v/collective.nitft.svg
    :target: https://crate.io/packages/collective.nitft
 .. |collective.nitft.t| image:: https://secure.travis-ci.org/collective/collective.nitft.png
    :target: http://travis-ci.org/collective/collective.nitft
 .. |collective.nitft.c| image:: https://coveralls.io/repos/collective/collective.nitft/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.nitft
 
-.. |collective.opendata.v| image:: https://pypip.in/v/collective.opendata/badge.png
+.. |collective.opendata.v| image:: http://img.shields.io/pypi/v/collective.opendata.svg
    :target: https://crate.io/packages/collective.opendata
 .. |collective.opendata.t| image:: https://secure.travis-ci.org/collective/collective.opendata.png
    :target: http://travis-ci.org/collective/collective.opendata
 .. |collective.opendata.c| image:: https://coveralls.io/repos/collective/collective.opendata/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.opendata
 
-.. |collective.twitter.portlets.v| image:: https://pypip.in/v/collective.twitter.portlets/badge.png
+.. |collective.twitter.portlets.v| image:: http://img.shields.io/pypi/v/collective.twitter.portlets.svg
    :target: https://crate.io/packages/collective.twitter.portlets
 .. |collective.twitter.portlets.t| image:: https://secure.travis-ci.org/collective/collective.twitter.portlets.png
    :target: http://travis-ci.org/collective/collective.twitter.portlets
 .. |collective.twitter.portlets.c| image:: https://coveralls.io/repos/collective/collective.twitter.portlets/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.twitter.portlets
 
-.. |collective.twitter.tweet.v| image:: https://pypip.in/v/collective.twitter.tweet/badge.png
+.. |collective.twitter.tweet.v| image:: http://img.shields.io/pypi/v/collective.twitter.tweet.svg
    :target: https://crate.io/packages/collective.twitter.tweet
 .. |collective.twitter.tweet.t| image:: https://secure.travis-ci.org/collective/collective.twitter.tweet.png
    :target: http://travis-ci.org/collective/collective.twitter.tweet
 .. |collective.twitter.tweet.c| image:: https://coveralls.io/repos/collective/collective.twitter.tweet/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.twitter.tweet
 
-.. |collective.upload.v| image:: https://pypip.in/v/collective.upload/badge.png
+.. |collective.upload.v| image:: http://img.shields.io/pypi/v/collective.upload.svg
    :target: https://crate.io/packages/collective.upload
 .. |collective.upload.t| image:: https://secure.travis-ci.org/collective/collective.upload.png
    :target: http://travis-ci.org/collective/collective.upload
 .. |collective.upload.c| image:: https://coveralls.io/repos/collective/collective.upload/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.upload
 
-.. |sc.social.like.v| image:: https://pypip.in/v/sc.social.like/badge.png
+.. |sc.social.like.v| image:: http://img.shields.io/pypi/v/sc.social.like.svg
    :target: https://crate.io/packages/sc.social.like
 .. |sc.social.like.t| image:: https://secure.travis-ci.org/collective/sc.social.like.png
    :target: http://travis-ci.org/collective/sc.social.like

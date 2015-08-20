@@ -11,6 +11,8 @@
 *.swp
 *.wpr
 .*.cfg
+.coverage
+.eggs
 .installed.cfg
 .mr.developer.cfg
 .hg/

@@ -61,10 +61,10 @@ Dependencias usadas en el sitio de Canaima GNU/Linux.
    :widths: 10 10 10 10
    :header-rows: 1
 
-   * - Name
-     - Version
-     - Tests
-     - Tests Coverage
+   * - Nombre de paquete
+     - Versión
+     - Pruebas
+     - Pruebas de cobertura
    * - Products.Doormat
      - |Products.Doormat.v|
      - |Products.Doormat.t|

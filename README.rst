@@ -125,9 +125,9 @@ Dependencies
      - |collective.googlenews.t|
      - |collective.googlenews.c|
    * - collective.nitf
-     - |collective.nitft.v|
-     - |collective.nitft.t|
-     - |collective.nitft.c|
+     - |collective.nitf.v|
+     - |collective.nitf.t|
+     - |collective.nitf.c|
    * - collective.opendata
      - |collective.opendata.v|
      - |collective.opendata.t|
@@ -258,16 +258,16 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
 
 .. |plone.api.v| image:: http://img.shields.io/pypi/v/plone.api.svg
    :target: https://crate.io/packages/plone.api
-.. |plone.api.t| image:: https://secure.travis-ci.org/collective/plone.api.png
+.. |plone.api.t| image:: https://secure.travis-ci.org/plone/plone.api.png
    :target: http://travis-ci.org/collective/plone.api
-.. |plone.api.c| image:: https://coveralls.io/repos/collective/plone.api/badge.png?branch=master
+.. |plone.api.c| image:: https://coveralls.io/repos/plone/plone.api/badge.png?branch=master
    :target: https://coveralls.io/r/collective/plone.api
 
 .. |plone.app.ldap.v| image:: http://img.shields.io/pypi/v/plone.app.ldap.svg
    :target: https://crate.io/packages/plone.app.ldap
-.. |plone.app.ldap.t| image:: https://secure.travis-ci.org/collective/plone.app.ldap.png
+.. |plone.app.ldap.t| image:: https://secure.travis-ci.org/plone/plone.app.ldap.png
    :target: http://travis-ci.org/collective/plone.app.ldap
-.. |plone.app.ldap.c| image:: https://coveralls.io/repos/collective/plone.app.ldap/badge.png?branch=master
+.. |plone.app.ldap.c| image:: https://coveralls.io/repos/plone/plone.app.ldap/badge.png?branch=master
    :target: https://coveralls.io/r/collective/plone.app.ldap
 
 .. |collective.polls.v| image:: http://img.shields.io/pypi/v/collective.polls.svg
@@ -279,9 +279,9 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
 
 .. |canaimagnulinux.web.theme.v| image:: http://img.shields.io/pypi/v/canaimagnulinux.web.theme.svg
    :target: https://crate.io/packages/canaimagnulinux.web.theme
-.. |canaimagnulinux.web.theme.t| image:: https://secure.travis-ci.org/collective/canaimagnulinux.web.theme.png
+.. |canaimagnulinux.web.theme.t| image:: https://secure.travis-ci.org/CanaimaGNULinux/canaimagnulinux.web.theme.png
    :target: http://travis-ci.org/collective/canaimagnulinux.web.theme
-.. |canaimagnulinux.web.theme.c| image:: https://coveralls.io/repos/collective/canaimagnulinux.web.theme/badge.png?branch=master
+.. |canaimagnulinux.web.theme.c| image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.web.theme/badge.png?branch=master
    :target: https://coveralls.io/r/collective/canaimagnulinux.web.theme
 
 .. |collective.cover.v| image:: http://img.shields.io/pypi/v/collective.cover.svg
@@ -326,18 +326,18 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
 .. |collective.googlenews.c| image:: https://coveralls.io/repos/collective/collective.googlenews/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.googlenews
 
-.. |collective.nitft.v| image:: http://img.shields.io/pypi/v/collective.nitft.svg
-   :target: https://crate.io/packages/collective.nitft
-.. |collective.nitft.t| image:: https://secure.travis-ci.org/collective/collective.nitft.png
-   :target: http://travis-ci.org/collective/collective.nitft
-.. |collective.nitft.c| image:: https://coveralls.io/repos/collective/collective.nitft/badge.png?branch=master
-   :target: https://coveralls.io/r/collective/collective.nitft
+.. |collective.nitf.v| image:: http://img.shields.io/pypi/v/collective.nitf.svg
+   :target: https://crate.io/packages/collective.nitf
+.. |collective.nitf.t| image:: https://secure.travis-ci.org/collective/collective.nitf.png
+   :target: http://travis-ci.org/collective/collective.nitf
+.. |collective.nitf.c| image:: https://coveralls.io/repos/collective/collective.nitf/badge.png?branch=master
+   :target: https://coveralls.io/r/collective/collective.nitf
 
 .. |collective.opendata.v| image:: http://img.shields.io/pypi/v/collective.opendata.svg
    :target: https://crate.io/packages/collective.opendata
-.. |collective.opendata.t| image:: https://secure.travis-ci.org/collective/collective.opendata.png
+.. |collective.opendata.t| image:: https://secure.travis-ci.org/plonegovbr/collective.opendata.png
    :target: http://travis-ci.org/collective/collective.opendata
-.. |collective.opendata.c| image:: https://coveralls.io/repos/collective/collective.opendata/badge.png?branch=master
+.. |collective.opendata.c| image:: https://coveralls.io/repos/plonegovbr/collective.opendata/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.opendata
 
 .. |collective.twitter.portlets.v| image:: http://img.shields.io/pypi/v/collective.twitter.portlets.svg

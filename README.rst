@@ -52,11 +52,12 @@ Insignias de calidad
 .. image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.web.policy/badge.png
    :target: https://coveralls.io/r/CanaimaGNULinux/canaimagnulinux.web.policy
 
-Dependencies
-------------
+Dependencias del sitio
+----------------------
 
+Dependencias usadas en el sitio de Canaima GNU/Linux.
 
-.. list-table:: RCSE Dependencies
+.. list-table:: Dependencias extras
    :widths: 10 10 10 10
    :header-rows: 1
 
@@ -121,7 +122,7 @@ Dependencies
      - |collective.googleanalytics.t|
      - |collective.googleanalytics.c|
    * - collective.googlenews
-     - X
+     - |collective.googlenews.v|
      - |collective.googlenews.t|
      - |collective.googlenews.c|
    * - collective.nitf

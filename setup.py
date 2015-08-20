@@ -6,7 +6,7 @@ description = 'The Website for Canaima GNU/Linux project'
 long_description = (
     open('README.rst').read() + '\n' +
     open('CONTRIBUTORS.rst').read() + '\n' +
-    open(os.path.join('docs', 'HISTORY.txt')).read()
+    open(os.path.join('docs', 'HISTORY.rst')).read()
 )
 
 setup(name='canaimagnulinux.web.policy',

@@ -281,9 +281,9 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
 .. |canaimagnulinux.web.theme.v| image:: http://img.shields.io/pypi/v/canaimagnulinux.web.theme.svg
    :target: https://pypi.python.org/pypi/canaimagnulinux.web.theme
 .. |canaimagnulinux.web.theme.t| image:: https://secure.travis-ci.org/CanaimaGNULinux/canaimagnulinux.web.theme.png
-   :target: http://travis-ci.org/collective/canaimagnulinux.web.theme
+   :target: http://travis-ci.org/CanaimaGNULinux/canaimagnulinux.web.theme
 .. |canaimagnulinux.web.theme.c| image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.web.theme/badge.png?branch=master
-   :target: https://coveralls.io/r/collective/canaimagnulinux.web.theme
+   :target: https://coveralls.io/r/CanaimaGNULinux/canaimagnulinux.web.theme
 
 .. |collective.cover.v| image:: http://img.shields.io/pypi/v/collective.cover.svg
    :target: https://pypi.python.org/pypi/collective.cover

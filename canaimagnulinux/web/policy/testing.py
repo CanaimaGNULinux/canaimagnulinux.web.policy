@@ -78,6 +78,9 @@ class Fixture(PloneSandboxLayer):
         import collective.nitf
         self.loadZCML(package=collective.nitf)
 
+        import collective.opendata
+        self.loadZCML(package=collective.opendata)
+
         import collective.polls
         self.loadZCML(package=collective.polls)
 

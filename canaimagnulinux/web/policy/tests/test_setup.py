@@ -5,11 +5,13 @@
 from canaimagnulinux.web.policy.config import DEPENDENCIES as ZOPE2_STYLE_PRODUCTS
 from canaimagnulinux.web.policy.config import PROFILE_ID
 from canaimagnulinux.web.policy.config import PROJECTNAME
+from canaimagnulinux.web.policy.testing import FUNCTIONAL_TESTING
 from canaimagnulinux.web.policy.testing import INTEGRATION_TESTING
 
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
 from plone.registry.interfaces import IRegistry
+from plone.testing.z2 import Browser
 
 from zope.component import getUtility
 
@@ -137,6 +139,27 @@ class DependenciesSettingsTestCase(BaseTestCase):
         self.assertEqual(settings.access_token, '15796f758e24404bb965521fe85f9aa8')
         self.assertEqual(settings.app_public_key, 'iroSK4ud2I2sLMYAqMNI56tqI1fjbCm3XQ8T5HhZGTSQfAnj9m7yBNr9GqcycA8M')
         self.assertEqual(settings.app_secret_key, 'q3xfSJDNYvi5uwMq9Y6Whyu3xy6luxKN9PFsruE2X2qMz98xuX23GK7sS5KnIAtb')
+
+
+class NonInstallableTestCase(unittest.TestCase):
+    """Ensure non installable packages are available."""
+
+    layer = FUNCTIONAL_TESTING
+
+    def setUp(self):
+        self.portal = self.layer['portal']
+
+    def test_opendata_available(self):
+        portal_url = self.portal.absolute_url()
+        browser = Browser(self.layer['app'])
+
+        opendata_url = '{0}/{1}'.format(portal_url, '/open-data')
+        browser.open(opendata_url)
+        # self.assertIn('Open Data', browser.contents)
+
+        apidata_url = '{0}/{1}'.format(portal_url, '/apidata/cms/site_info')
+        browser.open(apidata_url)
+        self.assertIn('Portal Canaima GNU/Linux', browser.contents)
 
 
 class UninstallTestCase(BaseTestCase):

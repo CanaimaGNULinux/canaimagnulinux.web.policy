@@ -81,6 +81,11 @@ class InstallTestCase(BaseTestCase):
             'These dependencies are not installed: ' + ', '.join(result)
         )
 
+    def test_version(self):
+        """ This method test that last version for profile of this package. """
+        self.assertEqual(
+            self.st.getLastVersionForProfile(PROFILE_ID), (u'1000',))
+
 
 class DependenciesSettingsTestCase(BaseTestCase):
     """ Ensure package dependencies are properly configured. """

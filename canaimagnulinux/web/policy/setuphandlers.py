@@ -16,16 +16,7 @@ from canaimagnulinux.web.policy.config import PROFILE_ID as PROFILE_NAME
 from canaimagnulinux.web.policy.config import PROJECTNAME
 from canaimagnulinux.web.policy.config import SITE_STRUCTURE
 
-from collective.disqus.interfaces import IDisqusSettings
-from collective.geo.settings.interfaces import IGeoSettings
-from collective.geo.usersmap.interfaces import IUsersMapPreferences
-from collective.googlenews.interfaces import GoogleNewsSettings
-from collective.nitf.controlpanel import INITFSettings
-
 from plone import api
-from plone.registry.interfaces import IRegistry
-
-from zope.component import getUtility
 from zope.interface import implements
 
 import logging
@@ -537,19 +528,32 @@ def enable_mail_host(site, smtphost):
 def setup_nitf_settings():
     """ Custom settings for collective.nitf """
 
-    settings = getUtility(IRegistry).forInterface(INITFSettings, False)
-    settings.available_genres = [u'Actuality', u'Anniversary', u'Current', u'Exclusive', u'From the Scene', u'Interview', u'Opinion', u'Profile']
-    settings.available_sections = set([u'Canaima', u'Novedades', u'Comunidad', u'Soporte y Aprendizaje', u'Soluciones', u'Descargas'])
-    settings.default_genre = u'Current'
-    settings.default_section = u'Novedades'
+    api.portal.set_registry_record(
+        'collective.nitf.controlpanel.INITFSettings.available_genres',
+        [u'Actuality', u'Anniversary', u'Current', u'Exclusive', u'From the Scene', u'Interview', u'Opinion', u'Profile']
+    )
+    api.portal.set_registry_record(
+        'collective.nitf.controlpanel.INITFSettings.available_sections',
+        set([u'Canaima', u'Novedades', u'Comunidad', u'Soporte y Aprendizaje', u'Soluciones', u'Descargas'])
+    )
+    api.portal.set_registry_record(
+        'collective.nitf.controlpanel.INITFSettings.default_genre',
+        u'Current'
+    )
+    api.portal.set_registry_record(
+        'collective.nitf.controlpanel.INITFSettings.default_section',
+        u'Novedades'
+    )
     logger.info('Configured collective.nitf content type')
 
 
 def setup_nitf_google_news():
     """ Setup collective.nitf content type in Google News """
 
-    settings = getUtility(IRegistry).forInterface(GoogleNewsSettings, False)
-    settings.portal_types = ['collective.nitf.content']
+    api.portal.set_registry_record(
+        'collective.googlenews.interfaces.GoogleNewsSettings.portal_types',
+        ['collective.nitf.content']
+    )
     logger.info('Configured collective.nitf with collective.googlenews')
 
 
@@ -557,34 +561,70 @@ def setup_geo_settings():
     """ Custom settings for collective.geo """
 
     import decimal
-    settings = getUtility(IRegistry).forInterface(IGeoSettings, False)
-    settings.default_layers = [u'osm']
-    settings.zoom = decimal.Decimal(6)
-    settings.longitude = decimal.Decimal(6.423750000000001)
-    settings.latitude = decimal.Decimal(-66.58973000000024)
+    api.portal.set_registry_record(
+        'collective.geo.settings.interfaces.IGeoSettings.default_layers',
+        [u'osm']
+    )
+    api.portal.set_registry_record(
+        'collective.geo.settings.interfaces.IGeoSettings.zoom',
+        decimal.Decimal(6)
+    )
+    api.portal.set_registry_record(
+        'collective.geo.settings.interfaces.IGeoSettings.longitude',
+        decimal.Decimal(6.423750000000001)
+    )
+    api.portal.set_registry_record(
+        'collective.geo.settings.interfaces.IGeoSettings.latitude',
+        decimal.Decimal(-66.58973000000024)
+    )
     logger.info('Configured collective.geo')
 
 
 def setup_geo_usersmap_settings():
     """ Custom settings for collective.geo.usersmap """
 
-    settings = getUtility(IRegistry).forInterface(IUsersMapPreferences, False)
-    settings.title = u'Mapa de usuarios del portal'
-    settings.description = u'Este mapa muestra las ubicaciones de los usuarios del portal.'
-    settings.user_properties = [u'description', u'email']
+    api.portal.set_registry_record(
+        'collective.geo.usersmap.interfaces.IUsersMapPreferences.title',
+        u'Mapa de usuarios del portal'
+    )
+    api.portal.set_registry_record(
+        'collective.geo.usersmap.interfaces.IUsersMapPreferences.description',
+        u'Este mapa muestra las ubicaciones de los usuarios del portal.'
+    )
+    api.portal.set_registry_record(
+        'collective.geo.usersmap.interfaces.IUsersMapPreferences.user_properties',
+        [u'description', u'email']
+    )
     logger.info('Configured collective.geo.usersmap')
 
 
 def setup_disqus_settings():
     """ Custom settings for collective.disqus """
 
-    settings = getUtility(IRegistry).forInterface(IDisqusSettings, False)
-    settings.activated = True
-    settings.developer_mode = False
-    settings.forum_short_name = 'canaimagnulinux'
-    settings.access_token = u'15796f758e24404bb965521fe85f9aa8'
-    settings.app_public_key = u'iroSK4ud2I2sLMYAqMNI56tqI1fjbCm3XQ8T5HhZGTSQfAnj9m7yBNr9GqcycA8M'
-    settings.app_secret_key = u'q3xfSJDNYvi5uwMq9Y6Whyu3xy6luxKN9PFsruE2X2qMz98xuX23GK7sS5KnIAtb'
+    api.portal.set_registry_record(
+        'collective.disqus.interfaces.IDisqusSettings.activated',
+        True
+    )
+    api.portal.set_registry_record(
+        'collective.disqus.interfaces.IDisqusSettings.developer_mode',
+        False
+    )
+    api.portal.set_registry_record(
+        'collective.disqus.interfaces.IDisqusSettings.forum_short_name',
+        'canaimagnulinux'
+    )
+    api.portal.set_registry_record(
+        'collective.disqus.interfaces.IDisqusSettings.access_token',
+        u'15796f758e24404bb965521fe85f9aa8'
+    )
+    api.portal.set_registry_record(
+        'collective.disqus.interfaces.IDisqusSettings.app_public_key',
+        u'iroSK4ud2I2sLMYAqMNI56tqI1fjbCm3XQ8T5HhZGTSQfAnj9m7yBNr9GqcycA8M'
+    )
+    api.portal.set_registry_record(
+        'collective.disqus.interfaces.IDisqusSettings.app_secret_key',
+        u'q3xfSJDNYvi5uwMq9Y6Whyu3xy6luxKN9PFsruE2X2qMz98xuX23GK7sS5KnIAtb'
+    )
     logger.info('Configured collective.disqus')
 
 

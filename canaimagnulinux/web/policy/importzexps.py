@@ -52,10 +52,10 @@ def getImportedPathes():
     product_ipath = osp.join(package_home(GLOBALS), 'import')
     # Check presence of Product import directory
     if not osp.isdir(product_ipath):
-        raise BadRequest("Skin Product's import directory '{0}' - does not exist or is'nt direcory".format(product_ipath))
+        raise BadRequest('Skin Product\'s import directory \'{0}\' - does not exist or is\'nt direcory'.format(product_ipath))
     # Check presence of Instance import directory
     if not osp.isdir(instance_ipath):
-        raise BadRequest("Instance import directory '{0}' - does not exist or isn't direcory".format(instance_ipath))
+        raise BadRequest('Instance import directory \'{0}\' - does not exist or isn\'t direcory'.format(instance_ipath))
     return [instance_ipath, product_ipath]
 
 
@@ -83,7 +83,7 @@ def moveToTemp(same_instance_files, instance_ipath, temp_dir_path):
         [copyFile(instance_ipath, temp_dir_path, f_name) for f_name in same_instance_files]
         [os.remove(osp.join(instance_ipath, f_name)) for f_name in same_instance_files]
     except Exception, e:
-        msg = "!!! Exception occur during moving files from Instance's dir to temp dir. Detaile:{0}.".format(e)
+        msg = '!!! Exception occur during moving files from Instance\'s dir to temp dir. Detaile:{0}.'.format(e)
         print >> msg
         LOG('performImportToPortal', INFO, 'moveToTemp', msg)
 
@@ -96,7 +96,7 @@ def copyToInstanceImport():
     instance_ipath, product_ipath = getImportedPathes()
 
     # Compose temp dir back_[date] dir path in Instance import directory
-    temp_dir_id = 'back_{0}'.format(strftime("%Y%m%d%H%M%S", gmtime()))
+    temp_dir_id = 'back_{0}'.format(strftime('%Y%m%d%H%M%S', gmtime()))
     temp_dir_path = osp.join(instance_ipath, temp_dir_id)
 
     # Get *.zexp files from Skin Product's import dir and Plone's instance import dir files
@@ -148,7 +148,7 @@ def makeBackUp(portal, portal_objects, temp_dir_path, obj_id):
     obj = portal.manage_cutObjects(ids=[obj_id])
     temp_dir.manage_pasteObjects(obj)
 
-    print >> "! '{0}' Object moved from portal root to '{1}' backup directory.".format(obj_id, temp_id)
+    print >> '! \'{0}\' Object moved from portal root to \'{1}\' backup directory.'.format(obj_id, temp_id)
 
 
 def performImport(portal, temp_dir_path, file_name):
@@ -166,7 +166,7 @@ def performImport(portal, temp_dir_path, file_name):
             obj_id = is_invalid_id.group(1)
 
             if IMPORT_POLICY == 'only_new':
-                msg = "! Object with '{0}' id was not importing because it's already exist " \
+                msg = '! Object with \'{0}\' id was not importing because it\'s already exist ' \
                       'in portal root.'.format(obj_id)
                 print >> msg
             elif IMPORT_POLICY == 'backup':
@@ -235,7 +235,7 @@ def cleanInstanceImport(instance_ipath, product_file_names, temp_dir_path):
             os.rmdir(temp_dir_path)
         # except Exception as e:
         except Exception:
-            msg = "!!! In moving files from temp dir to Instance's import dir exception occur."
+            msg = '!!! In moving files from temp dir to Instance\'s import dir exception occur.'
             print >> msg
             LOG('performImportToPortal', INFO, 'moveFromTempToImport', msg)
 

@@ -22,7 +22,7 @@ class SiteSettingsTestCase(unittest.TestCase):
 
     def test_portal_title(self):
         """ This method test that ensure the portal title is the same. """
-        self.assertTrue("Portal Canaima GNU/Linux", self.portal.getProperty('title'))
+        self.assertTrue('Portal Canaima GNU/Linux', self.portal.getProperty('title'))
 
     def test_portal_description(self):
         """ This method test that ensure the portal description is the same. """

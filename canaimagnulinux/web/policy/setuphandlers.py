@@ -2,8 +2,8 @@
 
 from Products.ATContentTypes.lib import constraintypes
 # from Products.CMFDefault.exceptions import MetadataError
-from Products.CMFQuickInstallerTool import interfaces as qi_interfaces
 from Products.CMFPlone import interfaces as st_interfaces
+from Products.CMFQuickInstallerTool import interfaces as qi_interfaces
 
 from canaimagnulinux.web.policy.config import CREATORS
 from canaimagnulinux.web.policy.config import DEFAULT_CONTENT
@@ -198,7 +198,7 @@ def set_default_subject_metadata(site):
     pm = site.portal_metadata
     objdcmi = pm.DCMI
     if objdcmi is not None:
-        objdcmi.updateElementPolicy('Subject', '<default>', 0, 0, "", 0, DEFAULT_SUBJECTS)
+        objdcmi.updateElementPolicy('Subject', '<default>', 0, 0, '', 0, DEFAULT_SUBJECTS)
         logger.info('Updated default subjects as %s' % (DEFAULT_SUBJECTS,))
 
 

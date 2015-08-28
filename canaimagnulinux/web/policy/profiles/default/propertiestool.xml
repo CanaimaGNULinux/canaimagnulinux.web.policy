@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+ <object name="navtree_properties" meta_type="Plone Property Sheet">
+  <property name="metaTypesNotToList" type="lines" purge="false">
+   <element value="Buzz"/>
+   <element value="CaseStudy"/>
+   <element value="Provider"/>
+   <element value="SiteUsingPlone"/>
+  </property>
+ </object>
+ <object name="psc_properties" meta_type="Plone Property Sheet">
+  <property name="title">Plone Service Center properties</property>
+  <property name="industryVocabulary" type="lines">
+   <element value="Sin fines de lucro"/>
+   <element value="Educacion"/>
+   <element value="Ciencia"/>
+   <element value="Gobierno"/>
+   <element value="Librerias"/>
+   <element value="Ambiental"/>
+   <element value="Militar"/>
+   <element value="Contabilidad"/>
+   <element value="Empresa y sociedad"/>
+   <element value="Cooperativas"/>
+   <element value="Servicio al cliente"/>
+   <element value="Comercio electronico"/>
+   <element value="Educacion y capacitacion"/>
+   <element value="Empleo"/>
+   <element value="Recursos humanos"/>
+   <element value="Servicios de informacion"/>
+   <element value="Negocios y comercio internacional"/>
+   <element value="Investigacion"/>
+   <element value="Grandes empresas"/>
+   <element value="Administracion"/>
+   <element value="Mercadeo y publicidad"/>
+   <element value="Oportunidades"/>
+   <element value="Pequeñas empresas"/>
+   <element value="Aeroespacial y defensa"/>
+   <element value="Agricultura y ciencias forestales"/>
+   <element value="Artes y entretenimiento"/>
+   <element value="Automotor"/>
+   <element value="Biotecnologia y productos farmaceuticos"/>
+   <element value="Servicios comerciales"/>
+   <element value="Productos quimicos"/>
+   <element value="Construccion y mantenimiento"/>
+   <element value="Bienes y servicios al consumidor"/>
+   <element value="Electronicos y electrica"/>
+   <element value="Energia y medio ambiente"/>
+   <element value="Servicios financieros"/>
+   <element value="Alimentos y productos relacionados"/>
+   <element value="Cuidado de la Salud"/>
+   <element value="Hospitalidad"/>
+   <element value="Productos y servicios industriales"/>
+   <element value="Tecnologias de la informacion"/>
+   <element value="Materiales"/>
+   <element value="Explotacion minera y perforacion"/>
+   <element value="Casa editorial y imprenta"/>
+   <element value="Bienes raices"/>
+   <element value="Comercio al por menor"/>
+   <element value="Telecomunicaciones"/>
+   <element value="Textiles y telas sin tejer"/>
+   <element value="Transporte y logistica"/>
+   <element value="Comercio al por mayor"/>
+   <element value="Asociaciones"/>
+   <element value="Derecho de los negocios"/>
+   <element value="Viaje de negocios"/>
+   <element value="Clasificados"/>
+   <element value="Diccionarios"/>
+   <element value="Directorios"/>
+   <element value="Historia"/>
+   <element value="Noticias y medios"/>
+   <element value="Regional"/>
+   <element value="Recursos"/>
+   <element value="Software"/>
+  </property>
+ </object>
+ <object name="site_properties" meta_type="Plone Property Sheet">
+  <property name="use_folder_tabs" type="lines" purge="False">
+   <element value="BuzzFolder"/>
+   <element value="CaseStudyFolder"/>
+   <element value="SiteUsingPloneFolder"/>
+   <element value="ProviderFolder"/>
+  </property>
+  <property name="typesLinkToFolderContentsInFC" type="lines">
+   <element value="BuzzFolder"/>
+   <element value="CaseStudyFolder"/>
+   <element value="SiteUsingPloneFolder"/>
+   <element value="ProviderFolder"/>
+  </property>
+ </object>
+</object>

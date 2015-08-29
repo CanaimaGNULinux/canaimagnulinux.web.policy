@@ -60,6 +60,9 @@ class Fixture(PloneSandboxLayer):
         import canaimagnulinux.web.theme
         self.loadZCML(package=canaimagnulinux.web.theme)
 
+        import canaimagnulinux.wizard
+        self.loadZCML(package=canaimagnulinux.wizard)
+
         import collective.cover
         self.loadZCML(package=collective.cover)
 

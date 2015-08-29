@@ -10,6 +10,7 @@
    <dependency>profile-plone.app.ldap:ldap</dependency>
    <dependency>profile-canaimagnulinux.userdata:default</dependency>
    <dependency>profile-canaimagnulinux.web.theme:default</dependency>
+   <dependency>profile-canaimagnulinux.wizard:default</dependency>
    <dependency>profile-collective.cover:default</dependency>
    <dependency>profile-collective.geo.usersmap:default</dependency>
    <dependency>profile-collective.googleanalytics:default</dependency>

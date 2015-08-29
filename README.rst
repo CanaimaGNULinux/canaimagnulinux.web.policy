@@ -93,10 +93,18 @@ Dependencias usadas en el sitio de Canaima GNU/Linux.
      - |plone.app.ldap.v|
      - |plone.app.ldap.t|
      - |plone.app.ldap.c|
+   * - canaimagnulinux.userdata
+     - |canaimagnulinux.userdata.v|
+     - |canaimagnulinux.userdata.t|
+     - |canaimagnulinux.userdata.c|
    * - canaimagnulinux.web.theme
      - |canaimagnulinux.web.theme.v|
      - |canaimagnulinux.web.theme.t|
      - |canaimagnulinux.web.theme.c|
+   * - canaimagnulinux.wizard
+     - |canaimagnulinux.wizard.v|
+     - |canaimagnulinux.wizard.t|
+     - |canaimagnulinux.wizard.c|
    * - cioppino.twothumbs
      - |cioppino.twothumbs.v|
      - |cioppino.twothumbs.t|
@@ -278,12 +286,26 @@ Par una lista actualizada de todo los colaboradores visite: https://github.com/c
 .. |collective.polls.c| image:: https://coveralls.io/repos/collective/collective.polls/badge.png?branch=master
    :target: https://coveralls.io/r/collective/collective.polls
 
+.. |canaimagnulinux.userdata.v| image:: http://img.shields.io/pypi/v/canaimagnulinux.userdata.svg
+   :target: https://pypi.python.org/pypi/canaimagnulinux.userdata
+.. |canaimagnulinux.userdata.t| image:: https://secure.travis-ci.org/CanaimaGNULinux/canaimagnulinux.userdata.png
+   :target: http://travis-ci.org/CanaimaGNULinux/canaimagnulinux.userdata
+.. |canaimagnulinux.userdata.c| image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.userdata/badge.png?branch=master
+   :target: https://coveralls.io/r/CanaimaGNULinux/canaimagnulinux.userdata
+
 .. |canaimagnulinux.web.theme.v| image:: http://img.shields.io/pypi/v/canaimagnulinux.web.theme.svg
    :target: https://pypi.python.org/pypi/canaimagnulinux.web.theme
 .. |canaimagnulinux.web.theme.t| image:: https://secure.travis-ci.org/CanaimaGNULinux/canaimagnulinux.web.theme.png
    :target: http://travis-ci.org/CanaimaGNULinux/canaimagnulinux.web.theme
 .. |canaimagnulinux.web.theme.c| image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.web.theme/badge.png?branch=master
    :target: https://coveralls.io/r/CanaimaGNULinux/canaimagnulinux.web.theme
+
+.. |canaimagnulinux.wizard.v| image:: http://img.shields.io/pypi/v/canaimagnulinux.wizard.svg
+   :target: https://pypi.python.org/pypi/canaimagnulinux.wizard
+.. |canaimagnulinux.wizard.t| image:: https://secure.travis-ci.org/CanaimaGNULinux/canaimagnulinux.wizard.png
+   :target: http://travis-ci.org/CanaimaGNULinux/canaimagnulinux.wizard
+.. |canaimagnulinux.wizard.c| image:: https://coveralls.io/repos/CanaimaGNULinux/canaimagnulinux.wizard/badge.png?branch=master
+   :target: https://coveralls.io/r/CanaimaGNULinux/canaimagnulinux.wizard
 
 .. |collective.cover.v| image:: http://img.shields.io/pypi/v/collective.cover.svg
    :target: https://pypi.python.org/pypi/collective.cover

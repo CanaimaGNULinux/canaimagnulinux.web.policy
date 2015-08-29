@@ -51,6 +51,9 @@ class Fixture(PloneSandboxLayer):
         import plone.app.ldap
         self.loadZCML(package=plone.app.ldap)
 
+        import canaimagnulinux.userdata
+        self.loadZCML(package=canaimagnulinux.userdata)
+
         import canaimagnulinux.web.policy
         self.loadZCML(package=canaimagnulinux.web.policy)
 

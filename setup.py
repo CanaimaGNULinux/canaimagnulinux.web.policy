@@ -62,6 +62,7 @@ setup(name='canaimagnulinux.web.policy',
           'collective.twitter.portlets==1.0b3',
           'collective.twitter.tweet==1.0b3',
           'collective.upload==1.0rc1',
+          'ftw.avatar',
           'sc.social.like==2.1',
       ],
       extras_require={
